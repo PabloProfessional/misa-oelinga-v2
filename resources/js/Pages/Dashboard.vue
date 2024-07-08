@@ -7,6 +7,7 @@ import axios from "axios";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
 import AssetHealthPieChart from "@/Pages/Partials/AssetHealthPieChart.vue";
+import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 const count = ref<number>(0);
 const budget = ref<number>(0);
 const spend = ref<number>(0);
@@ -50,6 +51,17 @@ onMounted(async () => {
 function goToProvince(url) {
     window.location.href = `province/${url}`;
 }
+
+const props = defineProps({
+    months: {
+        type: Array,
+        required: true
+    },
+    month_data: {
+        type: Array,
+        required: true
+    }
+});
 </script>
 
 <style>
@@ -104,9 +116,10 @@ function goToProvince(url) {
             </div>
             <br>
             <br>
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-6 space-y-6">
-
-                <div
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <a
+                    href="#"
+                    id="docs-card"
                     class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
                 >
                     <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
@@ -139,13 +152,40 @@ function goToProvince(url) {
                             </p>
 
                         </div>
-
-
                     </div>
 
-                </div>
+                </a>
+            </div>
+            <br>
+            <br>
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <a
+                    href="#"
+                    id="docs-card"
+                    class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
+                >
+                    <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
+                        <UserLineAreaChart class="mt-6" style="width: 100%;" :months="months" :month_data="month_data"></UserLineAreaChart>
+                    </div>
+
+
+                    <div class="relative flex items-center gap-6 lg:items-end">
+                        <div id="docs-card-content" class="flex items-start gap-6 lg:flex-col">
+                            <div class="pt-3 sm:pt-5 lg:pt-0">
+                                <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Budget | <small>YTD trend analysis</small></h2>
+
+                                <p class="mt-4 text-sm/relaxed">
+                                    The above chart shows a trend analysis of budget v/s spend.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
+
+
 
 
 
