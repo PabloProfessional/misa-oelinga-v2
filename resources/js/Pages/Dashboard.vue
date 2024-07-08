@@ -4,6 +4,8 @@ import { Head} from '@inertiajs/vue3';
 import Count from "@/Components/Count.vue";
 import {onMounted, ref,} from "vue";
 import axios from "axios";
+import Budget from "@/Components/Budget.vue";
+import Spend from "@/Components/Spend.vue";
 const count = ref<number>(0);
 let count_description = "Total number of projects."
 
@@ -27,7 +29,13 @@ onMounted(async () => {
         </template>
 
         <div class="py-12">
-            <Count :count="count" :count_description="count_description"></Count>
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
+                    <Count :count="count" :count_description="count_description"></Count>
+                    <Budget></Budget>
+                    <Spend></Spend>
+                </div>
+            </div>
         </div>
 
     </AuthenticatedLayout>
