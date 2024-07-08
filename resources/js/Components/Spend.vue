@@ -1,4 +1,19 @@
-
+<script setup lang="ts">
+import {computed, defineProps} from 'vue';
+const props = defineProps({
+    spend: {
+        type: Number,
+        required: true,
+    },
+    variance: {
+        type: Number,
+        required: true,
+    },
+});
+const varianceDescription = computed(() => {
+    return props.variance >= 0 ? 'underspend' : 'overspend';
+});
+</script>
 <template>
             <a
                href="#"
@@ -27,8 +42,8 @@
                 <div class="pt-3 sm:pt-5">
                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Spend | <small>Total YTD</small> </h2>
                     <br>
-                    <p class="text-3xl font-bold" style="color: dimgrey">R 3.00 million</p>
-                    <p style="color: dimgrey"><strong>1%</strong> underspend</p>
+                    <p class="text-3xl font-bold" style="color: dimgrey">R {{ spend }} million</p>
+                    <p style="color: dimgrey"><strong>{{variance}}%</strong> {{ varianceDescription }}</p>
                 </div>
 
             </a>

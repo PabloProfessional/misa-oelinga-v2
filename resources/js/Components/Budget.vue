@@ -1,5 +1,13 @@
-<script>
+<script setup lang="ts">
 //TODO To calculate allocations we'll have to attach that to activities within project with budgets
+import { defineProps } from 'vue';
+const props = defineProps({
+    budget: {
+        type: Number,
+        required: true,
+    },
+});
+
 </script>
 <template>
             <a
@@ -29,7 +37,7 @@
                 <div class="pt-3 sm:pt-5">
                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Budget | <small>Total YTD</small> </h2>
                     <br>
-                    <p class="text-3xl font-bold" style="color: dimgrey">R 30.00 million</p>
+                    <p class="text-3xl font-bold" style="color: dimgrey">R {{budget}} million</p>
                     <p style="color: dimgrey"><strong>10%</strong> allocated</p>
 
                 </div>

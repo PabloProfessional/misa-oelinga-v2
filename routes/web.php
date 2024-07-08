@@ -29,4 +29,23 @@ Route::get('/projects/count', function () {
     return response()->json(['count' => Project::count()]);
 });
 
+Route::get('/projects/budget', function () {
+    return response()->json(['budget' => number_format((Project::sum('budget')/1000000),2) ]);
+});
+
+Route::get('/projects/spend', function () {
+    return response()->json(['spend' => number_format((Project::sum('spend')/1000000),2) ]);
+});
+
+Route::get('/projects/variance', function () {
+    $budget = Project::sum('budget');
+    $spend = Project::sum('spend');
+
+    if ($budget != 0) {
+        $variance = 100 - (($budget - $spend )/$budget);
+        return response()->json(['variance' => number_format($variance,0) ]);
+    }
+    return response()->json(['variance' => number_format(0,0) ]);
+});
+
 require __DIR__.'/auth.php';
