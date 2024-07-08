@@ -5,6 +5,7 @@ import Count from "@/Components/Count.vue";
 import {onMounted, ref,} from "vue";
 import axios from "axios";
 const count = ref<number>(0);
+let count_description = "Total number of projects."
 
 onMounted(async () => {
     try {
@@ -26,7 +27,8 @@ onMounted(async () => {
         </template>
 
         <div class="py-12">
-            <Count :count="count"></Count>
+            <Count :count="count" :count_description="count_description"></Count>
         </div>
+
     </AuthenticatedLayout>
 </template>
