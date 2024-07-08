@@ -48,4 +48,8 @@ Route::get('/projects/variance', function () {
     return response()->json(['variance' => number_format(0,0) ]);
 });
 
+Route::get('/provinces/summary', function () {
+    return response()->json(['provinces' => \App\Models\Province::all()]);
+});
+
 require __DIR__.'/auth.php';

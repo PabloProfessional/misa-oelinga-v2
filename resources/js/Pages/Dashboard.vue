@@ -12,6 +12,7 @@ const budget = ref<number>(0);
 const spend = ref<number>(0);
 const variance = ref<number>(0);
 let count_description = "Total number of projects."
+const provinces = ref<number>(0);
 
 onMounted(async () => {
     try {
@@ -38,8 +39,47 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to fetch project variance:', error);
     }
+    try {
+        const response = await axios.get('/provinces/summary');
+        provinces.value = response.data.provinces;
+    } catch (error) {
+        console.error('Failed to fetch project provinces:', error);
+    }
 });
 </script>
+
+<style>
+.map-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+.province-label {
+    position: absolute;
+    color: #000;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer; /* Add pointer cursor */
+    transition: background-color 0.3s, transform 0.3s; /* Add transition for smooth effect */
+}
+.province-label:hover {
+    background: rgba(255, 255, 255, 1); /* Change background color on hover */
+    transform: scale(1.05); /* Slightly enlarge the div on hover */
+}
+/* Define positions for each province label */
+.northern-cape { top: 55%; left: 25%; }
+.free-state { top: 45%; left: 51.5%; }
+.north-west { top: 25%; left: 35%; }
+.western-cape { top: 80%; left: 20%; }
+.eastern-cape { top: 75%; left: 48%; }
+.kwaZulu-natal { top: 45%; left: 80%; }
+.mpumalanga { top: 25%; left: 76%; }
+.limpopo { top: 5%; left: 65%; }
+.gauteng { top: 30%; left: 55%; }
+</style>
 
 <template>
     <Head title="Dashboard" />
