@@ -58,7 +58,7 @@ const fetchMunicipalities = async () => {
         </header>
 
 
-        <form @submit.prevent="form.post(route('project.create'))" class="mt-6 space-y-6 max-w-full" >
+        <div class="mt-6 space-y-6 max-w-full" >
             <div >
                 <InputLabel for="project-name" value="Project name" />
 
@@ -191,7 +191,8 @@ const fetchMunicipalities = async () => {
                     <InputError class="mt-2" :message="form.errors.department" />
                 </div>
             </div>
-        </form>
+
+        </div>
     </section>
 </template>
 

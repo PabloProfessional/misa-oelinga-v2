@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import CreateProjectDescriptionForm from "@/Pages/Project/Partials/CreateProjectDescriptionForm.vue";
+import CreateProjectBudgetForm from "@/Pages/Project/Partials/CreateProjectBudgetForm.vue";
 
 defineProps<{
     mustVerifyEmail?: boolean;
@@ -30,15 +31,23 @@ defineProps<{
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                                <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg " >
-                                    <CreateProjectDescriptionForm
-                                        class="max-w-xl"
-                                        :programmes="programmes"
-                                        :provinces="provinces"
-                                        :departments="departments"
-                                        :sectors="sectors"
-                                    />
-                                </div>
+                <form @submit.prevent="form.post(route('project.create'))">
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg " >
+                        <CreateProjectDescriptionForm
+                            class="max-w-xl"
+                            :programmes="programmes"
+                            :provinces="provinces"
+                            :departments="departments"
+                            :sectors="sectors"
+                        />
+                    </div>
+
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectBudgetForm
+                            class="max-w-xl"
+                        />
+                    </div>
+                </form>
 
 <!--                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">-->
 <!--                    <UpdateProfileInformationForm-->
