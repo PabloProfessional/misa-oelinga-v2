@@ -14,6 +14,8 @@ class ProvinceController extends Controller
     public function index()
     {
         //
+
+
     }
 
     /**
@@ -22,6 +24,8 @@ class ProvinceController extends Controller
     public function create()
     {
         //
+
+
     }
 
     /**
@@ -62,5 +66,47 @@ class ProvinceController extends Controller
     public function destroy(Province $province)
     {
         //
+    }
+
+    public function trend_analysis(): array
+    {
+        $allMonths = collect([
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ]);
+        // Collection of all provinces
+        $allProvinces = collect(Province::all());
+        // Initialize arrays for combined budget and spend data
+        $combinedBudgetData = array_fill_keys($allMonths->all(), 0);
+        $combinedSpendData = array_fill_keys($allMonths->all(), 0);
+        $allProvinces->each(function ($province) use ($allMonths, &$combinedBudgetData, &$combinedSpendData) {
+            // Fill budget data
+            $budgetDataStart = collect($province->budget_trend_analysis());
+            $budgetByMonth = $allMonths->mapWithKeys(function ($month) use ($budgetDataStart) {
+                return [$month => $budgetDataStart->get($month, 0)];
+            });
+
+            // Sum budget data
+            foreach ($budgetByMonth as $month => $value) {
+                $combinedBudgetData[$month] += $value;
+            }
+
+            // Fill spend data
+            $spendDataStart = collect($province->spend_trend_analysis());
+            $spendByMonth = $allMonths->mapWithKeys(function ($month) use ($spendDataStart) {
+                return [$month => $spendDataStart->get($month, 0)];
+            });
+
+            // Sum spend data
+            foreach ($spendByMonth as $month => $value) {
+                $combinedSpendData[$month] += $value;
+            }
+        });
+
+        return [
+            'months' => $allMonths,
+            'budget' => $combinedBudgetData,
+            'spend' => $combinedSpendData
+        ];
     }
 }

@@ -52,4 +52,8 @@ Route::get('/provinces/summary', function () {
     return response()->json(['provinces' => \App\Models\Province::all()]);
 });
 
+Route::get('/provinces/trend_analysis', [\App\Http\Controllers\ProvinceController::class,'trend_analysis'])
+    ->middleware(['auth', 'verified'])
+    ->name('province_trend_analysis');
+
 require __DIR__.'/auth.php';

@@ -17,17 +17,26 @@ const props = defineProps({
         type: Array,
         required: true
     },
-    month_data: {
+    budget: {
+        type: Array,
+        required: true
+    },
+    spend: {
         type: Array,
         required: true
     }
+
 });
 
 // Define reactive data
 const series = ref([
     {
-        name: 'Logins',
-        data: props.month_data
+        name: 'Budget',
+        data: props.budget
+    },
+    {
+        name: 'Spend',
+        data: props.spend
     },
 ]);
 
@@ -40,7 +49,7 @@ const chartOptions = ref({
         enabled: false
     },
     title: {
-        text: 'Budget and Spend, trend analysis.'
+        text: 'Budget and spend trend analysis'
     },
     stroke: {
         curve: 'smooth'
