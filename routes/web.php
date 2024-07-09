@@ -56,4 +56,12 @@ Route::get('/provinces/trend_analysis', [\App\Http\Controllers\ProvinceControlle
     ->middleware(['auth', 'verified'])
     ->name('province_trend_analysis');
 
+Route::resource('project',\App\Http\Controllers\ProjectController::class)->middleware(['auth', 'verified']);
+
+Route::get('/municipalities/by_province/{provinceId}', function ($provinceId) {
+    return response()->json(['municipalities' => \App\Models\Municipality::where('province_id', $provinceId)
+        ->select('id','name')
+        ->get()]);
+});
+
 require __DIR__.'/auth.php';
