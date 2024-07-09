@@ -6,12 +6,14 @@ import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 import {ref} from "vue";
 import axios from "axios";
-
+// TODO the form will save only after all data is collected.
 defineProps<{
     mustVerifyEmail?: boolean;
     status?: string;
     programmes?: object;
     provinces?: object;
+    departments?: object;
+    sectors?: object;
 }>();
 
 const user = usePage().props.auth.user;
@@ -22,6 +24,8 @@ const form = useForm({
     email: user.email,
     province: '',
     municipality: '',
+    department: '',
+    sector: '',
 });
 
 // Municipalities data
@@ -43,7 +47,7 @@ const fetchMunicipalities = async () => {
 </script>
 
 <template>
-    <section>
+    <section >
         <header>
             <h2 class="text-lg font-medium text-gray-900">Project <small><span class="text-gray-700">| Description</span></small></h2>
 
@@ -54,8 +58,8 @@ const fetchMunicipalities = async () => {
         </header>
 
 
-        <form @submit.prevent="form.post(route('project.create'))" class="mt-6 space-y-6 max-w-full">
-            <div>
+        <form @submit.prevent="form.post(route('project.create'))" class="mt-6 space-y-6 max-w-full" >
+            <div >
                 <InputLabel for="project-name" value="Project name" />
 
                 <TextInput
@@ -66,6 +70,7 @@ const fetchMunicipalities = async () => {
                     required
                     autofocus
                     autocomplete="project-name"
+
                 />
 
                 <InputError class="mt-2" :message="form.errors.projectName" />
@@ -151,6 +156,39 @@ const fetchMunicipalities = async () => {
                         </option>
                     </select>
                     <InputError class="mt-2" :message="form.errors.municipality" />
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <InputLabel for="department" value="Department" />
+                    <select
+                        id="department"
+                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                        v-model="form.department"
+                        required
+                    >
+                        <option disabled value="">Select a department</option>
+                        <option v-for="department in departments" :key="department.id" :value="department.id">
+                            {{ department.name }}
+                        </option>
+                    </select>
+                    <InputError class="mt-2" :message="form.errors.department" />
+                </div>
+                <div>
+                    <InputLabel for="sector" value="Sector" />
+                    <select
+                        id="sector"
+                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                        v-model="form.sector"
+                        required
+                    >
+                        <option disabled value="">Select a sector</option>
+                        <option v-for="sector in sectors" :key="sector.id" :value="sector.id">
+                            {{ sector.name }}
+                        </option>
+                    </select>
+                    <InputError class="mt-2" :message="form.errors.department" />
                 </div>
             </div>
         </form>

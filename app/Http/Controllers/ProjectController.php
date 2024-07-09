@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Department;
 use App\Models\Programme;
 use App\Models\Project;
 use App\Models\Province;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Inertia\Inertia;
@@ -33,7 +35,9 @@ class ProjectController extends Controller
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
             'programmes' => Programme::select('id','name')->get(),
-            'provinces' => Province::select('id','name')->get()
+            'provinces' => Province::select('id','name')->get(),
+            'departments' => Department::select('id','name')->get(),
+            'sectors' => Sector::select('id','name')->get()
         ]);
     }
 
