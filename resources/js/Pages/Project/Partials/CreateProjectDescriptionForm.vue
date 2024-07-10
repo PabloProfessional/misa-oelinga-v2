@@ -4,7 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
-import {ref} from "vue";
+import {ref, defineEmits, watch} from "vue";
 import axios from "axios";
 // TODO the form will save only after all data is collected.
 defineProps<{
@@ -19,9 +19,14 @@ defineProps<{
 const user = usePage().props.auth.user;
 
 
+
 const form = useForm({
-    name: user.name,
+    name: user['name'],
     email: user.email,
+    projectName:'',
+    uniqueNumber:'',
+    programme:'',
+    description:'',
     province: '',
     municipality: '',
     department: '',
@@ -43,6 +48,24 @@ const fetchMunicipalities = async () => {
     }
 };
 
+
+// Define emits
+const emit = defineEmits(['update:form', 'submit']);
+
+// Emit form values to parent
+const emitFormValues = () => {
+    emit('update:form', form);
+};
+
+// Watch for changes in form and emit updates
+watch(form, (newForm) => {
+    emit('update:form', newForm);
+}, { deep: true });
+
+// Handle form submission
+const submitForm = () => {
+    emit('submit', form);
+};
 
 </script>
 
@@ -70,6 +93,7 @@ const fetchMunicipalities = async () => {
                     required
                     autofocus
                     autocomplete="project-name"
+                    @input="emitFormValues"
 
                 />
 
@@ -85,8 +109,7 @@ const fetchMunicipalities = async () => {
                            class="mt-1 block w-full"
                            v-model="form.uniqueNumber"
                            required
-                           autofocus
-                           autocomplete="unique-number"
+                           @input="emitFormValues"
                        />
 
                        <InputError class="mt-2" :message="form.errors.uniqueNumber" />
@@ -100,10 +123,11 @@ const fetchMunicipalities = async () => {
                            v-model="form.programme"
                            required
                            autofocus
+                           @input="emitFormValues"
                        >
                            <option disabled value="">Select a programme</option>
-                           <option v-for="programme in programmes" :key="programme.id" :value="programme.id">
-                               {{ programme.name }}
+                           <option v-for="programme in programmes" :key="programme['id']" :value="programme['id']">
+                               {{ programme['name'] }}
                            </option>
                        </select>
                        <InputError class="mt-2" :message="form.errors.programme" />
@@ -118,6 +142,7 @@ const fetchMunicipalities = async () => {
                     required
                     autofocus
                     autocomplete="description"
+                    @input="emitFormValues"
                 ></textarea>
                 <InputError class="mt-2" :message="form.errors.description" />
             </div>
@@ -133,10 +158,11 @@ const fetchMunicipalities = async () => {
                         required
                         autofocus
                         @change="fetchMunicipalities"
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Select a province</option>
-                        <option v-for="province in provinces" :key="province.id" :value="province.id">
-                            {{ province.name }}
+                        <option v-for="province in provinces" :key="province['id']" :value="province['id']">
+                            {{ province['name'] }}
                         </option>
                     </select>
                     <InputError class="mt-2" :message="form.errors.province" />
@@ -149,10 +175,11 @@ const fetchMunicipalities = async () => {
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.municipality"
                         required
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Select a municipality</option>
-                        <option v-for="municipality in municipalities" :key="municipality.id" :value="municipality.id">
-                            {{ municipality.name }}
+                        <option v-for="municipality in municipalities" :key="municipality['id']" :value="municipality['id']">
+                            {{ municipality['name'] }}
                         </option>
                     </select>
                     <InputError class="mt-2" :message="form.errors.municipality" />
@@ -167,10 +194,11 @@ const fetchMunicipalities = async () => {
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.department"
                         required
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Select a department</option>
-                        <option v-for="department in departments" :key="department.id" :value="department.id">
-                            {{ department.name }}
+                        <option v-for="department in departments" :key="department['id']" :value="department['id']">
+                            {{ department['name'] }}
                         </option>
                     </select>
                     <InputError class="mt-2" :message="form.errors.department" />
@@ -182,10 +210,11 @@ const fetchMunicipalities = async () => {
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.sector"
                         required
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Select a sector</option>
-                        <option v-for="sector in sectors" :key="sector.id" :value="sector.id">
-                            {{ sector.name }}
+                        <option v-for="sector in sectors" :key="sector['id']" :value="sector['id']">
+                            {{ sector['name'] }}
                         </option>
                     </select>
                     <InputError class="mt-2" :message="form.errors.department" />
