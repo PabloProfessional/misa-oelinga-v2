@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Department;
 use App\Models\Programme;
 use App\Models\Project;
+use App\Models\ProjectStageType;
 use App\Models\Province;
 use App\Models\Sector;
 use Illuminate\Http\Request;
@@ -37,7 +38,8 @@ class ProjectController extends Controller
             'programmes' => Programme::select('id','name')->get(),
             'provinces' => Province::select('id','name')->get(),
             'departments' => Department::select('id','name')->get(),
-            'sectors' => Sector::select('id','name')->get()
+            'sectors' => Sector::select('id','name')->get(),
+            'project_stage_types' => ProjectStageType::select('id','name')->get()
         ]);
     }
 

@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import CreateProjectDescriptionForm from "@/Pages/Project/Partials/CreateProjectDescriptionForm.vue";
 import CreateProjectBudgetForm from "@/Pages/Project/Partials/CreateProjectBudgetForm.vue";
+import CreateProjectDurationForm from "@/Pages/Project/Partials/CreateProjectDurationForm.vue";
 
 defineProps<{
     mustVerifyEmail?: boolean;
@@ -11,6 +12,7 @@ defineProps<{
     provinces?: object;
     departments?: object;
     sectors?: object;
+    project_stage_types?: object;
 }>();
 </script>
 
@@ -47,19 +49,16 @@ defineProps<{
                             class="max-w-xl"
                         />
                     </div>
+
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectDurationForm
+                            class="max-w-xl"
+                            :project_stage_types="project_stage_types"
+                        />
+                    </div>
                 </form>
 
-<!--                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">-->
-<!--                    <UpdateProfileInformationForm-->
-<!--                        :must-verify-email="mustVerifyEmail"-->
-<!--                        :status="status"-->
-<!--                        class="max-w-xl"-->
-<!--                    />-->
-<!--                </div>-->
 
-<!--                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">-->
-<!--                    <UpdatePasswordForm class="max-w-xl" />-->
-<!--                </div>-->
 
 <!--                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">-->
 <!--                    <DeleteUserForm class="max-w-xl" />-->
