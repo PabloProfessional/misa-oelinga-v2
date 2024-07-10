@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\ProjectStatus;
 
 class ProjectController extends Controller
 {
@@ -55,8 +56,98 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
-        dd($request->all());
+        //dd($request->all());
+
+        $request->validate([
+            'project_number' => 'required|string|unique:projects',
+            'programme' => 'required|numeric',
+            'name' => 'required|string|unique:projects',
+            'description' => 'nullable|string',
+            'location' => 'required|numeric',
+            'department' => 'required|numeric',
+            'sector' => 'required|numeric',
+            'budget' => 'required|numeric|max:100000000000', // Maximum budget of 100 billion
+            'spend' => 'required|numeric|max:100000000000', // Maximum spend of 100 billion
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'procurement_status' => 'required|numeric',
+            'budget_status' => 'required|numeric',
+            'schedule_status' => 'required|numeric',
+            'risk_status' => 'required|numeric',
+            'manager' => 'nullable|numeric',
+            'logo' => 'nullable|image|max:2048', // Assuming logo is an image file, maximum 2MB
+            'priority_id' => 'numeric',
+            'team_members' => 'nullable|array', // Assuming team_members is an array
+            'team_members.*' => 'numeric', // Assuming team_members is an array of numeric values
+            'attachments' => 'nullable|array', // Assuming attachments is an array
+            'attachments.*' => 'nullable|file|max:2048', // Assuming attachments is an array of file uploads, maximum 2MB each
+            'notes' => 'nullable|string',
+            'project_stage' => 'required|numeric',
+        ]);
+
+        $municipality = Municipality::find($request->location);
+
+        $project = Project::create([
+            'project_number' => $request->project_number,
+            'programme_id' => $request->programme,
+            'name' => $request->name,
+            'user_id' => auth()->user()->id,
+            'description' => $request->description,
+            'url' => Str::slug($request->name),
+            'municipal_id' => $municipality->id,
+            'department_id' => $request->department,
+            'sector_id' => $request->sector,
+            'budget' => $request->budget,
+            'spend' => $request->spend,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'manager' => $request->manager,
+            'province_url' => Province::where('id',$municipality->province_id)->first()->url,
+            'stage_type_id' => $request->project_stage,
+            'notes' => $request->notes,
+            'client_id' => $request->client_id,
+            'team_members' => json_encode($request->team_members),
+            'attachments' => json_encode($request->attachments),
+            'procurement_status_id' => $request->procurement_status,
+            'logo' => $request->logo,
+            'status_id' => $request->status_id,
+            'priority_id' => $request->priority_id,
+        ]);
+        //dd($request->procurement_status);
+
+        ProjectStatus::create([
+            'project_id' => $project->id,
+            'status_type_id' => $request->procurement_status,
+            'project_aspect' => 'Procurement'
+        ]);
+
+        ProjectStatus::create([
+            'project_id' => $project->id,
+            'status_type_id' => $request->budget_status,
+            'project_aspect' => 'Budget'
+        ]);
+
+        ProjectStatus::create([
+            'project_id' => $project->id,
+            'status_type_id' => $request->schedule_status,
+            'project_aspect' => 'Schedule'
+        ]);
+
+        ProjectStatus::create([
+            'project_id' => $project->id,
+            'status_type_id' => $request->risk_status,
+            'project_aspect' => 'Risk'
+        ]);
+
+        ProjectAccount::create([
+            'project_id' => $project->id,
+            'credit' => $project->budget,
+            'debit' => $project->spend,
+            'description' => 'Opening balance',
+            'balance' => $project->budget - $project->spend
+        ]);
+
+        return redirect('project/'.$project->url)->with('status',$project->name.' - has been created');
     }
 
     /**
