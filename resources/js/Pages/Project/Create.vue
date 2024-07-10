@@ -5,6 +5,7 @@ import CreateProjectDescriptionForm from "@/Pages/Project/Partials/CreateProject
 import CreateProjectBudgetForm from "@/Pages/Project/Partials/CreateProjectBudgetForm.vue";
 import CreateProjectDurationForm from "@/Pages/Project/Partials/CreateProjectDurationForm.vue";
 import CreateProjectStatusForm from "@/Pages/Project/Partials/CreateProjectStatusForm.vue";
+import CreateProjectFinalDetailsForm from "@/Pages/Project/Partials/CreateProjectFinalDetailsForm.vue";
 
 defineProps<{
     mustVerifyEmail?: boolean;
@@ -18,6 +19,7 @@ defineProps<{
     status_budget?: object;
     status_risk?: object;
     status_schedule?: object;
+    users?: object;
 }>();
 </script>
 
@@ -68,6 +70,12 @@ defineProps<{
                             :status_budget="status_budget"
                             :status_risk="status_risk"
                             :status_schedule="status_schedule"
+                        />
+                    </div>
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectFinalDetailsForm
+                            class="max-w-xl"
+                            :users="users"
                         />
                     </div>
                 </form>

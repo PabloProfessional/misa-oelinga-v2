@@ -11,6 +11,7 @@ use App\Models\ProjectStageType;
 use App\Models\Province;
 use App\Models\Sector;
 use App\Models\StatusType;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Inertia\Inertia;
@@ -45,6 +46,7 @@ class ProjectController extends Controller
             'status_budget' => StatusType::where('category','Budget')->select('id','name')->get(),
             'status_risk' => StatusType::where('category','Risk')->select('id','name')->get(),
             'status_schedule' => StatusType::where('category','Schedule')->select('id','name')->get(),
+            'users' => User::select('id','name')->get()
         ]);
     }
 
