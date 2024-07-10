@@ -4,11 +4,31 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import {defineEmits, watch} from "vue";
 
 const form = useForm({
     projectBudget: '',
     projectSpend: '',
 });
+
+
+// Define emits
+const emit = defineEmits(['update:form', 'submit']);
+
+// Emit form values to parent
+const emitFormValues = () => {
+    emit('update:form', form);
+};
+
+// Watch for changes in form and emit updates
+watch(form, (newForm) => {
+    emit('update:form', newForm);
+}, { deep: true });
+
+// Handle form submission
+const submitForm = () => {
+    emit('submit', form);
+};
 
 </script>
 
@@ -34,6 +54,7 @@ const form = useForm({
                     class="mt-1 block w-full"
                     v-model="form.projectBudget"
                     required
+                    @input="emitFormValues"
                 />
 
                 <InputError class="mt-2" :message="form.errors.projectBudget" />
@@ -47,6 +68,7 @@ const form = useForm({
                     class="mt-1 block w-full"
                     v-model="form.projectSpend"
                     required
+                    @input="emitFormValues"
                 />
 
                 <InputError class="mt-2" :message="form.errors.projectSpend" />

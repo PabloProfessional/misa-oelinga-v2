@@ -49,7 +49,7 @@ const form = useForm({
     notes: ''
 });
 
-const updateFormValues = (updatedForm: any) => {
+const updateFormValues1 = (updatedForm: any) => {
     form.projectName = updatedForm.projectName;
     form.uniqueNumber = updatedForm.uniqueNumber;
     form.programme = updatedForm.programme;
@@ -58,20 +58,31 @@ const updateFormValues = (updatedForm: any) => {
     form.municipality = updatedForm.municipality;
     form.department = updatedForm.department;
     form.sector = updatedForm.sector;
-    // form.projectBudget = updatedForm.projectBudget;
-    // form.projectSpend = updatedForm.projectSpend;
-    // form.projectStart = updatedForm.projectStart;
-    // form.projectEnd = updatedForm.projectEnd;
-    // form.projectStage = updatedForm.projectStage;
-    // form.projectStatusProcurement = updatedForm.projectStatusProcurement;
-    // form.projectStatusBudget = updatedForm.projectStatusBudget;
-    // form.projectStatusRisk = updatedForm.projectStatusRisk;
-    // form.projectStatusSchedule = updatedForm.projectStatusSchedule;
-    // form.project_manager = updatedForm.project_manager;
-    // form.project_team = updatedForm.project_team;
-    // form.logo = updatedForm.logo;
-    // form.attachment = updatedForm.attachment;
-    // form.notes = updatedForm.notes;
+};
+const updateFormValues2 = (updatedForm: any) => {
+    form.projectBudget = updatedForm.projectBudget;
+    form.projectSpend = updatedForm.projectSpend;
+};
+
+const updateFormValues3 = (updatedForm: any) => {
+    form.projectStart = updatedForm.projectStart;
+    form.projectEnd = updatedForm.projectEnd;
+    form.projectStage = updatedForm.projectStage;
+};
+
+const updateFormValues4 = (updatedForm: any) => {
+    form.projectStatusProcurement = updatedForm.projectStatusProcurement;
+    form.projectStatusBudget = updatedForm.projectStatusBudget;
+    form.projectStatusRisk = updatedForm.projectStatusRisk;
+    form.projectStatusSchedule = updatedForm.projectStatusSchedule;
+};
+
+const updateFormValues5 = (updatedForm: any) => {
+    form.project_manager = updatedForm.project_manager;
+    form.project_team = updatedForm.project_team;
+    form.logo = updatedForm.logo;
+    form.attachment = updatedForm.attachment;
+    form.notes = updatedForm.notes;
 };
 
 // Function to handle form submission
@@ -104,7 +115,7 @@ const handleSubmit = () => {
                         <CreateProjectDescriptionForm
                             class="max-w-xl"
                             :form="form"
-                            @update:form="updateFormValues"
+                            @update:form="updateFormValues1"
                             :programmes="programmes"
                             :provinces="provinces"
                             :departments="departments"
@@ -112,33 +123,41 @@ const handleSubmit = () => {
                         />
                     </div>
 
-<!--                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >-->
-<!--                        <CreateProjectBudgetForm-->
-<!--                            class="max-w-xl"-->
-<!--                        />-->
-<!--                    </div>-->
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectBudgetForm
+                            class="max-w-xl"
+                            :form="form"
+                            @update:form="updateFormValues2"
+                        />
+                    </div>
 
-<!--                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >-->
-<!--                        <CreateProjectDurationForm-->
-<!--                            class="max-w-xl"-->
-<!--                            :project_stage_types="project_stage_types"-->
-<!--                        />-->
-<!--                    </div>-->
-<!--                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >-->
-<!--                        <CreateProjectStatusForm-->
-<!--                            class="max-w-xl"-->
-<!--                            :status_procurement="status_procurement"-->
-<!--                            :status_budget="status_budget"-->
-<!--                            :status_risk="status_risk"-->
-<!--                            :status_schedule="status_schedule"-->
-<!--                        />-->
-<!--                    </div>-->
-<!--                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >-->
-<!--                        <CreateProjectFinalDetailsForm-->
-<!--                            class="max-w-xl"-->
-<!--                            :users="users"-->
-<!--                        />-->
-<!--                    </div>-->
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectDurationForm
+                            class="max-w-xl"
+                            :project_stage_types="project_stage_types"
+                            :form="form"
+                            @update:form="updateFormValues3"
+                        />
+                    </div>
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectStatusForm
+                            class="max-w-xl"
+                            :status_procurement="status_procurement"
+                            :status_budget="status_budget"
+                            :status_risk="status_risk"
+                            :status_schedule="status_schedule"
+                            :form="form"
+                            @update:form="updateFormValues4"
+                        />
+                    </div>
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectFinalDetailsForm
+                            class="max-w-xl"
+                            :users="users"
+                            :form="form"
+                            @update:form="updateFormValues5"
+                        />
+                    </div>
                     <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
                         <SubmitProjectCreateForm></SubmitProjectCreateForm>
                     </div>

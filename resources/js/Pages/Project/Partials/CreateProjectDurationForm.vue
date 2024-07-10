@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
+import {watch, defineEmits} from "vue";
 
 defineProps<{
     project_stage_types?: object;
@@ -14,6 +15,24 @@ const form = useForm({
     projectEnd: '',
     projectStage: '',
 });
+
+// Define emits
+const emit = defineEmits(['update:form', 'submit']);
+
+// Emit form values to parent
+const emitFormValues = () => {
+    emit('update:form', form);
+};
+
+// Watch for changes in form and emit updates
+watch(form, (newForm) => {
+    emit('update:form', newForm);
+}, { deep: true });
+
+// Handle form submission
+const submitForm = () => {
+    emit('submit', form);
+};
 
 </script>
 
@@ -40,6 +59,7 @@ const form = useForm({
                         class="mt-1 block w-full"
                         v-model="form.projectStart"
                         required
+                        @input="emitFormValues"
                     />
 
                     <InputError class="mt-2" :message="form.errors.projectStart" />
@@ -53,6 +73,7 @@ const form = useForm({
                         class="mt-1 block w-full"
                         v-model="form.projectEnd"
                         required
+                        @input="emitFormValues"
                     />
 
                     <InputError class="mt-2" :message="form.errors.projectEnd" />
@@ -65,6 +86,7 @@ const form = useForm({
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                     v-model="form.projectStage"
                     required
+                    @input="emitFormValues"
                 >
                     <option disabled value="">Select the stage of the project</option>
                     <option v-for="project_stage_type in project_stage_types" :key="project_stage_type['id']" :value="project_stage_type['id']">

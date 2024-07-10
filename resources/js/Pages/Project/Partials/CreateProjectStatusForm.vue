@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
+import {watch, defineEmits} from "vue";
 
 defineProps<{
     status_procurement?: object;
@@ -18,6 +19,24 @@ const form = useForm({
     projectStatusRisk: '',
     projectStatusSchedule: '',
 });
+
+// Define emits
+const emit = defineEmits(['update:form', 'submit']);
+
+// Emit form values to parent
+const emitFormValues = () => {
+    emit('update:form', form);
+};
+
+// Watch for changes in form and emit updates
+watch(form, (newForm) => {
+    emit('update:form', newForm);
+}, { deep: true });
+
+// Handle form submission
+const submitForm = () => {
+    emit('submit', form);
+};
 
 </script>
 
@@ -43,6 +62,7 @@ const form = useForm({
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.projectStatusProcurement"
                         required
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Has procurement been done?</option>
                         <option v-for="project_status_procurement in status_procurement" :key="project_status_procurement['id']" :value="project_status_procurement['id']">
@@ -59,6 +79,7 @@ const form = useForm({
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.projectStatusBudget"
                         required
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Select the current budget status</option>
                         <option v-for="project_status_budget in status_budget" :key="project_status_budget['id']" :value="project_status_budget['id']">
@@ -76,6 +97,7 @@ const form = useForm({
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.projectStatusRisk"
                         required
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Select the appropriate level of risk.</option>
                         <option v-for="project_status_risk in status_risk" :key="project_status_risk['id']" :value="project_status_risk['id']">
@@ -92,6 +114,7 @@ const form = useForm({
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.projectStatusSchedule"
                         required
+                        @input="emitFormValues"
                     >
                         <option disabled value="">Has scheduling been done?</option>
                         <option v-for="project_status_schedule in status_schedule" :key="project_status_schedule['id']" :value="project_status_schedule['id']">

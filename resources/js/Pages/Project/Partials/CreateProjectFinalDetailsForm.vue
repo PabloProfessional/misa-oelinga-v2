@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
+import {watch, defineEmits} from "vue";
 
 defineProps<{
     users?: object;
@@ -16,6 +17,24 @@ const form = useForm({
     attachment: '',
     notes: ''
 });
+
+// Define emits
+const emit = defineEmits(['update:form', 'submit']);
+
+// Emit form values to parent
+const emitFormValues = () => {
+    emit('update:form', form);
+};
+
+// Watch for changes in form and emit updates
+watch(form, (newForm) => {
+    emit('update:form', newForm);
+}, { deep: true });
+
+// Handle form submission
+const submitForm = () => {
+    emit('submit', form);
+};
 
 </script>
 
@@ -41,6 +60,7 @@ const form = useForm({
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.project_manager"
                         required
+                        @input="emitFormValues"
 
                     >
                         <option v-for="user in users" :key="user['id']" :value="user['id']">
@@ -58,6 +78,7 @@ const form = useForm({
                         v-model="form.project_team"
                         required
                         multiple
+                        @input="emitFormValues"
                     >
                         <option v-for="user in users" :key="user['id']" :value="user['id']">
                             {{ user['name'] }}
@@ -75,6 +96,7 @@ const form = useForm({
                     id="logo"
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                     disabled
+                    @input="emitFormValues"
                 />
                 <InputError class="mt-2" :message="form.errors.logo" />
             </div>
@@ -85,6 +107,7 @@ const form = useForm({
                     id="attachment"
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                     disabled
+                    @input="emitFormValues"
                 />
                 <InputError class="mt-2" :message="form.errors.attachment" />
             </div>
@@ -99,7 +122,7 @@ const form = useForm({
                 id="notes"
                 class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 v-model="form.notes"
-                required
+                @input="emitFormValues"
             ></textarea>
             <InputError class="mt-2" :message="form.errors.notes" />
         </div>
