@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import CreateProjectDescriptionForm from "@/Pages/Project/Partials/CreateProjectDescriptionForm.vue";
 import CreateProjectBudgetForm from "@/Pages/Project/Partials/CreateProjectBudgetForm.vue";
 import CreateProjectDurationForm from "@/Pages/Project/Partials/CreateProjectDurationForm.vue";
+import CreateProjectStatusForm from "@/Pages/Project/Partials/CreateProjectStatusForm.vue";
 
 defineProps<{
     mustVerifyEmail?: boolean;
@@ -13,6 +14,10 @@ defineProps<{
     departments?: object;
     sectors?: object;
     project_stage_types?: object;
+    status_procurement?: object;
+    status_budget?: object;
+    status_risk?: object;
+    status_schedule?: object;
 }>();
 </script>
 
@@ -54,6 +59,15 @@ defineProps<{
                         <CreateProjectDurationForm
                             class="max-w-xl"
                             :project_stage_types="project_stage_types"
+                        />
+                    </div>
+                    <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg mt-12" >
+                        <CreateProjectStatusForm
+                            class="max-w-xl"
+                            :status_procurement="status_procurement"
+                            :status_budget="status_budget"
+                            :status_risk="status_risk"
+                            :status_schedule="status_schedule"
                         />
                     </div>
                 </form>

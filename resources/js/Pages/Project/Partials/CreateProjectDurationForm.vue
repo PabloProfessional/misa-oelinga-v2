@@ -3,7 +3,7 @@
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 
 defineProps<{
     project_stage_types?: object;
@@ -67,11 +67,11 @@ const form = useForm({
                     required
                 >
                     <option disabled value="">Select the stage of the project</option>
-                    <option v-for="project_stage_type in project_stage_types" :key="project_stage_type.id" :value="project_stage_type.id">
-                        {{ project_stage_type.name }}
+                    <option v-for="project_stage_type in project_stage_types" :key="project_stage_type['id']" :value="project_stage_type['id']">
+                        {{ project_stage_type['name'] }}
                     </option>
                 </select>
-                <InputError class="mt-2" :message="form.errors.project_stage_types" />
+                <InputError class="mt-2" :message="form.errors.projectStage" />
             </div>
         </div>
     </section>

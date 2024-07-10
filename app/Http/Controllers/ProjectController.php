@@ -10,6 +10,7 @@ use App\Models\Project;
 use App\Models\ProjectStageType;
 use App\Models\Province;
 use App\Models\Sector;
+use App\Models\StatusType;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Inertia\Inertia;
@@ -39,7 +40,11 @@ class ProjectController extends Controller
             'provinces' => Province::select('id','name')->get(),
             'departments' => Department::select('id','name')->get(),
             'sectors' => Sector::select('id','name')->get(),
-            'project_stage_types' => ProjectStageType::select('id','name')->get()
+            'project_stage_types' => ProjectStageType::select('id','name')->get(),
+            'status_procurement' => StatusType::where('category','Procurement')->select('id','name')->get(),
+            'status_budget' => StatusType::where('category','Budget')->select('id','name')->get(),
+            'status_risk' => StatusType::where('category','Risk')->select('id','name')->get(),
+            'status_schedule' => StatusType::where('category','Schedule')->select('id','name')->get(),
         ]);
     }
 
