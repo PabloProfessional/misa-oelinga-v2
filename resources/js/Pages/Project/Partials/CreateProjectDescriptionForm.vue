@@ -21,8 +21,6 @@ const user = usePage().props.auth.user;
 
 
 const form = useForm({
-    name: user['name'],
-    email: user.email,
     name:'',
     project_number:'',
     programme:'',
@@ -76,6 +74,12 @@ const submitForm = () => {
 
             <p class="mt-1 text-sm text-gray-600">
                 Add some initial details of your project.
+            </p>
+
+            <p>{{ provinces }}</p>
+
+            <p>
+                {{ municipalities }}
             </p>
 
         </header>

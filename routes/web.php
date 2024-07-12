@@ -60,7 +60,7 @@ Route::resource('project',\App\Http\Controllers\ProjectController::class)->middl
 
 Route::get('/municipalities/by_province/{provinceId}', function ($provinceId) {
     return response()->json(['municipalities' => \App\Models\Municipality::where('province_id', $provinceId)
-        ->select('id','name')
+        ->select('id','name','province_id')
         ->get()]);
 });
 

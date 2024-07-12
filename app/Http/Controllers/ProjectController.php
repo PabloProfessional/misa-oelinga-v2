@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Department;
+use App\Models\Municipality;
 use App\Models\Programme;
 use App\Models\Project;
+use App\Models\ProjectAccount;
 use App\Models\ProjectStageType;
 use App\Models\Province;
 use App\Models\Sector;
@@ -14,6 +16,7 @@ use App\Models\StatusType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\ProjectStatus;
@@ -94,7 +97,7 @@ class ProjectController extends Controller
             'user_id' => auth()->user()->id,
             'description' => $request->description,
             'url' => Str::slug($request->name),
-            'municipal_id' => $municipality->id,
+            'municipal_id' => $request->municipality,
             'department_id' => $request->department,
             'sector_id' => $request->sector,
             'budget' => $request->budget,
@@ -147,7 +150,9 @@ class ProjectController extends Controller
             'balance' => $project->budget - $project->spend
         ]);
 
-        return redirect('project/'.$project->url)->with('status',$project->name.' - has been created');
+        //return redirect('project/'.$project->url)->with('status',$project->name.' - has been created');
+
+        return redirect('/dashboard');
     }
 
     /**
