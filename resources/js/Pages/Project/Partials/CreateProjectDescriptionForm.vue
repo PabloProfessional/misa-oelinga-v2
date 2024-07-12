@@ -76,12 +76,6 @@ const submitForm = () => {
                 Add some initial details of your project.
             </p>
 
-            <p>{{ provinces }}</p>
-
-            <p>
-                {{ municipalities }}
-            </p>
-
         </header>
 
 

@@ -66,6 +66,7 @@ class ProjectController extends Controller
             'programme' => 'required|numeric',
             'name' => 'required|string|unique:projects',
             'description' => 'nullable|string',
+            'province' => 'required|numeric',
             'municipality' => 'required|numeric',
             'department' => 'required|numeric',
             'sector' => 'required|numeric',
@@ -88,8 +89,6 @@ class ProjectController extends Controller
             'project_stage' => 'required|numeric',
         ]);
 
-        $municipality = Municipality::find($request->location);
-
         $project = Project::create([
             'project_number' => $request->project_number,
             'programme_id' => $request->programme,
@@ -105,7 +104,7 @@ class ProjectController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'manager' => $request->manager,
-            'province_url' => Province::where('id',$municipality->province_id)->first()->url,
+            'province_url' => Province::where('id',$request->province)->first()->url,
             'stage_type_id' => $request->project_stage,
             'notes' => $request->notes,
             'client_id' => $request->client_id,
