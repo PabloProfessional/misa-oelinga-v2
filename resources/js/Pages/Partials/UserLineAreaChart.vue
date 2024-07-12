@@ -12,6 +12,8 @@ export default defineComponent({
 <script setup>
 import {ref} from 'vue';
 
+
+
 const props = defineProps({
     months: {
         type: Array,
@@ -28,15 +30,18 @@ const props = defineProps({
 
 });
 
+const budgetData = Object.values(props.budget);
+const spendData = Object.values(props.spend);
+
 // Define reactive data
 const series = ref([
     {
         name: 'Budget',
-        data: props.budget
+        data: budgetData
     },
     {
         name: 'Spend',
-        data: props.spend
+        data: spendData
     },
 ]);
 
@@ -69,6 +74,7 @@ const chartOptions = ref({
                 <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
             </div>
         </div>
+
     </div>
 </template>
 
