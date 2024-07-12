@@ -157,15 +157,20 @@ onMounted(async () => {
                                 @click="goToProvince(province.url)"
                             >
                                 <div><strong>{{ province.name }}</strong></div>
+                                <ul>
+                                    <li><strong>{{ province.project_count }} projects</strong></li>
+                                    <li>Budget: R {{ province.budget /1000000 }} mill</li>
+                                    <li>Spend: R {{ province.spend / 1000000}} mill</li>
+                                </ul>
 
                                 <div>
                                     <strong v-if="province.status">
                                         <i :class="province.status.icon" :style="{ color: province.status.color }"></i>
-                                        <span :style="{ color: province.status.color }">{{ province.status.name }}</span>
+                                        <span :style="{ color: province.status.color }" class="bg">{{ province.status.name }}</span>
                                     </strong>
                                     <span v-else class="badge bg-warning">
-      No projects yet.
-    </span>
+                                      No projects yet.
+                                    </span>
                                 </div>
                             </div>
                         </div>

@@ -55,7 +55,7 @@ class Project extends Model
 
     public function stage(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(StageType::class,'stage_type_id');
+        return $this->belongsTo(ProjectStageType::class,'stage_type_id');
     }
 
     public function municipality(): \Illuminate\Database\Eloquent\Relations\BelongsTo

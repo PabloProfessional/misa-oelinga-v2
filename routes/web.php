@@ -17,6 +17,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    //dd(Project::first()->stage);
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -62,7 +63,12 @@ Route::get('/projects/variance', function () {
 
 Route::get('/provinces/summary', function () {
     $provinces = \App\Models\Province::all()->map(function ($province) {
-        return array_merge($province->toArray(), ['status' => $province->status()]);
+        return array_merge($province->toArray(), [
+            'status' => $province->status(),
+            'project_count' => $province->projects->count(),
+            'budget' => $province->budget(),
+            'spend' => $province->spend()
+        ]);
     });
 
     return response()->json(['provinces' => $provinces]);
