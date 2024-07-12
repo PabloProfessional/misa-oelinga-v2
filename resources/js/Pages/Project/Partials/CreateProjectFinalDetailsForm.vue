@@ -11,8 +11,8 @@ defineProps<{
 }>();
 
 const form = useForm({
-    project_manager: '',
-    project_team: '',
+    manager: '',
+    team_members: '',
     logo: '',
     attachment: '',
     notes: ''
@@ -58,7 +58,7 @@ const submitForm = () => {
                     <select
                         id="project_manager"
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.project_manager"
+                        v-model="form.manager"
                         required
                         @input="emitFormValues"
 
@@ -67,7 +67,7 @@ const submitForm = () => {
                             {{ user['name'] }}
                         </option>
                     </select>
-                    <InputError class="mt-2" :message="form.errors.project_manager" />
+                    <InputError class="mt-2" :message="form.errors.manager" />
                 </div>
 
                 <div>
@@ -75,7 +75,7 @@ const submitForm = () => {
                     <select
                         id="project_team"
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.project_team"
+                        v-model="form.team_members"
                         required
                         multiple
                         @input="emitFormValues"
@@ -84,7 +84,7 @@ const submitForm = () => {
                             {{ user['name'] }}
                         </option>
                     </select>
-                    <InputError class="mt-2" :message="form.errors.project_team" />
+                    <InputError class="mt-2" :message="form.errors.team_members" />
                 </div>
             </div>
         <br>

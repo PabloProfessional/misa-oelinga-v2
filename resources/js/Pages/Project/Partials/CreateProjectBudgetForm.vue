@@ -7,8 +7,8 @@ import { Link, useForm, usePage } from '@inertiajs/vue3';
 import {defineEmits, watch} from "vue";
 
 const form = useForm({
-    projectBudget: '',
-    projectSpend: '',
+    budget: '',
+    spend: '',
 });
 
 
@@ -52,12 +52,12 @@ const submitForm = () => {
                     id="project-budget"
                     type="number"
                     class="mt-1 block w-full"
-                    v-model="form.projectBudget"
+                    v-model="form.budget"
                     required
                     @input="emitFormValues"
                 />
 
-                <InputError class="mt-2" :message="form.errors.projectBudget" />
+                <InputError class="mt-2" :message="form.errors.budget" />
             </div>
             <div >
                 <InputLabel for="project-spend" value="Spend i.e. monies spent at the time of filling this form" />
@@ -66,12 +66,12 @@ const submitForm = () => {
                     id="project-spend"
                     type="number"
                     class="mt-1 block w-full"
-                    v-model="form.projectSpend"
+                    v-model="form.spend"
                     required
                     @input="emitFormValues"
                 />
 
-                <InputError class="mt-2" :message="form.errors.projectSpend" />
+                <InputError class="mt-2" :message="form.errors.spend" />
             </div>
         </div>
     </section>

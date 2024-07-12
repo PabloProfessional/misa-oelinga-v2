@@ -14,10 +14,10 @@ defineProps<{
 }>();
 
 const form = useForm({
-    projectStatusProcurement: '',
-    projectStatusBudget: '',
-    projectStatusRisk: '',
-    projectStatusSchedule: '',
+    procurement_status: '',
+    budget_status: '',
+    risk_status: '',
+    schedule_status: '',
 });
 
 // Define emits
@@ -60,7 +60,7 @@ const submitForm = () => {
                     <select
                         id="project_status_procurement"
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.projectStatusProcurement"
+                        v-model="form.procurement_status"
                         required
                         @input="emitFormValues"
                     >
@@ -69,7 +69,7 @@ const submitForm = () => {
                             {{ project_status_procurement['name'] }}
                         </option>
                     </select>
-                    <InputError class="mt-2" :message="form.errors.projectStatusProcurement" />
+                    <InputError class="mt-2" :message="form.errors.procurement_status" />
                 </div>
 
                 <div>
@@ -77,7 +77,7 @@ const submitForm = () => {
                     <select
                         id="project_status_budget"
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.projectStatusBudget"
+                        v-model="form.budget_status"
                         required
                         @input="emitFormValues"
                     >
@@ -86,7 +86,7 @@ const submitForm = () => {
                             {{ project_status_budget['name'] }}
                         </option>
                     </select>
-                    <InputError class="mt-2" :message="form.errors.projectStatusBudget" />
+                    <InputError class="mt-2" :message="form.errors.budget_status" />
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
@@ -95,7 +95,7 @@ const submitForm = () => {
                     <select
                         id="project_status_risk"
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.projectStatusRisk"
+                        v-model="form.risk_status"
                         required
                         @input="emitFormValues"
                     >
@@ -104,7 +104,7 @@ const submitForm = () => {
                             {{ project_status_risk['name'] }}
                         </option>
                     </select>
-                    <InputError class="mt-2" :message="form.errors.projectStatusRisk" />
+                    <InputError class="mt-2" :message="form.errors.risk_status" />
                 </div>
 
                 <div>
@@ -112,7 +112,7 @@ const submitForm = () => {
                     <select
                         id="project_status_schedule"
                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.projectStatusSchedule"
+                        v-model="form.schedule_status"
                         required
                         @input="emitFormValues"
                     >
@@ -121,7 +121,7 @@ const submitForm = () => {
                             {{ project_status_schedule['name'] }}
                         </option>
                     </select>
-                    <InputError class="mt-2" :message="form.errors.projectStatusSchedule" />
+                    <InputError class="mt-2" :message="form.errors.schedule_status" />
                 </div>
             </div>
         </div>

@@ -63,7 +63,7 @@ class ProjectController extends Controller
             'programme' => 'required|numeric',
             'name' => 'required|string|unique:projects',
             'description' => 'nullable|string',
-            'location' => 'required|numeric',
+            'municipality' => 'required|numeric',
             'department' => 'required|numeric',
             'sector' => 'required|numeric',
             'budget' => 'required|numeric|max:100000000000', // Maximum budget of 100 billion

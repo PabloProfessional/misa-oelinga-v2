@@ -25,33 +25,33 @@ defineProps<{
 }>();
 
 const form = useForm({
-    projectName:'',
-    uniqueNumber:'',
+    name:'',
+    project_number:'',
     programme:'',
     description:'',
     province: '',
     municipality: '',
     department: '',
     sector: '',
-    projectBudget: '',
-    projectSpend: '',
-    projectStart: '',
-    projectEnd: '',
-    projectStage: '',
-    projectStatusProcurement: '',
-    projectStatusBudget: '',
-    projectStatusRisk: '',
-    projectStatusSchedule: '',
-    project_manager: '',
-    project_team: '',
+    budget: '',
+    spend: '',
+    start_date: '',
+    end_date: '',
+    project_stage: '',
+    procurement_status: '',
+    budget_status: '',
+    risk_status: '',
+    schedule_status: '',
+    manager: '',
+    team_members: '',
     logo: '',
     attachment: '',
     notes: ''
 });
 
 const updateFormValues1 = (updatedForm: any) => {
-    form.projectName = updatedForm.projectName;
-    form.uniqueNumber = updatedForm.uniqueNumber;
+    form.name = updatedForm.name;
+    form.project_number = updatedForm.project_number;
     form.programme = updatedForm.programme;
     form.description = updatedForm.description;
     form.province = updatedForm.province;
@@ -60,26 +60,26 @@ const updateFormValues1 = (updatedForm: any) => {
     form.sector = updatedForm.sector;
 };
 const updateFormValues2 = (updatedForm: any) => {
-    form.projectBudget = updatedForm.projectBudget;
-    form.projectSpend = updatedForm.projectSpend;
+    form.budget = updatedForm.budget;
+    form.spend = updatedForm.spend;
 };
 
 const updateFormValues3 = (updatedForm: any) => {
-    form.projectStart = updatedForm.projectStart;
-    form.projectEnd = updatedForm.projectEnd;
-    form.projectStage = updatedForm.projectStage;
+    form.start_date = updatedForm.start_date;
+    form.end_date = updatedForm.end_date;
+    form.project_stage = updatedForm.project_stage;
 };
 
 const updateFormValues4 = (updatedForm: any) => {
-    form.projectStatusProcurement = updatedForm.projectStatusProcurement;
-    form.projectStatusBudget = updatedForm.projectStatusBudget;
-    form.projectStatusRisk = updatedForm.projectStatusRisk;
-    form.projectStatusSchedule = updatedForm.projectStatusSchedule;
+    form.procurement_status = updatedForm.procurement_status;
+    form.budget_status = updatedForm.budget_status;
+    form.risk_status = updatedForm.risk_status;
+    form.schedule_status = updatedForm.schedule_status;
 };
 
 const updateFormValues5 = (updatedForm: any) => {
-    form.project_manager = updatedForm.project_manager;
-    form.project_team = updatedForm.project_team;
+    form.manager = updatedForm.manager;
+    form.team_members = updatedForm.team_members;
     form.logo = updatedForm.logo;
     form.attachment = updatedForm.attachment;
     form.notes = updatedForm.notes;

@@ -23,8 +23,8 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user['name'],
     email: user.email,
-    projectName:'',
-    uniqueNumber:'',
+    name:'',
+    project_number:'',
     programme:'',
     description:'',
     province: '',
@@ -89,7 +89,7 @@ const submitForm = () => {
                     id="project-name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.projectName"
+                    v-model="form.name"
                     required
                     autofocus
                     autocomplete="project-name"
@@ -97,7 +97,7 @@ const submitForm = () => {
 
                 />
 
-                <InputError class="mt-2" :message="form.errors.projectName" />
+                <InputError class="mt-2" :message="form.errors.name" />
             </div>
                <div class="grid grid-cols-2 gap-4">
                    <div>
@@ -107,12 +107,12 @@ const submitForm = () => {
                            id="unique-number"
                            type="text"
                            class="mt-1 block w-full"
-                           v-model="form.uniqueNumber"
+                           v-model="form.project_number"
                            required
                            @input="emitFormValues"
                        />
 
-                       <InputError class="mt-2" :message="form.errors.uniqueNumber" />
+                       <InputError class="mt-2" :message="form.errors.project_number" />
                    </div>
 
                    <div>

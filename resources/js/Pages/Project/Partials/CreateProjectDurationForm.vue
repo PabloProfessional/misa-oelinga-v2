@@ -11,9 +11,9 @@ defineProps<{
 }>();
 
 const form = useForm({
-    projectStart: '',
-    projectEnd: '',
-    projectStage: '',
+    start_date: '',
+    end_date: '',
+    project_stage: '',
 });
 
 // Define emits
@@ -57,12 +57,12 @@ const submitForm = () => {
                         id="project-start"
                         type="date"
                         class="mt-1 block w-full"
-                        v-model="form.projectStart"
+                        v-model="form.start_date"
                         required
                         @input="emitFormValues"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.projectStart" />
+                    <InputError class="mt-2" :message="form.errors.start_date" />
                 </div>
                 <div >
                     <InputLabel for="project-end" value="End" />
@@ -71,12 +71,12 @@ const submitForm = () => {
                         id="project-end"
                         type="date"
                         class="mt-1 block w-full"
-                        v-model="form.projectEnd"
+                        v-model="form.end_date"
                         required
                         @input="emitFormValues"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.projectEnd" />
+                    <InputError class="mt-2" :message="form.errors.end_date" />
                 </div>
             </div>
             <div>
@@ -84,7 +84,7 @@ const submitForm = () => {
                 <select
                     id="project_stage_types"
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                    v-model="form.projectStage"
+                    v-model="form.project_stage"
                     required
                     @input="emitFormValues"
                 >
@@ -93,7 +93,7 @@ const submitForm = () => {
                         {{ project_stage_type['name'] }}
                     </option>
                 </select>
-                <InputError class="mt-2" :message="form.errors.projectStage" />
+                <InputError class="mt-2" :message="form.errors.project_stage" />
             </div>
         </div>
     </section>
