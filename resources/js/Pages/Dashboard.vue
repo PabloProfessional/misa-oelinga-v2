@@ -15,8 +15,9 @@ const spend = ref<number>(0);
 const variance = ref<number>(0);
 let count_description = "Total number of projects."
 const provinces = ref<number>(0);
+const budget_allocation = ref<number>(0);
 
-function goToProvince(url) {
+function goToProvince(url: any) {
     window.location.href = `province/${url}`;
 }
 
@@ -48,6 +49,14 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to fetch project budget:', error);
     }
+
+    try {
+        const response = await axios.get('/projects/budget_allocation');
+        budget_allocation.value = response.data.budget_allocation;
+    } catch (error) {
+        console.error('Failed to fetch project budget allocation:', error);
+    }
+
     try {
         const response = await axios.get('/projects/spend');
         spend.value = response.data.spend;
@@ -118,7 +127,7 @@ onMounted(async () => {
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
                     <Count :count="count" :count_description="count_description"></Count>
-                    <Budget :budget="budget" ></Budget>
+                    <Budget :budget="budget" :budget_allocation="budget_allocation" ></Budget>
                     <Spend :spend="spend" :variance="variance"></Spend>
                 </div>
             </div>
