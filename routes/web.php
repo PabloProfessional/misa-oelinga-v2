@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProvinceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,6 +46,9 @@ Route::get('/projects/variance', function () {
     $budget = Project::sum('budget');
     $spend = Project::sum('spend');
 
+    // TODO Will need to add projectActivity budget to this as well. Or we do ProjectActivities only.
+    // Since there is spend and allocation those are different.
+
     if ($budget != 0) {
         $variance = (($budget - $spend )/$budget) * 100;
         return response()->json(['variance' => number_format($variance,0) ]);
@@ -52,8 +56,16 @@ Route::get('/projects/variance', function () {
     return response()->json(['variance' => number_format(0,0) ]);
 });
 
+//Route::get('/provinces/summary', function () {
+//    return response()->json(['provinces' => \App\Models\Province::all()]);
+//});
+
 Route::get('/provinces/summary', function () {
-    return response()->json(['provinces' => \App\Models\Province::all()]);
+    $provinces = \App\Models\Province::all()->map(function ($province) {
+        return array_merge($province->toArray(), ['status' => $province->status()]);
+    });
+
+    return response()->json(['provinces' => $provinces]);
 });
 
 Route::get('/provinces/trend_analysis', [\App\Http\Controllers\ProvinceController::class,'trend_analysis'])
@@ -67,5 +79,8 @@ Route::get('/municipalities/by_province/{provinceId}', function ($provinceId) {
         ->select('id','name','province_id')
         ->get()]);
 });
+
+Route::get('/province/status/{id}', [ProvinceController::class, 'getStatus']);
+
 
 require __DIR__.'/auth.php';

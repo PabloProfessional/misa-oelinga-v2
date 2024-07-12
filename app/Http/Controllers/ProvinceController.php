@@ -109,4 +109,14 @@ class ProvinceController extends Controller
             'spend' => $combinedSpendData
         ];
     }
+
+    public function getStatus($id): \Illuminate\Http\JsonResponse
+    {
+        $province = Province::find($id);
+        if ($province) {
+            return response()->json(['province_status' => $province->id]);
+        } else {
+            return response()->json(['province_status' => null], 404);
+        }
+    }
 }

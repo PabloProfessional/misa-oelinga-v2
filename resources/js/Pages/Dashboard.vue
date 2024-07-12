@@ -17,6 +17,8 @@ let count_description = "Total number of projects."
 const provinces = ref<number>(0);
 const budget_allocation = ref<number>(0);
 
+let test_value = '';
+
 function goToProvince(url: any) {
     window.location.href = `province/${url}`;
 }
@@ -72,11 +74,15 @@ onMounted(async () => {
     try {
         const response = await axios.get('/provinces/summary');
         provinces.value = response.data.provinces;
+
     } catch (error) {
         console.error('Failed to fetch project provinces:', error);
     }
+
     getTrendAnalysis();
 });
+
+
 
 
 </script>
@@ -121,6 +127,7 @@ onMounted(async () => {
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Welcome {{ $page.props.auth.user.name }}</h2>
             <p>This is your <strong>Project Management Platform</strong>. Brought to you by <a href="https://www.oelinga.com/">Ölinga.</a> </p>
+            {{ test_value }}
         </template>
 
         <div class="py-12">
@@ -150,14 +157,15 @@ onMounted(async () => {
                                 @click="goToProvince(province.url)"
                             >
                                 <div><strong>{{ province.name }}</strong></div>
+
                                 <div>
                                     <strong v-if="province.status">
                                         <i :class="province.status.icon" :style="{ color: province.status.color }"></i>
                                         <span :style="{ color: province.status.color }">{{ province.status.name }}</span>
                                     </strong>
                                     <span v-else class="badge bg-warning">
-          No projects yet.
-        </span>
+      No projects yet.
+    </span>
                                 </div>
                             </div>
                         </div>
