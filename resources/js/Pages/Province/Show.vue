@@ -238,10 +238,10 @@ const props = defineProps({
                                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Municipalities</h2>
 
                                     <p class="mt-4 text-sm/relaxed">
-                                        The risk barometer helps show the distribution of conditions or statuses for various risk elements across the entire province.
+                                        Below are all municipalities under this province for the current financial year.
                                     </p>
 
-                                    <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" >
+                                    <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto"  style="width: 900px">
                                         <thead class="table-header-group">
                                         <tr style="text-align: left;">
                                             <th></th>
@@ -289,11 +289,11 @@ const props = defineProps({
                                 <div class="pt-3 sm:pt-5 lg:pt-0">
                                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Projects</h2>
 
-                                    <p class="mt-4 text-sm/relaxed">
-                                        The risk barometer helps show the distribution of conditions or statuses for various risk elements across the entire province.
+                                    <p class="mt-4 text-sm/relaxed w-full" >
+                                        Below are all projects under this province for the current financial year.
                                     </p>
 
-                                    <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" >
+                                    <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 900px;">
                                         <thead class="table-header-group">
                                         <tr style="text-align: left;">
                                             <th></th>
