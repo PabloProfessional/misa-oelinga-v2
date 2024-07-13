@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Provinces
+Route::resource('province',\App\Http\Controllers\ProvinceController::class)->middleware(['auth', 'verified']);
+Route::get('/province/{url}',[\App\Http\Controllers\ProvinceController::class,'show'])->middleware(['auth', 'verified'])->name('province_show');
+
 Route::get('/projects/count', function () {
     return response()->json(['count' => Project::count()]);
 });
