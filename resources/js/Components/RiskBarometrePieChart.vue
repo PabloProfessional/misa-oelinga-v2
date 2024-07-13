@@ -41,17 +41,6 @@ const chartOptions = ref({
             }
         }
     }],
-    // colors: props.status_count_keys.map(status => {
-    //     if (status === 'Low Risk') {
-    //         return '#00008B'; // Dark blue for low risk
-    //     } else if (status === 'Medium Risk') {
-    //         return '#FFA500'; // Orange for medium risk
-    //     } else if (status === 'High Risk') {
-    //         return '#FF0000'; // Red for high risk
-    //     } else {
-    //         return '#808080'; // Gray for unknown or other statuses
-    //     }
-    // })
 });
 </script>
 

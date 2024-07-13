@@ -9,6 +9,7 @@ import Spend from "@/Components/Spend.vue";
 import AssetHealthPieChart from "@/Pages/Partials/AssetHealthPieChart.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
+import TopProjectsSpiderChart from "@/Components/TopProjectsSpiderChart.vue";
 
 // const budget = ref<number>(0);
 // const spend = ref<number>(0);
@@ -56,8 +57,16 @@ const props = defineProps({
     },
     status_count_keys: {
         type: Array,
+    },
+    top_projects: {
+        type: Array
+    },
+    top_budgets: {
+        type: Array
+    },
+    top_spends: {
+        type: Array
     }
-
 });
 
 
@@ -203,6 +212,7 @@ const props = defineProps({
                             </div>
                         </div>
                     </a>
+
                     <a
                         href="#"
                         id="docs-card"
@@ -210,7 +220,13 @@ const props = defineProps({
                     >
                         <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
 
-                            <RiskBarometrePieChart class="mt-6" style="width: 100%;"></RiskBarometrePieChart>
+                            <TopProjectsSpiderChart
+                                class="mt-6"
+                                style="width: 100%;"
+                                :top_projects="top_projects"
+                                :top_budgets="top_budgets"
+                                :top_spends="top_spends"
+                            ></TopProjectsSpiderChart>
                         </div>
 
 
@@ -219,19 +235,82 @@ const props = defineProps({
 
 
                                 <div class="pt-3 sm:pt-5 lg:pt-0">
-                                    <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Health Barometer</h2>
+                                    <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Budget Report |
+                                        <small>Top Projects</small>
+                                    </h2>
+
+
 
                                     <p class="mt-4 text-sm/relaxed">
                                         The health barometer helps show the distribution of conditions or statuses for bearings across all water pumps.
                                         It shows the proportion of items that fall into different health statuses, such as being in good condition (healthy) or requiring specific types of maintenance (e.g., lubrication, handling overloads, or managing excessive vibration).
                                         This distribution provides a snapshot of the overall health and maintenance needs of various water pumps, allowing for better planning and resource allocation to ensure optimal performance and longevity of the items in question.
-
                                     </p>
 
                                 </div>
                             </div>
                         </div>
                     </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
+                    <div
+                        href="#"
+                        id="docs-card"
+                        class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
+                    >
+
+                        <div class="relative flex items-center gap-6 lg:items-end">
+                            <div id="docs-card-content" class="flex items-start gap-6 lg:flex-col">
+
+
+                                <div class="pt-3 sm:pt-5 lg:pt-0">
+                                    <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Municipalities</h2>
+
+                                    <p class="mt-4 text-sm/relaxed">
+                                        The risk barometer helps show the distribution of conditions or statuses for various risk elements across the entire province.
+                                        This visual tool allows stakeholders to understand the overall risk landscape by categorizing projects into different risk levels, such as low, medium, and high.
+
+                                    </p>
+                                    <table class="table table-striped w-full mt-4 text-sm/relaxed table-auto" >
+                                        <thead class="table-header-group">
+                                        <tr style="text-align: left;">
+                                            <th>Project</th>
+                                            <th>Budget</th>
+                                            <th>Spend</th>
+                                            <th>Average Status</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="table-row-group">
+                                        <tr class="w-full table-row">
+                                            <th scope="row">1</th>
+                                            <td>John</td>
+                                            <td>Doe</td>
+                                            <td>john.doe@example.com</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jane</td>
+                                            <td>Smith</td>
+                                            <td>jane.smith@example.com</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Emily</td>
+                                            <td>Johnson</td>
+                                            <td>emily.johnson@example.com</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

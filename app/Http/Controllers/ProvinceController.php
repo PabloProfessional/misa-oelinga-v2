@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProvinceRequest;
 use App\Http\Requests\UpdateProvinceRequest;
+use App\Models\Project;
 use App\Models\Province;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -71,6 +72,14 @@ class ProvinceController extends Controller
 
         $trend_analysis = $this->province_trend_analysis($province);
 
+        $tops = $this->top_projects($province);
+        $top_budgets = array_map(function($tops) {
+            return $tops['budget'];
+        }, $tops);
+        $top_spends= array_map(function($tops) {
+            return $tops['spend'];
+        }, $tops);
+
         return Inertia::render('Province/Show',[
             'province' => $province,
             'count' => $province->projects->count(),
@@ -81,7 +90,10 @@ class ProvinceController extends Controller
             'budget_trend' => array_values($trend_analysis['budget']),
             'spend_trend' => array_values($trend_analysis['spend']),
             'status_count_values' => array_values(array_values((array)$statusCounts)[0]),
-            'status_count_keys' => array_keys(array_values((array)$statusCounts)[0])
+            'status_count_keys' => array_keys(array_values((array)$statusCounts)[0]),
+            'top_projects' => $tops,
+            'top_budgets' => $top_budgets,
+            'top_spends' => $top_spends
         ]);
     }
 
@@ -185,5 +197,19 @@ class ProvinceController extends Controller
             'budget' => $budgetByMonth,
             'spend' => $spendByMonth
         ];
+    }
+
+    public function top_projects($province): array
+    {
+        $top_projects = Project::where('province_url',$province->url)->select('project_number','budget','spend')
+            ->orderBy('budget','asc')
+            ->limit(6)->get();
+        // If fewer than 6 projects, fill the rest with placeholders
+
+        return array_pad($top_projects->toArray(), 6, [
+            'project_number' => 'None Yet',
+            'budget' => 0,
+            'spend' => 0
+        ]);
     }
 }
