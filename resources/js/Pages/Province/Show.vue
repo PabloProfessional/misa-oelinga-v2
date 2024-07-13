@@ -9,10 +9,9 @@ import Spend from "@/Components/Spend.vue";
 import AssetHealthPieChart from "@/Pages/Partials/AssetHealthPieChart.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 
-const count = ref<number>(0);
-const budget = ref<number>(0);
-const spend = ref<number>(0);
-const variance = ref<number>(0);
+// const budget = ref<number>(0);
+// const spend = ref<number>(0);
+// const variance = ref<number>(0);
 let count_description = "Total number of projects."
 const provinces = ref<number>(0);
 const budget_allocation = ref<number>(0);
@@ -22,6 +21,9 @@ function goToProvince(url: any) {
 }
 
 const props = defineProps({
+    count: {
+        type: Number
+    },
     budget: {
         type: Array,
         required: true
@@ -29,6 +31,12 @@ const props = defineProps({
     spend: {
         type: Array,
         required: true
+    },
+    budget_allocation:{
+        type: Number
+    },
+    variance:{
+        type: Number
     },
     province: {
         type: Object,
@@ -90,10 +98,10 @@ const props = defineProps({
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-<!--                <img src="/storage/provinces/{{ $province->logo }}" alt="{{ $province->url }}" style="width: 10%;">-->
+<!--                <img src="../../../public/img/provinces/{{ province['logo'] }}" alt="{{ province['url'] }}" style="width: 10%;">-->
                 {{ province['name'] }}
             </h2>
-            <p>This is your <strong>Project Management Platform</strong>. Brought to you by <a href="https://www.oelinga.com/">Ölinga.</a> </p>
+
         </template>
 
         <div class="py-12">

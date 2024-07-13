@@ -48,11 +48,23 @@ class ProvinceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Province $province)
+    public function show(Province $province): Response
     {
-        //
+        //dd($province);
 
-        dd($province);
+        $budget = $province->budget() / 100000000;
+        $spend = $province->spend() / 100000000;
+        $variance = ($spend / $budget) * 100;
+
+
+        return Inertia::render('Province/Show',[
+            'province' => $province,
+            'count' => $province->projects->count(),
+            'budget' => $budget,
+            'spend' => $spend,
+            'budget_allocation' => 0,
+            'variance' => $variance
+        ]);
     }
 
     /**
