@@ -45,6 +45,10 @@ const props = defineProps({
 
 });
 
+function logo () {
+    return '../../../../public/img/provinces/'+props.province.logo;
+}
+
 
 // onMounted(async () => {
 //     try {
@@ -97,10 +101,18 @@ const props = defineProps({
 
     <AuthenticatedLayout>
         <template #header>
+
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-<!--                <img src="../../../public/img/provinces/{{ province['logo'] }}" alt="{{ province['url'] }}" style="width: 10%;">-->
-                {{ province['name'] }}
+
+                <img :src="`/img/provinces/${province.logo}`" :alt="province.url" style="width: 10%;">
             </h2>
+            <p style="margin-top: 10px; color: grey; font-size: large;">
+
+                <a href="/dashboard">
+                    Dashboard
+                </a> /
+                <strong> {{ province['name'] }} </strong>
+            </p>
 
         </template>
 

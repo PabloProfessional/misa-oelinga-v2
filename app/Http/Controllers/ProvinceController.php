@@ -54,7 +54,10 @@ class ProvinceController extends Controller
 
         $budget = $province->budget() / 100000000;
         $spend = $province->spend() / 100000000;
-        $variance = ($spend / $budget) * 100;
+        $variance = 0;
+        if ($budget != 0) {
+            $variance = ($spend / $budget) * 100;
+        }
 
 
         return Inertia::render('Province/Show',[
