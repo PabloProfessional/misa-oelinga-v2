@@ -59,6 +59,7 @@ class ProvinceController extends Controller
             $variance = ($spend / $budget) * 100;
         }
 
+        $trend_analysis = $this->province_trend_analysis($province);
 
         return Inertia::render('Province/Show',[
             'province' => $province,
@@ -66,7 +67,9 @@ class ProvinceController extends Controller
             'budget' => $budget,
             'spend' => $spend,
             'budget_allocation' => 0,
-            'variance' => $variance
+            'variance' => $variance,
+            'budget_trend' => array_values($trend_analysis['budget']),
+            'spend_trend' => array_values($trend_analysis['spend'])
         ]);
     }
 
@@ -144,5 +147,31 @@ class ProvinceController extends Controller
         } else {
             return response()->json(['province_status' => null], 404);
         }
+    }
+
+    public function province_trend_analysis($province): array
+    {
+        $allMonths = collect([
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ]);
+
+
+        // Fill budget data
+        $budgetDataStart = collect($province->budget_trend_analysis());
+        $budgetByMonth = $allMonths->mapWithKeys(function ($month) use ($budgetDataStart) {
+            return [$month => $budgetDataStart->get($month, 0)];
+        })->toArray();
+
+        // Fill spend data
+        $spendDataStart = collect($province->spend_trend_analysis());
+        $spendByMonth = $allMonths->mapWithKeys(function ($month) use ($spendDataStart) {
+            return [$month => $spendDataStart->get($month, 0)];
+        })->toArray();
+
+        return [
+            'budget' => $budgetByMonth,
+            'spend' => $spendByMonth
+        ];
     }
 }
