@@ -16,10 +16,14 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    //dd(Project::first()->stage);
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    //dd(Project::first()->stage);
+//    return Inertia::render('Dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard',[ProvinceController::class,'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -87,6 +91,7 @@ Route::get('/municipalities/by_province/{provinceId}', function ($provinceId) {
 });
 
 Route::get('/province/status/{id}', [ProvinceController::class, 'getStatus']);
+
 
 
 require __DIR__.'/auth.php';

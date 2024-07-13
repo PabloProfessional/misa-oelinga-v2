@@ -1,3 +1,50 @@
+<!--<script setup>-->
+<!--import { ref, defineProps } from 'vue';-->
+<!--import VueApexCharts from 'vue3-apexcharts';-->
+
+<!--// Define the props-->
+<!--const props = defineProps({-->
+<!--    budget: {-->
+<!--        type: Array,-->
+<!--        required: true-->
+<!--    },-->
+<!--    spend: {-->
+<!--        type: Array,-->
+<!--        required: true-->
+<!--    }-->
+<!--});-->
+
+<!--const series = ref([-->
+<!--    {-->
+<!--        name: 'Budget',-->
+<!--        data: props.budget-->
+<!--    }, {-->
+<!--        name: 'Spend',-->
+<!--        data: props.spend-->
+<!--    }-->
+<!--]);-->
+
+<!--const chartOptions = ref({-->
+<!--    chart: {-->
+<!--        height: 500,-->
+<!--        type: 'area'-->
+<!--    },-->
+<!--    dataLabels: {-->
+<!--        enabled: false-->
+<!--    },-->
+<!--    title: {-->
+<!--        text: 'Budget and Spend Trend Analysis'-->
+<!--    },-->
+<!--    stroke: {-->
+<!--        curve: 'smooth'-->
+<!--    },-->
+<!--    xaxis: {-->
+<!--        type: 'category',-->
+<!--        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']-->
+<!--    }-->
+<!--});-->
+<!--</script>-->
+
 <script>
 import {defineComponent} from 'vue';
 import VueApexCharts from 'vue3-apexcharts';
@@ -10,15 +57,10 @@ export default defineComponent({
 </script>
 
 <script setup>
-import {ref} from 'vue';
-
+import { ref, defineProps } from 'vue';
 
 
 const props = defineProps({
-    months: {
-        type: Array,
-        required: true
-    },
     budget: {
         type: Array,
         required: true
@@ -26,46 +68,39 @@ const props = defineProps({
     spend: {
         type: Array,
         required: true
-    }
-
+    },
 });
 
-const budgetData = Object.values(props.budget);
-const spendData = Object.values(props.spend);
 
-// Define reactive data
 const series = ref([
     {
         name: 'Budget',
-        data: budgetData
+        data: props.budget
     },
     {
         name: 'Spend',
-        data: spendData
-    },
+        data: props.spend
+    }
 ]);
 
 const chartOptions = ref({
     chart: {
-        height: 500,
+        height: 350,
         type: 'area'
     },
     dataLabels: {
         enabled: false
-    },
-    title: {
-        text: 'Budget and spend trend analysis'
     },
     stroke: {
         curve: 'smooth'
     },
     xaxis: {
         type: 'month',
-        categories: props.months
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
-
 });
 </script>
+
 
 <template>
     <div class="mt-6">

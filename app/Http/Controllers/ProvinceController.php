@@ -5,16 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProvinceRequest;
 use App\Http\Requests\UpdateProvinceRequest;
 use App\Models\Province;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ProvinceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         //
 
+        $budget = $this->trend_analysis()['budget'];
+        $spend = $this->trend_analysis()['spend'];
+
+        return Inertia::render('Dashboard',[
+            'budget' => $budget,
+            'spend' => $spend
+        ]);
 
     }
 
@@ -104,9 +113,9 @@ class ProvinceController extends Controller
         });
 
         return [
-            'months' => $allMonths,
-            'budget' => $combinedBudgetData,
-            'spend' => $combinedSpendData
+//            'months' => $allMonths,
+            'budget' => array_values($combinedBudgetData),
+            'spend' => array_values($combinedSpendData)
         ];
     }
 

@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head} from '@inertiajs/vue3';
 import Count from "@/Components/Count.vue";
-import {computed, onMounted, ref,} from "vue";
+import {computed, defineProps, onMounted, ref,} from "vue";
 import axios from "axios";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
@@ -17,26 +17,21 @@ let count_description = "Total number of projects."
 const provinces = ref<number>(0);
 const budget_allocation = ref<number>(0);
 
-let test_value = '';
-
 function goToProvince(url: any) {
     window.location.href = `province/${url}`;
 }
 
-const budgetCollection = ref();
-const months = ref();
-const spendCollection = ref();
+const props = defineProps({
+    budget: {
+        type: Array,
+        required: true
+    },
+    spend: {
+        type: Array,
+        required: true
+    },
+});
 
-async function getTrendAnalysis() {
-    try {
-        const response = await axios.get('/provinces/trend_analysis');
-        budgetCollection.value = response.data.budget;
-        spendCollection.value = response.data.spend;
-        months.value = response.data.months;
-    } catch (error) {
-        console.error('Failed to fetch project provinces:', error);
-    }
-}
 
 onMounted(async () => {
     try {
@@ -78,12 +73,7 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to fetch project provinces:', error);
     }
-
-    getTrendAnalysis();
 });
-
-
-
 
 </script>
 
@@ -127,7 +117,6 @@ onMounted(async () => {
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Welcome {{ $page.props.auth.user.name }}</h2>
             <p>This is your <strong>Project Management Platform</strong>. Brought to you by <a href="https://www.oelinga.com/">Ölinga.</a> </p>
-            {{ test_value }}
         </template>
 
         <div class="py-12">
@@ -195,21 +184,19 @@ onMounted(async () => {
                     class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
                 >
                     <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
-                        <UserLineAreaChart class="mt-6" style="width: 100%;" :months="months" :budget="budgetCollection" :spend="spendCollection"></UserLineAreaChart>
+                        <UserLineAreaChart class="mt-6" style="width: 100%;" :budget="props.budget" :spend="props.spend"></UserLineAreaChart>
                     </div>
+
+
 
 
                     <div class="relative flex items-center gap-6 lg:items-end">
                         <div id="docs-card-content" class="flex items-start gap-6 lg:flex-col">
                             <div class="pt-3 sm:pt-5 lg:pt-0">
                                 <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Budget | <small>YTD trend analysis</small></h2>
-
                                 <p class="mt-4 text-sm/relaxed">
                                     The above chart shows a trend analysis of budget v/s spend.
                                 </p>
-
-
-
                             </div>
                         </div>
                     </div>
@@ -223,3 +210,5 @@ onMounted(async () => {
 
     </AuthenticatedLayout>
 </template>
+
+
