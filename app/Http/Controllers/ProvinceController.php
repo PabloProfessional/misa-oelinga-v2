@@ -80,6 +80,35 @@ class ProvinceController extends Controller
             return $tops['spend'];
         }, $tops);
 
+        $municipalities = [];
+
+        foreach ($province->municipalities as $municipality) {
+            $budget_and_spend = $municipality->budget_and_spend();
+            //dd($municipality->status());
+            $municipalities []= [
+                'name' => $municipality->name,
+                'url' => $municipality->url,
+                'budget' => number_format($budget_and_spend['budget']/100,2),
+                'spend' => number_format($budget_and_spend['spend']/100,2),
+                'average_status_name' => $municipality->status()['name'] ?? null,
+                'average_status_color' => $municipality->status()['color'] ?? null,
+            ];
+        }
+
+        $projects = [];
+
+        foreach ($province->projects as $project) {
+            $projects []= [
+                'name' => $project->name,
+                'budget' => number_format($project->budget/100,2),
+                'spend' => number_format($project->spend/100,2),
+                'average_status_name' => $project->status()['name'] ?? null,
+                'average_status_color' => $project->status()['color'] ?? null,
+            ];
+        }
+
+        // dd($municipalities);
+
         return Inertia::render('Province/Show',[
             'province' => $province,
             'count' => $province->projects->count(),
@@ -93,7 +122,9 @@ class ProvinceController extends Controller
             'status_count_keys' => array_keys(array_values((array)$statusCounts)[0]),
             'top_projects' => $tops,
             'top_budgets' => $top_budgets,
-            'top_spends' => $top_spends
+            'top_spends' => $top_spends,
+            'municipalities' => $municipalities,
+            'projects' => $projects
         ]);
     }
 
