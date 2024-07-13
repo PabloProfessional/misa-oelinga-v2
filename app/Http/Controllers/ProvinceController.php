@@ -52,6 +52,16 @@ class ProvinceController extends Controller
     {
         //dd($province);
 
+        // Get the statuses
+        $statuses = collect($province->projects)->map(function ($project) {
+            return $project->status()->name;
+        });
+
+        // Count the occurrences of each status name
+        $statusCounts = $statuses->countBy();
+
+        // dd(array_keys(array_values((array)$statusCounts)[0]));
+
         $budget = $province->budget() / 100000000;
         $spend = $province->spend() / 100000000;
         $variance = 0;
@@ -69,7 +79,9 @@ class ProvinceController extends Controller
             'budget_allocation' => 0,
             'variance' => $variance,
             'budget_trend' => array_values($trend_analysis['budget']),
-            'spend_trend' => array_values($trend_analysis['spend'])
+            'spend_trend' => array_values($trend_analysis['spend']),
+            'status_count_values' => array_values(array_values((array)$statusCounts)[0]),
+            'status_count_keys' => array_keys(array_values((array)$statusCounts)[0])
         ]);
     }
 

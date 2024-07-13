@@ -51,12 +51,15 @@ const props = defineProps({
         type: Array,
         required: true
     },
+    status_count_values: {
+        type: Array,
+    },
+    status_count_keys: {
+        type: Array,
+    }
 
 });
 
-function logo () {
-    return '../../../../public/img/provinces/'+props.province.logo;
-}
 
 
 // onMounted(async () => {
@@ -169,7 +172,12 @@ function logo () {
                     >
                         <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
 
-                            <RiskBarometrePieChart class="mt-6" style="width: 100%;"></RiskBarometrePieChart>
+                            <RiskBarometrePieChart
+                                class="mt-6"
+                                style="width: 100%;"
+                                :status_count_values="status_count_values"
+                                :status_count_keys="status_count_keys"
+                            ></RiskBarometrePieChart>
                         </div>
 
 
@@ -181,10 +189,14 @@ function logo () {
                                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Risk Barometer</h2>
 
                                     <p class="mt-4 text-sm/relaxed">
-                                        The risk barometer helps show the distribution of conditions or statuses for various risk elements accross the entire province.
-                                        It shows the proportion of items that fall into different health statuses, such as being in good condition (healthy) or requiring specific types of maintenance (e.g., lubrication, handling overloads, or managing excessive vibration).
-                                        This distribution provides a snapshot of the overall health and maintenance needs of various water pumps, allowing for better planning and resource allocation to ensure optimal performance and longevity of the items in question.
+                                        The risk barometer helps show the distribution of conditions or statuses for various risk elements across the entire province.
+                                        This visual tool allows stakeholders to understand the overall risk landscape by categorizing projects into different risk levels, such as low, medium, and high.
 
+                                    </p>
+
+                                    <p class="mt-4 text-sm/relaxed">
+                                        By using the Risk Barometer, decision-makers can quickly grasp the risk profile of projects within the province, enabling them to allocate resources efficiently, prioritize interventions, and implement strategies to maintain or improve the risk status.
+                                        This ensures that projects are managed effectively, mitigating potential risks before they escalate.
                                     </p>
 
                                 </div>
