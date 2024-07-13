@@ -32,8 +32,8 @@ return new class extends Migration
             $table->integer('stage_type_id')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->decimal('budget', 10, 2)->nullable();
-            $table->decimal('spend', 10, 2)->nullable();
+            $table->integer('budget')->nullable();
+            $table->integer('spend' )->nullable();
             $table->integer('priority_id')->nullable();
             $table->json('tags')->nullable();
             $table->integer('client_id')->nullable();

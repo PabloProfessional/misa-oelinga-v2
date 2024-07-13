@@ -70,8 +70,8 @@ class ProjectController extends Controller
             'municipality' => 'required|numeric',
             'department' => 'required|numeric',
             'sector' => 'required|numeric',
-            'budget' => 'required|numeric|max:100000000000', // Maximum budget of 100 billion
-            'spend' => 'required|numeric|max:100000000000', // Maximum spend of 100 billion
+            'budget' => 'required|string', // Maximum budget of 100 billion
+            'spend' => 'required|string', // Maximum spend of 100 billion
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'procurement_status' => 'required|numeric',
@@ -89,6 +89,12 @@ class ProjectController extends Controller
             'project_stage' => 'required|numeric',
         ]);
 
+        $budget = (int) str_replace('R ','',str_replace(',','',$request->budget)) * 100;
+        $spend = (int) str_replace('R ','',str_replace(',','',$request->spend)) * 100;
+
+        //dd($budget);
+
+
         $project = Project::create([
             'project_number' => $request->project_number,
             'programme_id' => $request->programme,
@@ -99,8 +105,8 @@ class ProjectController extends Controller
             'municipal_id' => $request->municipality,
             'department_id' => $request->department,
             'sector_id' => $request->sector,
-            'budget' => $request->budget,
-            'spend' => $request->spend,
+            'budget' => $budget,
+            'spend' => $spend,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'manager' => $request->manager,
