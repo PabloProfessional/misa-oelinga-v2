@@ -148,8 +148,8 @@ onMounted(async () => {
                                 <div><strong>{{ province.name }}</strong></div>
                                 <ul>
                                     <li><strong>{{ province.project_count }} projects</strong></li>
-                                    <li>Budget: R {{ province.budget /1000000 }} mill</li>
-                                    <li>Spend: R {{ province.spend / 1000000}} mill</li>
+                                    <li>Budget: R {{ province.budget /100000000 }} mill</li>
+                                    <li>Spend: R {{ province.spend / 100000000}} mill</li>
                                 </ul>
 
                                 <div>

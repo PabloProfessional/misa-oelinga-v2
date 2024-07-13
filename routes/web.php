@@ -36,7 +36,7 @@ Route::get('/projects/count', function () {
 });
 
 Route::get('/projects/budget', function () {
-    return response()->json(['budget' => number_format((Project::sum('budget')/1000000),2) ]);
+    return response()->json(['budget' => number_format((Project::sum('budget')/100000000),2) ]);
 });
 
 Route::get('/projects/budget_allocation', function () {
@@ -44,7 +44,7 @@ Route::get('/projects/budget_allocation', function () {
 });
 
 Route::get('/projects/spend', function () {
-    return response()->json(['spend' => number_format((Project::sum('spend')/1000000),2) ]);
+    return response()->json(['spend' => number_format((Project::sum('spend')/100000000),2) ]);
 });
 
 Route::get('/projects/variance', function () {
