@@ -92,6 +92,7 @@ class ProvinceController extends Controller
                 'spend' => number_format($budget_and_spend['spend']/100,2),
                 'average_status_name' => $municipality->status()['name'] ?? null,
                 'average_status_color' => $municipality->status()['color'] ?? null,
+                'average_status_icon' => $municipality->status()['icon'] ?? null,
             ];
         }
 
@@ -105,6 +106,7 @@ class ProvinceController extends Controller
                 'url' => $project->url,
                 'average_status_name' => $project->status()['name'] ?? null,
                 'average_status_color' => $project->status()['color'] ?? null,
+                'average_status_icon' => $project->status()['icon'] ?? null,
             ];
         }
 

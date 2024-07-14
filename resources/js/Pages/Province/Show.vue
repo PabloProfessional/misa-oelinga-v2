@@ -261,7 +261,7 @@ const props = defineProps({
                                                 <td style="text-align: right;">R {{ municipality['spend'] }}</td>
                                                 <td style="text-align: right;">
                                                     <span class="badge badge-primary" :style="{ color: municipality.average_status_color }">
-                                                        {{ municipality['average_status_name'] }}
+                                                        <i :class="municipality['average_status_icon']"></i> {{ municipality['average_status_name'] }}
                                                     </span>
                                                 </td>
                                             </tr>
@@ -318,7 +318,7 @@ const props = defineProps({
                                             <td style="text-align: right;">R {{ project['spend'] }}</td>
                                             <td style="text-align: right;">
                                                     <span class="badge badge-primary" :style="{ color: project.average_status_color }">
-                                                        {{ project['average_status_name'] }}
+                                                       <i :class="project['average_status_icon']"></i> {{ project['average_status_name'] }}
                                                     </span>
                                             </td>
                                         </tr>
