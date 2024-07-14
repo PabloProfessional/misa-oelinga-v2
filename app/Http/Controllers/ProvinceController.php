@@ -102,6 +102,7 @@ class ProvinceController extends Controller
                 'name' => $project->name,
                 'budget' => number_format($project->budget/100,2),
                 'spend' => number_format($project->spend/100,2),
+                'url' => $project->url,
                 'average_status_name' => $project->status()['name'] ?? null,
                 'average_status_color' => $project->status()['color'] ?? null,
             ];

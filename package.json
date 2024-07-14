@@ -21,6 +21,7 @@
         "vue-tsc": "^2.0.24"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.11.3",
         "vue3-apexcharts": "^1.5.3"
     }
 }

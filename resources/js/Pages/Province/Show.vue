@@ -20,8 +20,8 @@ let count_description = "Total number of projects."
 const provinces = ref<number>(0);
 const budget_allocation = ref<number>(0);
 
-function goToProvince(url: any) {
-    window.location.href = `province/${url}`;
+function goToProject(url: any) {
+    window.location.href = `/project/${url}`;
 }
 
 const props = defineProps({
@@ -307,7 +307,12 @@ const props = defineProps({
                                         <tbody class="table-row-group" v-for="project in projects" :key="project['id']">
                                         <tr class="w-full table-row">
                                             <th scope="row" >
-                                                <SecondaryButton style="float: left; width: 80%; margin: 0.3em;">{{ project['name'] }}</SecondaryButton>
+                                                <SecondaryButton
+                                                    @click="goToProject(project['url'])"
+                                                    style="float: left; width: 80%; margin: 0.3em;"
+                                                >
+                                                    {{ project['name'] }}
+                                                </SecondaryButton>
                                             </th>
                                             <td style="text-align: right;">R {{ project['budget'] }}</td>
                                             <td style="text-align: right;">R {{ project['spend'] }}</td>

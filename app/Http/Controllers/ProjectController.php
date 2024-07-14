@@ -163,9 +163,21 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show($url): Response
     {
-        //
+        //dd($url);
+
+        $project = Project::where('url', $url)->first();
+
+        // dd($project->status());
+
+        return Inertia::render('Project/Show',[
+            'project' => $project,
+            'province' => $project->province,
+            'municipality' => $project->municipality,
+            'programme' => $project->programme,
+            'status' => $project->status()
+        ]);
     }
 
     /**
