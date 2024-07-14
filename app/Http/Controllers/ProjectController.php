@@ -169,14 +169,53 @@ class ProjectController extends Controller
 
         $project = Project::where('url', $url)->first();
 
-        // dd($project->status());
+        // Get the activity types
+        $activityTypes = $project->project_activity->map(function ($activity) {
+            return $activity->activity_type->name;
+        });
+
+
+        // Count the occurrences of each status name
+        $activityCounts = $activityTypes->countBy();
+
+        //dd($project->stage);
+
+        $status_procurement = [
+            'status' => $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->name,
+            'icon' => $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->icon,
+            'color' => $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->color
+        ];
+
+        $status_risk = [
+            'status' => $project->average_project_status->where('project_aspect','Risk')->first()->status_type->name,
+            'icon' => $project->average_project_status->where('project_aspect','Risk')->first()->status_type->icon,
+            'color' => $project->average_project_status->where('project_aspect','Risk')->first()->status_type->color
+        ];
+        $status_budget = [
+            'status' => $project->average_project_status->where('project_aspect','Budget')->first()->status_type->name,
+            'icon' => $project->average_project_status->where('project_aspect','Budget')->first()->status_type->icon,
+            'color' => $project->average_project_status->where('project_aspect','Budget')->first()->status_type->color
+        ];
+
+        $status_schedule = [
+            'status' => $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->name,
+            'icon' => $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->icon,
+            'color' => $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->color
+        ];
+
 
         return Inertia::render('Project/Show',[
             'project' => $project,
             'province' => $project->province,
             'municipality' => $project->municipality,
             'programme' => $project->programme,
-            'status' => $project->status()
+            'status' => $project->status(),
+            'status_procurement' => $status_procurement,
+            'status_risk' => $status_risk,
+            'status_budget' => $status_budget,
+            'status_schedule' => $status_schedule,
+            'sector' => $project->sector,
+            'project_stage' => $project->stage,
         ]);
     }
 

@@ -76,6 +76,30 @@ const props = defineProps({
     },
     projects: {
         type: Array
+    },
+    status_procurement: {
+        type: Array,
+        required: true
+    },
+    status_risk: {
+        type: Array,
+        required: true
+    },
+    status_budget: {
+        type: Array,
+        required: true
+    },
+    status_schedule: {
+        type: Array,
+        required: true
+    },
+    sector: {
+        type: Array,
+        required: true
+    },
+    project_stage: {
+        type: Array,
+        required: true
     }
 });
 
@@ -94,11 +118,6 @@ const props = defineProps({
                 {{ project.name }}
             </h2>
             <p style="margin-top: 10px; color: grey;">
-                <strong>Description: </strong>
-                {{ project['description'] }}
-            </p>
-
-            <p style="margin-top: 10px; color: grey;">
 
                 <a href="/dashboard">
                     Dashboard
@@ -115,6 +134,17 @@ const props = defineProps({
                 </a> /
                 <strong> {{ project['name'] }} </strong>
             </p>
+            <p style="margin-top: 10px; color: grey;">
+                <strong>Sector:</strong> <i :class="sector['icon']"></i> {{ sector['name'] }}
+                <br>
+                <strong>Project Stage:</strong> <i :class="project_stage['icon']"></i> {{ project_stage['name'] }} - {{ project_stage['description'] }}
+                <br>
+                <strong>Description: </strong>
+                {{ project['description'] }}
+                <br>
+            </p>
+
+
 
 
         </template>
@@ -170,33 +200,76 @@ const props = defineProps({
 
 
                     <div class="pt-3 sm:pt-5">
-                        <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Recent Activities</h2>
+                        <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">
+                            Project Status <small> | Break down</small>
+                        </h2>
 
                         <ul>
                             <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-blue-300 rounded-full mr-3"></span>
+
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Info</strong> - Pablo's - <strong class="font-semibold">user details</strong> captured
+                                    <strong class="font-medium">
+                                        <i :class="status_procurement['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        Procurement</strong> -
+                                    <strong class="font-semibold">
+                                        {{ status_procurement['status'] }}
+                                    </strong>
                                 </p>
                             </li>
                             <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-blue-300 rounded-full mr-3"></span>
+
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Info</strong> - Pablo - <strong class="font-semibold">Added to administrator </strong> group
+                                    <strong class="font-medium">
+                                        <i :class="status_risk['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        Risk</strong> -
+                                    <strong class="font-semibold">
+                                        {{ status_risk['status'] }}
+                                    </strong>
                                 </p>
                             </li>
                             <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-red-500 rounded-full mr-3"></span>
+
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Critical</strong> - 2 days <strong class="font-semibold">no user activity</strong> 100% offline
+                                    <strong class="font-medium">
+                                        <i :class="status_budget['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        Budget</strong> -
+                                    <strong class="font-semibold">
+                                        {{ status_budget['status'] }}
+                                    </strong>
                                 </p>
                             </li>
                             <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-gray-500 rounded-full mr-3"></span>
+
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Service</strong> - System Reboot<strong class="font-semibold"> Needed</strong> in 2 days
+                                    <strong class="font-medium">
+                                        <i :class="status_schedule['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        Schedule</strong> -
+                                    <strong class="font-semibold">
+                                        {{ status_schedule['status'] }}
+                                    </strong>
                                 </p>
                             </li>
+<!--                            <li class="flex items-center mt-4">-->
+<!--                                <span-->
+<!--                                    class="inline-block w-2.5 h-2.5 rounded-full mr-3"-->
+<!--                                    style="'color: +'status_procurement['color']';"-->
+<!--                                ></span>-->
+<!--                                <p class="text-sm text-gray-700 dark:text-gray-300">-->
+<!--                                    <strong class="font-medium">Info</strong> - Pablo - <strong class="font-semibold">Added to administrator </strong> group-->
+<!--                                </p>-->
+<!--                            </li>-->
+<!--                            <li class="flex items-center mt-4">-->
+<!--                                <span class="inline-block w-2.5 h-2.5 rounded-full mr-3" style="'background-color: '+status_procurement['color']';'"></span>-->
+<!--                                <p class="text-sm text-gray-700 dark:text-gray-300">-->
+<!--                                    <strong class="font-medium">Critical</strong> - 2 days <strong class="font-semibold">no user activity</strong> 100% offline-->
+<!--                                </p>-->
+<!--                            </li>-->
+<!--                            <li class="flex items-center mt-4">-->
+<!--                                <span class="inline-block w-2.5 h-2.5 bg-gray-500 rounded-full mr-3"></span>-->
+<!--                                <p class="text-sm text-gray-700 dark:text-gray-300">-->
+<!--                                    <strong class="font-medium">Service</strong> - System Reboot<strong class="font-semibold"> Needed</strong> in 2 days-->
+<!--                                </p>-->
+<!--                            </li>-->
                         </ul>
 
 
@@ -258,7 +331,8 @@ const props = defineProps({
 
 
 
-
+<br>
+        <br>
 
 
 
