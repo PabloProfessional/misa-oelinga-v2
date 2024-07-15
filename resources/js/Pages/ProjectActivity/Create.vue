@@ -17,7 +17,7 @@ import CreateProjectActivityStatusForm from "@/Pages/ProjectActivity/Partials/Cr
 import SubmitProjectActivityCreateForm from "@/Pages/ProjectActivity/Partials/SubmitProjectActivityCreateForm.vue";
 
 
-defineProps<{
+const props = defineProps<{
     project?: object;
     mustVerifyEmail?: boolean;
     status?: string;
@@ -59,7 +59,7 @@ const updateFormValues1 = (updatedForm: any) => {
     form.name = updatedForm.name;
     form.description = updatedForm.description;
     form.project_activity_type = updatedForm.project_activity_type;
-    form.project_url = updatedForm.project_url;
+    form.project_url = props.project['url'];
 };
 const updateFormValues2 = (updatedForm: any) => {
     form.budget = updatedForm.budget;

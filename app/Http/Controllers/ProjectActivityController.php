@@ -55,9 +55,10 @@ class ProjectActivityController extends Controller
 
         $project = Project::where('uuid',$request->project_uuid)->first();
 
+
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            //'activity_type' => 'required|numeric',
+            'project_activity_type' => 'required|numeric',
             'description' => 'nullable|string',
             //'location' => 'required|numeric',
             'project_stage' => 'required|numeric',
@@ -77,7 +78,7 @@ class ProjectActivityController extends Controller
             'name' => $request->name,
             'activity_type_id' => $request->activity_type,
             'description' => $request->description,
-            'location' => $request->location,
+            'location' => $project->municipal_id,
             'stage_type_id' =>  $request->project_stage,
             'budget' => $request->budget,
             'spend' => $request->spend,

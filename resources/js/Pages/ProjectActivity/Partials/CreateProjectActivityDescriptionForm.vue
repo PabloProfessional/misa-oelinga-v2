@@ -51,8 +51,6 @@ const submitForm = () => {
                 <small><span class="text-gray-700">|  Creation Form</span></small></h2>
         </header>
 
-        <input type="text" v-show="false" v-model="form.project_url" />
-
         <div class="mt-6 space-y-6 max-w-full" >
             <div class="grid grid-cols-2 gap-4">
                 <div>
