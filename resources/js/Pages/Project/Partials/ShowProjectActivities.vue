@@ -41,14 +41,14 @@ function formatNumber(n: any) {
                     <div class="pt-3 sm:pt-5 lg:pt-0">
                         <h2 class="text-xl font-semibold text-black dark:text-white"
                             style="color: #343c54">
-                            Project Activity List |
-                            <small>
+                            Project Activity List
+                            <small style="float: right;">
                                 <PrimaryButton @click="goToCreateProjectActivity(project['url'])" >Add a project activity</PrimaryButton>
                             </small>
                         </h2>
 
                         <p class="mt-4 text-sm/relaxed">
-
+                            <br>
                         </p>
                         <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 900px;">
                             <thead class="table-header-group">
