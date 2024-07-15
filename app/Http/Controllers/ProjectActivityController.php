@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectActivityRequest;
 use App\Http\Requests\UpdateProjectActivityRequest;
+use App\Models\Project;
 use App\Models\ProjectActivity;
+use Inertia\Inertia;
 
 class ProjectActivityController extends Controller
 {
@@ -19,9 +21,15 @@ class ProjectActivityController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($project_url)
     {
         //
+
+        $project = Project::where('url',$project_url)->first();
+
+        return Inertia::render('ProjectActivity/Create',[
+            'project' => $project
+        ]);
     }
 
     /**

@@ -97,6 +97,10 @@ Route::get('/municipalities/by_province/{provinceId}', function ($provinceId) {
 Route::get('/province/status/{id}', [ProvinceController::class, 'getStatus']);
 Route::get('project/{url}',[\App\Http\Controllers\ProjectController::class,'show'])->middleware(['auth', 'verified'])->name('project_show');
 
+// Project Activities
+Route::get('project_activity_create/{id}',[\App\Http\Controllers\ProjectActivityController::class,'create'])
+    ->middleware(['auth', 'verified'])
+    ->name('project_activity_create');
 
 
 require __DIR__.'/auth.php';

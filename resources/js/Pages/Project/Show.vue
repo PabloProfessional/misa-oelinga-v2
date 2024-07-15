@@ -12,9 +12,8 @@ import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
 import TopProjectsSpiderChart from "@/Components/TopProjectsSpiderChart.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
-
-
-
+import ShowProjectActivities from "@/Pages/Project/Partials/ShowProjectActivities.vue";
+import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vue";
 
 const props = defineProps({
     project: {
@@ -322,12 +321,12 @@ const props = defineProps({
                 </a>
 
 
-
-
-
                         </div>
+            <ShowProjectActivities :project="project"></ShowProjectActivities>
+            <ShowProjectAccounts></ShowProjectAccounts>
 
                 </div>
+
 
 
 
