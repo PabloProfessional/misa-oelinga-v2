@@ -35,13 +35,7 @@ defineProps<{
 
 const form = useForm({
     name:'',
-    project_number:'',
-    programme:'',
     description:'',
-    province: '',
-    municipality: '',
-    department: '',
-    sector: '',
     budget: '',
     spend: '',
     start_date: '',
@@ -60,13 +54,7 @@ const form = useForm({
 
 const updateFormValues1 = (updatedForm: any) => {
     form.name = updatedForm.name;
-    form.project_number = updatedForm.project_number;
-    form.programme = updatedForm.programme;
     form.description = updatedForm.description;
-    form.province = updatedForm.province;
-    form.municipality = updatedForm.municipality;
-    form.department = updatedForm.department;
-    form.sector = updatedForm.sector;
 };
 const updateFormValues2 = (updatedForm: any) => {
     form.budget = updatedForm.budget;
@@ -96,7 +84,7 @@ const updateFormValues5 = (updatedForm: any) => {
 
 // Function to handle form submission
 const handleSubmit = () => {
-    form.post(route('project.store'));
+    form.post(route('project_activity.store'));
 };
 
 </script>
@@ -121,17 +109,12 @@ const handleSubmit = () => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-<!--                <form @submit.prevent="form.post(route('project.store'))">-->
                     <form @submit.prevent="handleSubmit">
                     <div class="p-4 sm:p-12 bg-white shadow sm:rounded-lg " >
                         <CreateProjectActivityDescriptionForm
                             class="max-w-xl"
                             :form="form"
                             @update:form="updateFormValues1"
-                            :programmes="programmes"
-                            :provinces="provinces"
-                            :departments="departments"
-                            :sectors="sectors"
                         />
                     </div>
 

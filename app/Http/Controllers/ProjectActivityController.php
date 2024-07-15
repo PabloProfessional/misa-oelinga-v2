@@ -6,6 +6,9 @@ use App\Http\Requests\StoreProjectActivityRequest;
 use App\Http\Requests\UpdateProjectActivityRequest;
 use App\Models\Project;
 use App\Models\ProjectActivity;
+use App\Models\ProjectStageType;
+use App\Models\StatusType;
+use App\Models\User;
 use Inertia\Inertia;
 
 class ProjectActivityController extends Controller
@@ -28,7 +31,13 @@ class ProjectActivityController extends Controller
         $project = Project::where('url',$project_url)->first();
 
         return Inertia::render('ProjectActivity/Create',[
-            'project' => $project
+            'project' => $project,
+            'project_stage_types' => ProjectStageType::select('id','name')->get(),
+            'status_procurement' => StatusType::where('category','Procurement')->select('id','name')->get(),
+            'status_budget' => StatusType::where('category','Budget')->select('id','name')->get(),
+            'status_risk' => StatusType::where('category','Risk')->select('id','name')->get(),
+            'status_schedule' => StatusType::where('category','Schedule')->select('id','name')->get(),
+            'users' => User::select('id','name')->get()
         ]);
     }
 
@@ -38,6 +47,7 @@ class ProjectActivityController extends Controller
     public function store(StoreProjectActivityRequest $request)
     {
         //
+        dd($request->all());
     }
 
     /**

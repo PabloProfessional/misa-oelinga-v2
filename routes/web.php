@@ -101,6 +101,7 @@ Route::get('project/{url}',[\App\Http\Controllers\ProjectController::class,'show
 Route::get('project_activity_create/{id}',[\App\Http\Controllers\ProjectActivityController::class,'create'])
     ->middleware(['auth', 'verified'])
     ->name('project_activity_create');
+Route::resource('project_activity',\App\Http\Controllers\ProjectActivityController::class)->middleware(['auth', 'verified']);
 
 
 require __DIR__.'/auth.php';
