@@ -20,6 +20,10 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    project_activities:{
+        type: Object,
+        required: true
+    },
     municipality: {
         type: Object,
         required: true
@@ -322,7 +326,7 @@ const props = defineProps({
 
 
                         </div>
-            <ShowProjectActivities :project="project"></ShowProjectActivities>
+            <ShowProjectActivities :project="project" :project_activities="project_activities"></ShowProjectActivities>
             <ShowProjectAccounts></ShowProjectAccounts>
 
                 </div>

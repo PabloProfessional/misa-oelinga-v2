@@ -216,6 +216,7 @@ class ProjectController extends Controller
             'status_schedule' => $status_schedule,
             'sector' => $project->sector,
             'project_stage' => $project->stage,
+            'project_activities' => $project->project_activity,
         ]);
     }
 

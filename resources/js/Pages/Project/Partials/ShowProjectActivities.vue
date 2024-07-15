@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 function goToCreateProjectActivity(url: string) {
     window.location.href = `/project_activity_create/${url}`;
 }
@@ -10,7 +11,16 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    project_activities: {
+        type: Object,
+        required: true
+    }
 });
+
+function formatNumber(n: any) {
+    // format number 1000000 to 1,234,567
+    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 </script>
 
@@ -40,6 +50,47 @@ const props = defineProps({
                         <p class="mt-4 text-sm/relaxed">
 
                         </p>
+                        <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 900px;">
+                            <thead class="table-header-group">
+                            <tr style="text-align: left;">
+                                <th>Activity Name<hr></th>
+                                <th style="text-align: right;"><strong>Budget</strong><hr></th>
+                                <th style="text-align: right;"><strong>Spend</strong><hr></th>
+                                <th style="text-align: right;"><strong>Average Status</strong><hr></th>
+                                <th style="text-align: right;"><strong>Notes</strong><hr></th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody class="table-row-group" v-for="activity in project_activities" :key="activity['id']">
+                            <br>
+                            <tr class="w-full table-row">
+                                <th scope="row" >
+                                    <SecondaryButton
+                                        style="float: left; width: 80%; margin: 0.3em;"
+                                    >
+                                        {{ activity['name'] }}
+                                    </SecondaryButton>
+                                </th>
+                                <td style="text-align: right;">R {{ (activity['budget'] / 100 ).toLocaleString('en-US', {
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2
+                                        })}}
+                                </td>
+                                <td style="text-align: right;">R {{ (activity['spend'] / 100 ).toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                })}}
+                                </td>
+                                <td style="text-align: right;">
+                                                    <span class="badge badge-primary" :style="{ color: project.average_status_color }">
+                                                       <i :class="project['average_status_icon']"></i> {{ project['average_status_name'] }}
+                                                    </span>
+                                </td>
+                                <td style="text-align: right;"></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
