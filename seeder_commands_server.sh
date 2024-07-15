@@ -9,6 +9,7 @@ declare -a seeders=(
     "StatusTypeSeeder"
     "UserActivityTypeSeeder"
     "SectorSeeder"
+    "ProjectActivityTypeSeeder"
 )
 
 for seeder in "${seeders[@]}"; do

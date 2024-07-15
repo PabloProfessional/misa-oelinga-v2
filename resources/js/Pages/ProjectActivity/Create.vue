@@ -31,10 +31,13 @@ defineProps<{
     status_risk?: object;
     status_schedule?: object;
     users?: object;
+    project_activity_types?: object;
 }>();
 
 const form = useForm({
+    project_url: '',
     name:'',
+    project_activity_type: '',
     description:'',
     budget: '',
     spend: '',
@@ -55,6 +58,8 @@ const form = useForm({
 const updateFormValues1 = (updatedForm: any) => {
     form.name = updatedForm.name;
     form.description = updatedForm.description;
+    form.project_activity_type = updatedForm.project_activity_type;
+    form.project_url = updatedForm.project_url;
 };
 const updateFormValues2 = (updatedForm: any) => {
     form.budget = updatedForm.budget;
@@ -114,6 +119,8 @@ const handleSubmit = () => {
                         <CreateProjectActivityDescriptionForm
                             class="max-w-xl"
                             :form="form"
+                            :project_activity_types="project_activity_types"
+                            :project_url="project['url']"
                             @update:form="updateFormValues1"
                         />
                     </div>
