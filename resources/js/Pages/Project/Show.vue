@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head} from '@inertiajs/vue3';
 import Count from "@/Components/Count.vue";
-import {defineProps} from "vue";
+import {defineProps, ref} from "vue";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
 import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
@@ -10,6 +10,7 @@ import ShowProjectActivities from "@/Pages/Project/Partials/ShowProjectActivitie
 import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vue";
 
 
+const variance = ref<number>(0);
 
 defineProps({
     project: {
@@ -44,7 +45,7 @@ defineProps({
         type: Number
     },
     variance:{
-        type: String
+        type: Number
     },
     province: {
         type: Object,
