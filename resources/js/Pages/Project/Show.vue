@@ -204,7 +204,7 @@ defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_procurement[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
+                                        <i :class="status_procurement[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
                                         Procurement</strong> -
                                     <strong class="font-semibold">
                                         {{ status_procurement[0] }}
@@ -215,7 +215,7 @@ defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_risk[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
+                                        <i :class="status_risk[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
                                         Risk</strong> -
                                     <strong class="font-semibold">
                                         {{ status_risk[0] }}
@@ -226,7 +226,7 @@ defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_budget[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
+                                        <i :class="status_budget[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
                                         Budget</strong> -
                                     <strong class="font-semibold">
                                         {{ status_budget[0] }}
@@ -237,7 +237,7 @@ defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_schedule[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
+                                        <i :class="status_schedule[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
                                         Schedule</strong> -
                                     <strong class="font-semibold">
                                         {{ status_schedule[0] }}
