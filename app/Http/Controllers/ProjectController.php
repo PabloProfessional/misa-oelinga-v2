@@ -203,6 +203,8 @@ class ProjectController extends Controller
             $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->color
         ];
 
+        //dd($project->sector);
+
 
         return Inertia::render('Project/Show',[
             'project' => $project,

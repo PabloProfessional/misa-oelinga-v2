@@ -93,11 +93,11 @@ defineProps({
         required: true
     },
     sector: {
-        type: Array,
+        type: Object,
         required: true
     },
     project_stage: {
-        type: Array,
+        type: Object,
         required: true,
     },
 });
