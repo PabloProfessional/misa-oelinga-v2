@@ -2,20 +2,16 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head} from '@inertiajs/vue3';
 import Count from "@/Components/Count.vue";
-import {computed, defineProps, onMounted, ref,} from "vue";
-import axios from "axios";
+import {defineProps} from "vue";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
-import AssetHealthPieChart from "@/Pages/Partials/AssetHealthPieChart.vue";
-import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
-import TopProjectsSpiderChart from "@/Components/TopProjectsSpiderChart.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
 import ShowProjectActivities from "@/Pages/Project/Partials/ShowProjectActivities.vue";
 import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vue";
 
-const props = defineProps({
+
+
+defineProps({
     project: {
         type: Object,
         required: true
@@ -102,8 +98,8 @@ const props = defineProps({
     },
     project_stage: {
         type: Array,
-        required: true
-    }
+        required: true,
+    },
 });
 
 
@@ -118,7 +114,7 @@ const props = defineProps({
         <template #header>
 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ project.name }}
+                {{ project['name'] }}
             </h2>
             <p style="margin-top: 10px; color: grey;">
 
@@ -147,9 +143,6 @@ const props = defineProps({
                 <br>
             </p>
 
-
-
-
         </template>
 
 
@@ -168,7 +161,6 @@ const props = defineProps({
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                             <div
-                                href="#"
                                 id="docs-card"
                                 class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
                             >
@@ -196,8 +188,7 @@ const props = defineProps({
                                     </div>
                                 </div>
                             </div>
-                <a
-                    href="#"
+                <div
                     class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
                 >
 
@@ -212,10 +203,10 @@ const props = defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_procurement['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        <i :class="status_procurement[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
                                         Procurement</strong> -
                                     <strong class="font-semibold">
-                                        {{ status_procurement['status'] }}
+                                        {{ status_procurement[0] }}
                                     </strong>
                                 </p>
                             </li>
@@ -223,10 +214,10 @@ const props = defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_risk['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        <i :class="status_risk[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
                                         Risk</strong> -
                                     <strong class="font-semibold">
-                                        {{ status_risk['status'] }}
+                                        {{ status_risk[0] }}
                                     </strong>
                                 </p>
                             </li>
@@ -234,10 +225,10 @@ const props = defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_budget['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        <i :class="status_budget[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
                                         Budget</strong> -
                                     <strong class="font-semibold">
-                                        {{ status_budget['status'] }}
+                                        {{ status_budget[0] }}
                                     </strong>
                                 </p>
                             </li>
@@ -245,34 +236,13 @@ const props = defineProps({
 
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
-                                        <i :class="status_schedule['icon'] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement['color'] }"></i>
+                                        <i :class="status_schedule[1] + ' inline-block w-2.5 h-2.5'" style="margin-right: 0.5em;" :style="{ color: status_procurement[2] }"></i>
                                         Schedule</strong> -
                                     <strong class="font-semibold">
-                                        {{ status_schedule['status'] }}
+                                        {{ status_schedule[0] }}
                                     </strong>
                                 </p>
                             </li>
-<!--                            <li class="flex items-center mt-4">-->
-<!--                                <span-->
-<!--                                    class="inline-block w-2.5 h-2.5 rounded-full mr-3"-->
-<!--                                    style="'color: +'status_procurement['color']';"-->
-<!--                                ></span>-->
-<!--                                <p class="text-sm text-gray-700 dark:text-gray-300">-->
-<!--                                    <strong class="font-medium">Info</strong> - Pablo - <strong class="font-semibold">Added to administrator </strong> group-->
-<!--                                </p>-->
-<!--                            </li>-->
-<!--                            <li class="flex items-center mt-4">-->
-<!--                                <span class="inline-block w-2.5 h-2.5 rounded-full mr-3" style="'background-color: '+status_procurement['color']';'"></span>-->
-<!--                                <p class="text-sm text-gray-700 dark:text-gray-300">-->
-<!--                                    <strong class="font-medium">Critical</strong> - 2 days <strong class="font-semibold">no user activity</strong> 100% offline-->
-<!--                                </p>-->
-<!--                            </li>-->
-<!--                            <li class="flex items-center mt-4">-->
-<!--                                <span class="inline-block w-2.5 h-2.5 bg-gray-500 rounded-full mr-3"></span>-->
-<!--                                <p class="text-sm text-gray-700 dark:text-gray-300">-->
-<!--                                    <strong class="font-medium">Service</strong> - System Reboot<strong class="font-semibold"> Needed</strong> in 2 days-->
-<!--                                </p>-->
-<!--                            </li>-->
                         </ul>
 
 
@@ -280,49 +250,7 @@ const props = defineProps({
                     </div>
 
 
-                </a>
-                <a
-                    href="#"
-                    class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
-                >
-
-
-                    <div class="pt-3 sm:pt-5">
-                        <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Recent Activities</h2>
-
-                        <ul>
-                            <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-blue-300 rounded-full mr-3"></span>
-                                <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Info</strong> - Pablo's - <strong class="font-semibold">user details</strong> captured
-                                </p>
-                            </li>
-                            <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-blue-300 rounded-full mr-3"></span>
-                                <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Info</strong> - Pablo - <strong class="font-semibold">Added to administrator </strong> group
-                                </p>
-                            </li>
-                            <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-red-500 rounded-full mr-3"></span>
-                                <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Critical</strong> - 2 days <strong class="font-semibold">no user activity</strong> 100% offline
-                                </p>
-                            </li>
-                            <li class="flex items-center mt-4">
-                                <span class="inline-block w-2.5 h-2.5 bg-gray-500 rounded-full mr-3"></span>
-                                <p class="text-sm text-gray-700 dark:text-gray-300">
-                                    <strong class="font-medium">Service</strong> - System Reboot<strong class="font-semibold"> Needed</strong> in 2 days
-                                </p>
-                            </li>
-                        </ul>
-
-
-
-                    </div>
-
-
-                </a>
+                </div>
 
 
                         </div>

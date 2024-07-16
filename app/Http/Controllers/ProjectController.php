@@ -181,26 +181,26 @@ class ProjectController extends Controller
         //dd($project->stage);
 
         $status_procurement = [
-            'status' => $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->name,
-            'icon' => $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->icon,
-            'color' => $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->color
+            $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->name,
+            $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->icon,
+            $project->average_project_status->where('project_aspect','Procurement')->first()->status_type->color
         ];
 
         $status_risk = [
-            'status' => $project->average_project_status->where('project_aspect','Risk')->first()->status_type->name,
-            'icon' => $project->average_project_status->where('project_aspect','Risk')->first()->status_type->icon,
-            'color' => $project->average_project_status->where('project_aspect','Risk')->first()->status_type->color
+            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->name,
+            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->icon,
+            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->color
         ];
         $status_budget = [
-            'status' => $project->average_project_status->where('project_aspect','Budget')->first()->status_type->name,
-            'icon' => $project->average_project_status->where('project_aspect','Budget')->first()->status_type->icon,
-            'color' => $project->average_project_status->where('project_aspect','Budget')->first()->status_type->color
+            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->name,
+            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->icon,
+            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->color
         ];
 
         $status_schedule = [
-            'status' => $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->name,
-            'icon' => $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->icon,
-            'color' => $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->color
+            $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->name,
+            $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->icon,
+            $project->average_project_status->where('project_aspect','Schedule')->first()->status_type->color
         ];
 
 
