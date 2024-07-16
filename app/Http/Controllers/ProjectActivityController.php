@@ -31,7 +31,7 @@ class ProjectActivityController extends Controller
     {
         //
 
-        $project = Project::where('url',$project_url)->first();
+        $project = Project::where('url',$project_url)->first()->toArray();
 
         return Inertia::render('ProjectActivity/Create',[
             'project' => $project,

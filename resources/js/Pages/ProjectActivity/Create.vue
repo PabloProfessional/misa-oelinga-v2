@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/vue3';
-import CreateProjectDescriptionForm from "@/Pages/Project/Partials/CreateProjectDescriptionForm.vue";
-import CreateProjectBudgetForm from "@/Pages/Project/Partials/CreateProjectBudgetForm.vue";
-import CreateProjectDurationForm from "@/Pages/Project/Partials/CreateProjectDurationForm.vue";
-import CreateProjectStatusForm from "@/Pages/Project/Partials/CreateProjectStatusForm.vue";
-import CreateProjectFinalDetailsForm from "@/Pages/Project/Partials/CreateProjectFinalDetailsForm.vue";
-import SubmitProjectCreateForm from "@/Pages/Project/Partials/SubmitProjectCreateForm.vue";
 import CreateProjectActivityDescriptionForm
     from "@/Pages/ProjectActivity/Partials/CreateProjectActivityDescriptionForm.vue";
 import CreateProjectActivityBudgetForm from "@/Pages/ProjectActivity/Partials/CreateProjectActivityBudgetForm.vue";
@@ -15,24 +9,43 @@ import CreateProjectActivityFinalDetailsForm
     from "@/Pages/ProjectActivity/Partials/CreateProjectActivityFinalDetailsForm.vue";
 import CreateProjectActivityStatusForm from "@/Pages/ProjectActivity/Partials/CreateProjectActivityStatusForm.vue";
 import SubmitProjectActivityCreateForm from "@/Pages/ProjectActivity/Partials/SubmitProjectActivityCreateForm.vue";
+import {defineProps} from "vue";
 
+const props = defineProps({
+    project: {
+        type: Object,
+        required: true
+    },
+    project_activity_types: {
+        type: Object,
+        required: true
+    },
+    project_stage_types:{
+        type: Object,
+        required: true
+    },
+    status_procurement: {
+        type: Object,
+        required: true
+    },
+    status_budget: {
+        type: Object,
+        required: true
+    },
+    status_risk: {
+        type: Object,
+        required: true
+    },
+    status_schedule: {
+        type: Object,
+        required: true
+    },
+    users: {
+        type: Object,
+        required: true
+    }
+});
 
-const props = defineProps<{
-    project?: object;
-    mustVerifyEmail?: boolean;
-    status?: string;
-    programmes?: object;
-    provinces?: object;
-    departments?: object;
-    sectors?: object;
-    project_stage_types?: object;
-    status_procurement?: object;
-    status_budget?: object;
-    status_risk?: object;
-    status_schedule?: object;
-    users?: object;
-    project_activity_types?: object;
-}>();
 
 const form = useForm({
     project_url: '',
