@@ -3,7 +3,7 @@
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import {defineEmits, watch} from "vue";
 
 const form = useForm({
@@ -26,10 +26,6 @@ watch(form, (newForm) => {
     emit('update:form', newForm);
 }, { deep: true });
 
-// Handle form submission
-const submitForm = () => {
-    emit('submit', form);
-};
 
 function formatNumber(n: any) {
     // format number 1000000 to 1,234,567
