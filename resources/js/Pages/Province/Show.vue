@@ -107,7 +107,7 @@ const variance = props.variance;
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
                     <Count :count="count" :count_description="count_description"></Count>
                     <Budget :budget="budget" :budget_allocation="budget_allocation" ></Budget>
-                    <Spend :spend="spend" :variance="variance"></Spend>
+                    <Spend :spend="spend" :variance="props.variance"></Spend>
                 </div>
             </div>
         </div>
