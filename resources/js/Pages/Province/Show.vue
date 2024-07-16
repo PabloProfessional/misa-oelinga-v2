@@ -332,11 +332,6 @@ defineProps({
       <br>
         <br>
 
-
-
-
-
-
     </AuthenticatedLayout>
 </template>
 

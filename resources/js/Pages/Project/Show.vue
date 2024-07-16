@@ -44,7 +44,7 @@ defineProps({
         type: Number
     },
     variance:{
-        type: Number
+        type: String
     },
     province: {
         type: Object,
