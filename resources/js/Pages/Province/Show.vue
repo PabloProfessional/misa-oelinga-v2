@@ -2,11 +2,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head} from '@inertiajs/vue3';
 import Count from "@/Components/Count.vue";
-import {computed, defineProps, onMounted, ref,} from "vue";
-import axios from "axios";
+import {defineProps, ref,} from "vue";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
-import AssetHealthPieChart from "@/Pages/Partials/AssetHealthPieChart.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
 import TopProjectsSpiderChart from "@/Components/TopProjectsSpiderChart.vue";
@@ -17,14 +15,13 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 // const spend = ref<number>(0);
 // const variance = ref<number>(0);
 let count_description = "Total number of projects."
-const provinces = ref<number>(0);
 const budget_allocation = ref<number>(0);
 
 function goToProject(url: any) {
     window.location.href = `/project/${url}`;
 }
 
-const props = defineProps({
+defineProps({
     count: {
         type: Number
     },
@@ -70,10 +67,10 @@ const props = defineProps({
         type: Array
     },
     municipalities: {
-        type: Array
+        type: Object
     },
     projects: {
-        type: Array
+        type: Object
     }
 });
 
@@ -225,7 +222,7 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
                     <div
-                        href="#"
+
                         id="docs-card"
                         class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
                     >
@@ -277,7 +274,6 @@ const props = defineProps({
                 </div>
                 <div class="grid gap-6 lg:grid-cols-1 lg:gap-8">
                     <div
-                        href="#"
                         id="docs-card"
                         class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#c45d25] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#c45d25]"
                     >

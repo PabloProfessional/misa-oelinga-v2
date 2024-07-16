@@ -89,7 +89,7 @@ function formatCurrency(event: any, blur: any) {
 
     // send updated string to input
     event.target.value = input_val;
-    form.valuation = input_val;
+    //form.valuation = input_val;
 
     // put caret back in the right position
     let updated_len = input_val.length;
