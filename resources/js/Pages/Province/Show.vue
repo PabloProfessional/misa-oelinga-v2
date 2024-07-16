@@ -12,8 +12,8 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 // const budget = ref<number>(0);
-// const spend = ref<number>(0);
-// const variance = ref<number>(0);
+
+
 let count_description = "Total number of projects."
 const budget_allocation = ref<number>(0);
 
@@ -21,7 +21,7 @@ function goToProject(url: any) {
     window.location.href = `/project/${url}`;
 }
 
-defineProps({
+const props = defineProps({
     count: {
         type: Number
     },
@@ -73,6 +73,9 @@ defineProps({
         type: Object
     }
 });
+
+const count = props.count;
+const variance = props.variance;
 
 
 </script>
