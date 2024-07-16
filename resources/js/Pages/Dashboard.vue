@@ -2,11 +2,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head} from '@inertiajs/vue3';
 import Count from "@/Components/Count.vue";
-import {computed, defineProps, onMounted, ref,} from "vue";
+import { defineProps, onMounted, ref,} from "vue";
 import axios from "axios";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
-import AssetHealthPieChart from "@/Pages/Partials/AssetHealthPieChart.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 
 const count = ref<number>(0);
@@ -14,7 +13,7 @@ const budget = ref<number>(0);
 const spend = ref<number>(0);
 const variance = ref<number>(0);
 let count_description = "Total number of projects."
-const provinces = ref<number>(0);
+const provinces = ref<object>();
 const budget_allocation = ref<number>(0);
 
 function goToProvince(url: any) {
@@ -141,21 +140,21 @@ onMounted(async () => {
 
                             <div
                                 v-for="province in provinces"
-                                :key="province.url"
-                                :class="['province-label', province.url]"
-                                @click="goToProvince(province.url)"
+                                :key="province['url']"
+                                :class="['province-label', province['url']]"
+                                @click="goToProvince(province['url'])"
                             >
-                                <div><strong>{{ province.name }}</strong></div>
+                                <div><strong>{{ province['name'] }}</strong></div>
                                 <ul>
-                                    <li><strong>{{ province.project_count }} projects</strong></li>
-                                    <li>Budget: R {{ province.budget /100000000 }} mill</li>
-                                    <li>Spend: R {{ province.spend / 100000000}} mill</li>
+                                    <li><strong>{{ province['project_count'] }} projects</strong></li>
+                                    <li>Budget: R {{ province['budget'] /100000000 }} mill</li>
+                                    <li>Spend: R {{ province['spend'] / 100000000}} mill</li>
                                 </ul>
 
                                 <div>
-                                    <strong v-if="province.status">
-                                        <i :class="province.status.icon" :style="{ color: province.status.color }"></i>
-                                        <span :style="{ color: province.status.color }" class="bg">{{ province.status.name }}</span>
+                                    <strong v-if="province['status']">
+                                        <i :class="province['status']['icon']" :style="{ color: province['status']['color'] }"></i>
+                                        <span :style="{ color: province['status']['color'] }" class="bg">{{ province['status']['name'] }}</span>
                                     </strong>
                                     <span v-else class="badge bg-warning">
                                       No projects yet.

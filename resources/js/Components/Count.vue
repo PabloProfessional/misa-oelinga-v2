@@ -1,6 +1,19 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
-const props = defineProps<{ count: number, count_description: string ,status_icon: string }>();
+
+defineProps({
+    count: {
+        type: Number,
+        required: true
+    },
+    count_description: {
+        type: String,
+        required: true
+    },
+    status_icon: {
+        type: String
+    }
+});
 </script>
 <template>
 
