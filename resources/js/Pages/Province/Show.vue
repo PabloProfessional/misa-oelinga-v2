@@ -26,11 +26,11 @@ defineProps({
         type: Number
     },
     budget: {
-        type: Array,
+        type: Number,
         required: true
     },
     spend: {
-        type: Array,
+        type: Number,
         required: true
     },
     budget_allocation:{
