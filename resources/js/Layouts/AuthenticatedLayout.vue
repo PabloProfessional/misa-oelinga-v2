@@ -6,10 +6,12 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import axios from "axios";
 
 const showingNavigationDropdown = ref(false);
 const isOpen = ref(false);
 const dropdown = ref<HTMLElement | null>(null);
+const provinces = ref<object>();
 
 const toggleDropdown = (event: Event) => {
     event.stopPropagation();
@@ -22,17 +24,22 @@ const handleClickOutside = (event: MouseEvent) => {
     }
 };
 
-onMounted(() => {
+onMounted(async () => {
     document.addEventListener('click', handleClickOutside);
+    try {
+        const response = await axios.get('/provinces/summary');
+        provinces.value = response.data.provinces;
+
+    } catch (error) {
+        console.error('Failed to fetch project provinces:', error);
+    }
 });
 
 onUnmounted(() => {
     document.removeEventListener('click', handleClickOutside);
 });
 
-defineProps<{
-    provinces?: object;
-}>();
+
 
 </script>
 

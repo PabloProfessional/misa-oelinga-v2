@@ -112,7 +112,7 @@ onMounted(async () => {
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout :provinces="provinces">
+    <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Welcome {{ $page.props.auth.user.name }}</h2>
             <p>This is your <strong>Project Management Platform</strong>. Brought to you by <a href="https://www.oelinga.com/">Ölinga.</a> </p>
