@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -8,6 +8,32 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+const isOpen = ref(false);
+const dropdown = ref<HTMLElement | null>(null);
+
+const toggleDropdown = (event: Event) => {
+    event.stopPropagation();
+    isOpen.value = !isOpen.value;
+};
+
+const handleClickOutside = (event: MouseEvent) => {
+    if (dropdown.value && !dropdown.value.contains(event.target as Node)) {
+        isOpen.value = false;
+    }
+};
+
+onMounted(() => {
+    document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside);
+});
+
+defineProps<{
+    provinces?: object;
+}>();
+
 </script>
 
 <template>
@@ -35,6 +61,28 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('project.create')" :active="route().current('project.create')">
                                     Add a project
                                 </NavLink>
+                                <div class="relative" ref="dropdown" style="margin-top: 1.29em;">
+                                    <a href="#" @click.prevent="toggleDropdown" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
+                                        Provinces
+                                        <svg
+                                            class="ms-2 -me-0.5 h-4 w-4"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </a>
+                                    <div v-if="isOpen" class="absolute mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                                        <div class="py-1" v-for="province in provinces">
+                                            <a :href="`/province/${province['url']}`" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ province['name'] }}</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
