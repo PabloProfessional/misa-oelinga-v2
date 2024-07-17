@@ -12,6 +12,22 @@ const showingNavigationDropdown = ref(false);
 const isOpen = ref(false);
 const dropdown = ref<HTMLElement | null>(null);
 const provinces = ref<object>();
+const props = defineProps({
+    isAdmin: {
+        type: Boolean,
+    },
+});
+
+const isAdmin = ref(props.isAdmin);
+
+const checkIfAdmin = async () => {
+    try {
+        const response = await axios.get('/isAdmin');
+        isAdmin.value = response.data;
+    } catch (error) {
+        console.error('Error determining if user is an Administrator:', error);
+    }
+};
 
 const toggleDropdown = (event: Event) => {
     event.stopPropagation();
@@ -33,6 +49,7 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to fetch project provinces:', error);
     }
+    checkIfAdmin();
 });
 
 onUnmounted(() => {
@@ -67,6 +84,13 @@ onUnmounted(() => {
                                 </NavLink>
                                 <NavLink :href="route('project.create')" :active="route().current('project.create')">
                                     Add a project
+                                </NavLink>
+                                <NavLink
+                                    v-if="isAdmin"
+                                    :href="route('users')"
+                                    :active="route().current('users')"
+                                >
+                                    User Admin
                                 </NavLink>
                                 <div class="relative" ref="dropdown" style="margin-top: 1.29em;">
                                     <a href="#" @click.prevent="toggleDropdown" class="inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">

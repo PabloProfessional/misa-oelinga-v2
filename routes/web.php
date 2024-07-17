@@ -103,5 +103,36 @@ Route::get('project_activity_create/{id}',[\App\Http\Controllers\ProjectActivity
     ->name('project_activity_create');
 Route::resource('project_activity',\App\Http\Controllers\ProjectActivityController::class)->middleware(['auth', 'verified']);
 
+Route::get('/administrator/users/',[\App\Http\Controllers\AdministratorController::class,'users'])
+    ->middleware(['auth', 'verified'])
+    ->name('users');
+
+Route::get('/administrator/users/{user_id}',[\App\Http\Controllers\AdministratorController::class,'user_admin_page'])
+    ->middleware(['auth', 'verified'])
+    ->name('user_admin_page');
+
+Route::get('isAdmin',[\App\Http\Controllers\AdministratorController::class,'isAdmin'])
+    ->middleware(['auth', 'verified'])
+    ->name('isAdmin');
+
+Route::get('get_user_activity/{user_id}',[\App\Http\Controllers\AdministratorController::class,'latest_activity'])
+    ->middleware(['auth', 'verified'])
+    ->name('get_user_activity');
+
+Route::post('admin_user',[\App\Http\Controllers\AdministratorController::class,'admin_user'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin_user');
+
+Route::post('admin_user_password',[\App\Http\Controllers\AdministratorController::class,'admin_user_password'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin_user_password');
+
+Route::post('admin_user_delete',[\App\Http\Controllers\AdministratorController::class,'admin_user_delete'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin_user_delete');
+
+Route::post('admin_user_reactive',[\App\Http\Controllers\AdministratorController::class,'admin_user_reactive'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin_user_reactive');
 
 require __DIR__.'/auth.php';
