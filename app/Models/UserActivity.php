@@ -12,4 +12,9 @@ class UserActivity extends Model
     protected $fillable = [
         'user_id','notes','activity_type_id'
     ];
+
+    public function activity_type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(UserActivityType::class,'activity_type_id');
+    }
 }

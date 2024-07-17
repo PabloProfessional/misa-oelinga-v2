@@ -87,7 +87,7 @@ class AdministratorController extends Controller
     {
         $logins = DB::table('user_activities')
             ->select('created_at')
-            ->where('user_activity_type_id', 1)
+            ->where('activity_type_id', 1)
             ->get()
             ->groupBy(function($date) {
                 return \Carbon\Carbon::parse($date->created_at)->format('F'); // grouping by full month name

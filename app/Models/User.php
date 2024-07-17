@@ -71,7 +71,7 @@ class User extends Authenticatable
     {
         $logins = $this->activity()
             ->select('created_at')
-            ->where('user_activity_type_id', 1)
+            ->where('activity_type_id', 1)
             ->get()
             ->groupBy(function($date) {
                 return Carbon::parse($date->created_at)->format('F'); // Grouping by full month name

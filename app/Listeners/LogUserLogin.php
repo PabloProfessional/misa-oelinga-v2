@@ -23,7 +23,7 @@ class LogUserLogin
         //
         \App\Models\UserActivity::create([
             'user_id' => auth()->user()->id,
-            'user_activity_type_id' => 1
+            'activity_type_id' => 1
         ]);
     }
 }
