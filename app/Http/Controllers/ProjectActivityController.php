@@ -11,6 +11,7 @@ use App\Models\ProjectActivityType;
 use App\Models\ProjectStageType;
 use App\Models\StatusType;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -76,6 +77,17 @@ class ProjectActivityController extends Controller
         $budget = (int) str_replace('R ','',str_replace(',','',$request->budget)) * 100;
         $spend = (int) str_replace('R ','',str_replace(',','',$request->spend)) * 100;
 
+        // Initialize an array to store file paths
+        $filePaths = [];
+
+        // Check if the attachment file is present and store it with a custom name
+        if ($request->hasFile('attachment')) {
+            $attachment = $request->file('attachment');
+            $attachmentName = 'project_activity_attachment_' . $request->project_number . '_' . time() . '.' . $attachment->getClientOriginalExtension();
+            $attachmentPath = Storage::disk('public')->putFileAs('project_activity/attachments', $attachment, $attachmentName);
+            $filePaths['attachment'] = $attachmentPath;
+        }
+
         $projectActivity = ProjectActivity::create([
             'project_id' => $project->id,
             'user_id' => auth()->user()->id,
@@ -90,7 +102,11 @@ class ProjectActivityController extends Controller
             'manager_id' => $request->manager,
             'priority_id' => 1,
             'team_members' => json_encode($request->team_members),
-            'attachments' => json_encode($request->attachments),
+            'attachments' => json_encode(
+                [
+                    'project_activity_attachment' => $filePaths['attachment']
+                ]
+            ),
             'notes' => $request->note,
             'stakeholder_id' => $request->manager,
             'stage_type_id' =>  $request->project_stage,

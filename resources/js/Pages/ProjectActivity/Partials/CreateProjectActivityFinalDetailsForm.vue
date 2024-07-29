@@ -31,10 +31,23 @@ watch(form, (newForm) => {
     emit('update:form', newForm);
 }, { deep: true });
 
-// Handle form submission
-const submitForm = () => {
-    emit('submit', form);
+// const handleFileChangeLogo = (event: Event) => {
+//     const target = event.target as HTMLInputElement;
+//     if (target.files && target.files.length > 0) {
+//         form.logo = target.files[0] as any; // Cast to `any` to avoid type error
+//         emitFormValues();
+//     }
+// };
+
+const handleFileChangeAttachment = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+        form.attachment = target.files[0] as any; // Cast to `any` to avoid type error
+        emitFormValues();
+    }
 };
+
+
 
 </script>
 
@@ -89,25 +102,25 @@ const submitForm = () => {
             </div>
         <br>
         <div class="grid grid-cols-2 gap-4">
-            <div>
-                <InputLabel for="logo" value="Project Logo" />
-                <input
-                    type="file"
-                    id="logo"
-                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                    disabled
-                    @input="emitFormValues"
-                />
-                <InputError class="mt-2" :message="form.errors.logo" />
-            </div>
+<!--            <div>-->
+<!--                <InputLabel for="logo" value="Project Logo" />-->
+<!--                <input-->
+<!--                    type="file"-->
+<!--                    id="logo"-->
+<!--                    class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"-->
+<!--                    @input="emitFormValues"-->
+<!--                    @change="handleFileChangeLogo($event)"-->
+<!--                />-->
+<!--                <InputError class="mt-2" :message="form.errors.logo" />-->
+<!--            </div>-->
             <div>
                 <InputLabel for="project_team" value="File attachment" />
                 <input
                     type="file"
                     id="attachment"
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                    disabled
                     @input="emitFormValues"
+                    @change="handleFileChangeAttachment($event)"
                 />
                 <InputError class="mt-2" :message="form.errors.attachment" />
             </div>
