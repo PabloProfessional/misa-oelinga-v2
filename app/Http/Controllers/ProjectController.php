@@ -102,7 +102,7 @@ class ProjectController extends Controller
         // Check if the logo file is present and store it with a custom name
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
-            $logoName = 'logo_' . $request->programme_id . '_' . time() . '.' . $logo->getClientOriginalExtension();
+            $logoName = 'logo_' . $request->project_number . '_' . time() . '.' . $logo->getClientOriginalExtension();
             $logoPath = Storage::disk('public')->putFileAs('logos', $logo, $logoName);
             $filePaths['logo'] = $logoPath;
         }
@@ -110,16 +110,10 @@ class ProjectController extends Controller
         // Check if the attachment file is present and store it with a custom name
         if ($request->hasFile('attachment')) {
             $attachment = $request->file('attachment');
-            $attachmentName = 'attachment_' . $request->programme_id . '_' . time() . '.' . $attachment->getClientOriginalExtension();
+            $attachmentName = 'attachment_' . $request->project_number . '_' . time() . '.' . $attachment->getClientOriginalExtension();
             $attachmentPath = Storage::disk('public')->putFileAs('attachments', $attachment, $attachmentName);
             $filePaths['attachment'] = $attachmentPath;
         }
-//        // Initialize or update the attachments JSON
-//        $attachments = $request->attachments ? json_decode($request->attachments, true) : [];
-//        if (isset($filePaths['attachment'])) {
-//            $attachments[] = $filePaths['attachment'];
-//        }
-
 
         $project = Project::create([
             'project_number' => $request->project_number,
@@ -141,7 +135,7 @@ class ProjectController extends Controller
             'notes' => $request->notes,
             'client_id' => $request->client_id,
             'team_members' => json_encode($request->team_members),
-            'attachments' => json_encode($request->attachments),
+            'attachments' => json_encode($filePaths['attachment']),
             'procurement_status_id' => $request->procurement_status,
             'logo' => $filePaths['logo'] ?? null,
             'status_id' => $request->status_id,
