@@ -5,6 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import {watch, defineEmits} from "vue";
+import {a} from "vite/dist/node/types.d-aGj9QkWt";
 
 defineProps<{
     users?: object;
@@ -30,6 +31,22 @@ const emitFormValues = () => {
 watch(form, (newForm) => {
     emit('update:form', newForm);
 }, { deep: true });
+
+const handleFileChangeLogo = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+        form.logo = target.files[0] as any; // Cast to `any` to avoid type error
+        emitFormValues();
+    }
+};
+
+const handleFileChangeAttachment = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+        form.attachment = target.files[0] as any; // Cast to `any` to avoid type error
+        emitFormValues();
+    }
+};
 
 // Handle form submission
 const submitForm = () => {
@@ -95,8 +112,8 @@ const submitForm = () => {
                     type="file"
                     id="logo"
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                    disabled
                     @input="emitFormValues"
+                    @change="handleFileChangeLogo($event)"
                 />
                 <InputError class="mt-2" :message="form.errors.logo" />
             </div>
@@ -106,8 +123,8 @@ const submitForm = () => {
                     type="file"
                     id="attachment"
                     class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                    disabled
                     @input="emitFormValues"
+                    @change="handleFileChangeAttachment($event)"
                 />
                 <InputError class="mt-2" :message="form.errors.attachment" />
             </div>

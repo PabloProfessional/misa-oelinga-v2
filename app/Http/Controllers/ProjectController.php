@@ -59,7 +59,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //dd($request->all());
+        dd($request->all());
 
         $request->validate([
             'project_number' => 'required|string|unique:projects',
