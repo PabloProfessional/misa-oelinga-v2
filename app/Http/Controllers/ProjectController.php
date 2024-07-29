@@ -16,6 +16,7 @@ use App\Models\StatusType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -59,7 +60,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        dd($request->all());
+        //dd($request->all());
 
         $request->validate([
             'project_number' => 'required|string|unique:projects',
@@ -79,12 +80,13 @@ class ProjectController extends Controller
             'schedule_status' => 'required|numeric',
             'risk_status' => 'required|numeric',
             'manager' => 'nullable|numeric',
-            'logo' => 'nullable|image|max:2048', // Assuming logo is an image file, maximum 2MB
+            'logo' => 'nullable|mimes:jpg,png|max:2048', // Assuming logo is an image file, maximum 2MB
             'priority_id' => 'numeric',
             'team_members' => 'nullable|array', // Assuming team_members is an array
             'team_members.*' => 'numeric', // Assuming team_members is an array of numeric values
             'attachments' => 'nullable|array', // Assuming attachments is an array
             'attachments.*' => 'nullable|file|max:2048', // Assuming attachments is an array of file uploads, maximum 2MB each
+            'attachment' => 'nullable|file|mimes:jpg,png,xlsx,pdf,docx|max:2048',
             'notes' => 'nullable|string',
             'project_stage' => 'required|numeric',
         ]);
@@ -93,6 +95,30 @@ class ProjectController extends Controller
         $spend = (int) str_replace('R ','',str_replace(',','',$request->spend)) * 100;
 
         //dd($budget);
+
+        // Initialize an array to store file paths
+        $filePaths = [];
+
+        // Check if the logo file is present and store it with a custom name
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logoName = 'logo_' . $request->programme_id . '_' . time() . '.' . $logo->getClientOriginalExtension();
+            $logoPath = Storage::disk('public')->putFileAs('logos', $logo, $logoName);
+            $filePaths['logo'] = $logoPath;
+        }
+
+        // Check if the attachment file is present and store it with a custom name
+        if ($request->hasFile('attachment')) {
+            $attachment = $request->file('attachment');
+            $attachmentName = 'attachment_' . $request->programme_id . '_' . time() . '.' . $attachment->getClientOriginalExtension();
+            $attachmentPath = Storage::disk('public')->putFileAs('attachments', $attachment, $attachmentName);
+            $filePaths['attachment'] = $attachmentPath;
+        }
+//        // Initialize or update the attachments JSON
+//        $attachments = $request->attachments ? json_decode($request->attachments, true) : [];
+//        if (isset($filePaths['attachment'])) {
+//            $attachments[] = $filePaths['attachment'];
+//        }
 
 
         $project = Project::create([
@@ -117,7 +143,7 @@ class ProjectController extends Controller
             'team_members' => json_encode($request->team_members),
             'attachments' => json_encode($request->attachments),
             'procurement_status_id' => $request->procurement_status,
-            'logo' => $request->logo,
+            'logo' => $filePaths['logo'] ?? null,
             'status_id' => $request->status_id,
             'priority_id' => $request->priority_id,
         ]);
