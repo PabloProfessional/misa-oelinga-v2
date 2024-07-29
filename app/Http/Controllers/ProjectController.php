@@ -135,7 +135,11 @@ class ProjectController extends Controller
             'notes' => $request->notes,
             'client_id' => $request->client_id,
             'team_members' => json_encode($request->team_members),
-            'attachments' => json_encode($filePaths['attachment']),
+            'attachments' => json_encode(
+                [
+                    'project_create_attachment' => $filePaths['attachment']
+                ]
+            ),
             'procurement_status_id' => $request->procurement_status,
             'logo' => $filePaths['logo'] ?? null,
             'status_id' => $request->status_id,
@@ -188,6 +192,8 @@ class ProjectController extends Controller
         //dd($url);
 
         $project = Project::where('url', $url)->first();
+
+        // dd($project);
 
         // Get the activity types
         $activityTypes = $project->project_activity->map(function ($activity) {
