@@ -8,6 +8,7 @@ import Spend from "@/Components/Spend.vue";
 import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
 import ShowProjectActivities from "@/Pages/Project/Partials/ShowProjectActivities.vue";
 import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vue";
+import ShowProjectAttatchments from "@/Pages/Project/Partials/ShowProjectAttatchments.vue";
 
 
 const variance = ref<number>(0);
@@ -201,7 +202,6 @@ defineProps({
 
                         <ul>
                             <li class="flex items-center mt-4">
-
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
                                         <i :class="status_procurement[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
@@ -212,7 +212,6 @@ defineProps({
                                 </p>
                             </li>
                             <li class="flex items-center mt-4">
-
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
                                         <i :class="status_risk[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
@@ -223,7 +222,6 @@ defineProps({
                                 </p>
                             </li>
                             <li class="flex items-center mt-4">
-
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
                                         <i :class="status_budget[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
@@ -234,7 +232,6 @@ defineProps({
                                 </p>
                             </li>
                             <li class="flex items-center mt-4">
-
                                 <p class="text-sm text-gray-700 dark:text-gray-300">
                                     <strong class="font-medium">
                                         <i :class="status_schedule[1] + ' inline-block w-2.5 h-2.5'" :style="'margin-right: 0.5em;'+{ color: status_procurement[2] }"></i>
@@ -245,18 +242,15 @@ defineProps({
                                 </p>
                             </li>
                         </ul>
-
-
-
                     </div>
-
-
                 </div>
 
 
                         </div>
             <ShowProjectActivities :project="project" :project_activities="project_activities"></ShowProjectActivities>
             <ShowProjectAccounts></ShowProjectAccounts>
+
+            <ShowProjectAttatchments :project="project"></ShowProjectAttatchments>
 
                 </div>
 

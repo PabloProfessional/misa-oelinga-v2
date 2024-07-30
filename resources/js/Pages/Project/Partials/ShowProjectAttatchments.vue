@@ -11,16 +11,28 @@ const props = defineProps({
         type: Object,
         required: true
     },
-    project_activities: {
-        type: Object,
-        required: true
-    }
 });
 
-function formatNumber(n: any) {
-    // format number 1000000 to 1,234,567
-    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function formatTimestamp(filename: any) {
+    const timestamp = filename.split('_').pop().split('.').shift();
+    const date = new Date(parseInt(timestamp) * 1000);
+
+    return date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+    });
 }
+
+function getFilenameWithoutExtension(filename: any) {
+    const fullFilename = filename.split('/').pop();
+    return fullFilename.split('.').slice(0, -1).join('.');
+}
+
+
 
 </script>
 
@@ -38,51 +50,43 @@ function formatNumber(n: any) {
                     <div class="pt-3 sm:pt-5 lg:pt-0">
                         <h2 class="text-xl font-semibold text-black dark:text-white"
                             style="color: #343c54">
-                            Activity List <small>| of tasks to expedite project</small>
+                            Attatchments <small>| Supporting documentation</small>
+
                             <small style="float: right;">
-                                <PrimaryButton @click="goToCreateProjectActivity(project['url'])" >Add a project activity</PrimaryButton>
+                                <PrimaryButton @click="goToCreateProjectActivity(project['url'])" >Upload supporting documentation </PrimaryButton>
                             </small>
                         </h2>
 
                         <p class="mt-4 text-sm/relaxed">
                             <br>
+<!--                            {{ project['attachments'] }}-->
                         </p>
                         <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 900px;">
                             <thead class="table-header-group">
                             <tr style="text-align: left;">
-                                <th>Activity Name<hr></th>
-                                <th style="text-align: right;"><strong>Budget</strong><hr></th>
-                                <th style="text-align: right;"><strong>Spend</strong><hr></th>
-                                <th style="text-align: right;"><strong>Average Status</strong><hr></th>
+                                <th>Document<hr></th>
+                                <th style="text-align: right;"><strong>Type</strong><hr></th>
+                                <th style="text-align: right;"><strong>Date Uploaded</strong><hr></th>
                                 <th style="text-align: right;"><strong>Notes</strong><hr></th>
                             </tr>
 
                             </thead>
 
-                            <tbody class="table-row-group" v-for="activity in project_activities" :key="activity['id']">
+                            <tbody class="table-row-group" v-for="(value, key) in (JSON.parse(project['attachments']))" :key="key">
                             <br>
                             <tr class="w-full table-row">
                                 <th scope="row" >
                                     <SecondaryButton
                                         style="float: left; width: 80%; margin: 0.3em;"
                                     >
-                                        {{ activity['name'] }}
+                                        {{ getFilenameWithoutExtension(value)}}
                                     </SecondaryButton>
                                 </th>
-                                <td style="text-align: right;">R {{ (activity['budget'] / 100 ).toLocaleString('en-US', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2
-                                        })}}
-                                </td>
-                                <td style="text-align: right;">R {{ (activity['spend'] / 100 ).toLocaleString('en-US', {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
-                                })}}
+                                <td style="text-align: right;">
+                                    {{ value.split('.').pop() }}
                                 </td>
                                 <td style="text-align: right;">
-                                                    <span class="badge badge-primary" :style="{ color: project.average_status_color }">
-                                                       <i :class="project['average_status_icon']"></i> {{ project['average_status_name'] }}
-                                                    </span>
+                                    {{ formatTimestamp(value)}}
                                 </td>
                                 <td style="text-align: right;"></td>
                             </tr>
