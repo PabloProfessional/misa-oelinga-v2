@@ -2,10 +2,8 @@
 <script setup lang="ts">
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import {watch, defineEmits} from "vue";
-import {a} from "vite/dist/node/types.d-aGj9QkWt";
 
 defineProps<{
     users?: object;
@@ -49,9 +47,7 @@ const handleFileChangeAttachment = (event: Event) => {
 };
 
 // Handle form submission
-const submitForm = () => {
-    emit('submit', form);
-};
+
 
 </script>
 
