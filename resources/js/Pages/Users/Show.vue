@@ -48,7 +48,9 @@ function formatDate (dateString) {
                 <a href="/administrator/users">
                     User Administration
                 </a> /
-                <strong> {{ user.name }} </strong>
+                <strong> {{ user.name }}</strong>
+
+
             </p>
         </template>
 
@@ -64,7 +66,7 @@ function formatDate (dateString) {
                             <a href="mailto:{{ user.email }}">{{ user.email }}</a>
                             <br> <span v-if="user.is_active">Active </span>
                             <span v-if="!user.is_active">Account Deactivated</span>
-                            <span v-if="admin">| Administrator</span>
+                            <span v-if="admin"> | Administrator</span>
 
                         </div>
                     </div>

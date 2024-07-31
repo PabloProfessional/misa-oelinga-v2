@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function user_activity(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(UserActivity::class)->orderBy('id','desc')->take(4);
+        return $this->hasMany(UserActivity::class)->orderBy('created_at','asc')->take(4);
     }
 
     public function activity(): \Illuminate\Database\Eloquent\Relations\HasMany
