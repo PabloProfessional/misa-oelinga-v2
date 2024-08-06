@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectActivityProgressRequest;
 use App\Http\Requests\UpdateProjectActivityProgressRequest;
+use App\Models\ProjectActivity;
 use App\Models\ProjectActivityProgress;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -60,6 +61,10 @@ class ProjectActivityProgressController extends Controller
             'custom_2',
             'notes' => $request->notes,
         ]);
+
+        $project_activity = ProjectActivity::find($request->project_activity_id);
+        $project_activity->spend += $spend;
+        $project_activity->save();
 
         return Redirect::back();
     }
