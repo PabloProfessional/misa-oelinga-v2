@@ -11,6 +11,13 @@ const props = defineProps({
     }
 });
 
+const proper_budget = () => {
+    if (props.budget < 1) {
+        return (props.budget * 1000000).toLocaleString('En-US');
+    }
+    return props.budget+" million";
+}
+
 </script>
 <template>
             <a
@@ -40,7 +47,7 @@ const props = defineProps({
                 <div class="pt-3 sm:pt-5">
                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Budget | <small>Total YTD</small> </h2>
                     <br>
-                    <p class="text-3xl font-bold" style="color: dimgrey">R {{budget}} million</p>
+                    <p class="text-3xl font-bold" style="color: dimgrey">R {{proper_budget()}}</p>
                     <p style="color: dimgrey"><strong>{{ budget_allocation }}%</strong> allocated</p>
 
                 </div>

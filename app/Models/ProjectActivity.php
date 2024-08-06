@@ -50,7 +50,7 @@ class ProjectActivity extends Model
 
     public function progress(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(ProjectActivityProgress::class)->orderBy('created_at','desc');
+        return $this->hasMany(ProjectActivityProgress::class);
     }
 
 

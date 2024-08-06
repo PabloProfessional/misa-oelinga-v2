@@ -13,6 +13,14 @@ const props = defineProps({
 const varianceDescription = computed(() => {
     return props.variance >= 0 ? 'underspend' : 'overspend';
 });
+
+const proper_spend = () => {
+    if (props.spend < 1) {
+        return (props.spend * 1000000).toLocaleString('En-US');
+    }
+    return props.spend+" million";
+}
+
 </script>
 <template>
             <a
@@ -42,7 +50,7 @@ const varianceDescription = computed(() => {
                 <div class="pt-3 sm:pt-5">
                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Spend | <small>Total YTD</small> </h2>
                     <br>
-                    <p class="text-3xl font-bold" style="color: dimgrey">R {{ spend}} million</p>
+                    <p class="text-3xl font-bold" style="color: dimgrey">R {{proper_spend()}}</p>
                     <p style="color: dimgrey"><strong>{{variance}}%</strong> {{ varianceDescription }}</p>
                 </div>
 
