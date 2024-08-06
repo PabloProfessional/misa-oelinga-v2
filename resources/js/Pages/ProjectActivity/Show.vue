@@ -26,31 +26,31 @@ defineProps({
     },
     project: {
         type: Object,
-        required: true
+        //required: true
     },
     project_activities:{
         type: Object,
-        required: true
+        //required: true
     },
     municipality: {
         type: Object,
-        required: true
+        //required: true
     },
     programme: {
         type: Object,
-        required: true
+        //required: true
     },
     status: {
         type: Object,
-        required: true
+        //required: true
     },
     budget: {
         type: Array,
-        required: true
+        //required: true
     },
     spend: {
         type: Array,
-        required: true
+        //required: true
     },
     budget_allocation:{
         type: Number
@@ -60,15 +60,13 @@ defineProps({
     },
     province: {
         type: Object,
-        required: true
+        //required: true
     },
     budget_trend: {
         type: Array,
-        required: true
     },
     spend_trend: {
         type: Array,
-        required: true
     },
     status_count_values: {
         type: Array,
@@ -87,26 +85,6 @@ defineProps({
     },
     projects: {
         type: Array
-    },
-    status_procurement: {
-        type: Array,
-        required: true
-    },
-    status_risk: {
-        type: Array,
-        required: true
-    },
-    status_budget: {
-        type: Array,
-        required: true
-    },
-    status_schedule: {
-        type: Array,
-        required: true
-    },
-    sector: {
-        type: Object,
-        required: true
     },
     project_stage: {
         type: Object,
@@ -155,7 +133,7 @@ defineProps({
                 <strong>Description: </strong>
                 {{ activity['description'] }}
                 <br><br>
-                <UpdateActivityProgressForm></UpdateActivityProgressForm>
+                <UpdateActivityProgressForm :project_activity_id="activity['id']"></UpdateActivityProgressForm>
             </p>
 
         </template>

@@ -146,11 +146,6 @@ class ProjectActivityController extends Controller
             'municipality' => $projectActivity->project->municipality,
             'programme' => $projectActivity->project->programme,
             'status' => $projectActivity->project->status(),
-            'status_procurement' => 'PlaceHolder',
-            'status_risk' => 'PlaceHolder',
-            'status_budget' => 'PlaceHolder',
-            'status_schedule' => 'PlaceHolder',
-            'sector' => 'PlaceHolder',
             'project_stage' => $projectActivity->project->stage,
             'project_activities' => $projectActivity->project->project_activity,
         ]);

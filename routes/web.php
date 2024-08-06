@@ -135,4 +135,6 @@ Route::post('admin_user_reactive',[\App\Http\Controllers\AdministratorController
     ->middleware(['auth', 'verified'])
     ->name('admin_user_reactive');
 
+Route::resource('project_activity_progress',\App\Http\Controllers\ProjectActivityProgressController::class)->middleware(['auth','verified']);
+
 require __DIR__.'/auth.php';

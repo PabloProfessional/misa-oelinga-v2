@@ -1,37 +1,49 @@
 <script setup lang="ts">
-import DangerButton from '@/Components/DangerButton.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import Modal from '@/Components/Modal.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
-import {nextTick, ref, watch} from 'vue';
+import {defineProps, nextTick, ref, watch} from 'vue';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref<HTMLInputElement | null>(null);
 
+const props = defineProps({
+    project_activity_id:{
+        type: Number,
+    },
+});
+
 const form = useForm({
+    project_activity_id: props.project_activity_id,
     spend: '',
     percentage_completion: '',
-    password: '',
-    attatchment: '',
-    notes:''
+    attachment: '', // corrected typo here
+    notes: ''
 });
 
 const confirmUserDeletion = () => {
     confirmingUserDeletion.value = true;
-
     nextTick(() => passwordInput.value?.focus());
 };
 
-const deleteUser = () => {
-    form.delete(route('profile.destroy'), {
+const createProjectActivityProgress = () => {
+    console.log("Form data before submission:", form);
+    form.post(route('project_activity_progress.store'), {
         preserveScroll: true,
-        onSuccess: () => closeModal(),
-        onError: () => passwordInput.value?.focus(),
+        onSuccess: () => {
+            console.log("Form submitted successfully");
+            closeModal();
+        },
+        onError: (errors) => {
+            console.error("Error submitting form:", errors);
+            passwordInput.value?.focus();
+        },
         onFinish: () => {
+            console.log("Form submission finished");
             form.reset();
         },
     });
@@ -39,7 +51,6 @@ const deleteUser = () => {
 
 const closeModal = () => {
     confirmingUserDeletion.value = false;
-
     form.reset();
 };
 
@@ -108,13 +119,11 @@ watch(form, (newForm) => {
 const handleFileChangeAttachment = (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length > 0) {
-        form.attatchment = target.files[0] as any; // Cast to `any` to avoid type error
+        form.attachment = target.files[0] as any; // Cast to `any` to avoid type error
         emitFormValues();
     }
 };
-
 </script>
-
 
 
 <template>
@@ -176,7 +185,7 @@ const handleFileChangeAttachment = (event: Event) => {
                             @input="emitFormValues"
                             @change="handleFileChangeAttachment($event)"
                         />
-                        <InputError class="mt-2" :message="form.errors.attatchment" />
+                        <InputError class="mt-2" :message="form.errors.attachment" /> <!-- corrected typo here -->
                     </div>
                     <br>
                     <div>
@@ -198,7 +207,7 @@ const handleFileChangeAttachment = (event: Event) => {
                         class="ms-3"
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
-                        @click="deleteUser"
+                        @click="createProjectActivityProgress"
                     >
                         Save progress
                     </PrimaryButton>
@@ -207,4 +216,5 @@ const handleFileChangeAttachment = (event: Event) => {
         </Modal>
     </section>
 </template>
+
 
