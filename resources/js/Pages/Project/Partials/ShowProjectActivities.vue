@@ -2,6 +2,7 @@
 
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import {toLocaleString} from "@tailwindcss/forms";
 function goToCreateProjectActivity(url: string) {
     window.location.href = `/project_activity_create/${url}`;
 }
@@ -38,6 +39,22 @@ function calculateDuration(startDate: any, endDate: any) {
     } else {
         return duration + ' days';
     }
+}
+
+let fundsAvailable = 0;
+
+function determineFundsAvailable(budget: any, spend: any) {
+    fundsAvailable = ((budget - spend) / 100);
+    return fundsAvailable;
+
+}
+
+function determineBudgetStatus(budget: any, spend: any) {
+    if (fundsAvailable >= 0) {
+        return 'On budget'
+    }
+
+    return 'Overspend';
 }
 
 </script>
@@ -89,17 +106,16 @@ function calculateDuration(startDate: any, endDate: any) {
 
 <!--                                    {{ activity }}-->
                                 </th>
-                                <td style="text-align: right;">R {{ ((activity['budget'] - activity['spend']) / 100 ).toLocaleString('en-US', {
+                                <td style="text-align: right;">
+                                    {{ determineBudgetStatus(activity['budget'], activity['spend'])}}
+                                </td>
+
+                                <td style="text-align: right;">R {{ (determineFundsAvailable(activity['budget'], activity['spend'])).toLocaleString('en-US', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                 })}}
                                 </td>
 
-                                <td style="text-align: right;">R {{ ((activity['budget'] - activity['spend']) / 100 ).toLocaleString('en-US', {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
-                                })}}
-                                </td>
                                 <td style="text-align: right;">
                                     {{ calculateDuration(activity['start_date'],activity['end_date']) }}
                                 </td>
