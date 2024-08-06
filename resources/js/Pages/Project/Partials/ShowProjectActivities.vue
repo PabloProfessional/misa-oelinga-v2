@@ -14,12 +14,30 @@ const props = defineProps({
     project_activities: {
         type: Object,
         required: true
-    }
+    },
 });
 
-function formatNumber(n: any) {
-    // format number 1000000 to 1,234,567
-    return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+let duration = null;
+function calculateDuration(startDate: any, endDate: any) {
+    const start_date: any = new Date(startDate);
+    const end_date: any = new Date(endDate);
+    const diffInMilliseconds = end_date - start_date;
+    duration = diffInMilliseconds / (1000 * 60 * 60 * 24);
+
+    if (duration >= 365) {
+        return (duration / 365).toFixed(2) + ' years';
+    } else if (duration < 365 && duration > 31) {
+        const startYear = start_date.getFullYear();
+        const startMonth = start_date.getMonth();
+        const endYear = end_date.getFullYear();
+        const endMonth = end_date.getMonth();
+
+        const months = (endYear - startYear) * 12 + (endMonth - startMonth);
+        return months + ' months';
+    } else {
+        return duration + ' days';
+    }
 }
 
 </script>
@@ -47,14 +65,14 @@ function formatNumber(n: any) {
                         <p class="mt-4 text-sm/relaxed">
                             <br>
                         </p>
-                        <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 900px;">
+                        <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 1100px;">
                             <thead class="table-header-group">
                             <tr style="text-align: left;">
-                                <th>Activity Name<hr></th>
-                                <th style="text-align: right;"><strong>Budget</strong><hr></th>
-                                <th style="text-align: right;"><strong>Spend</strong><hr></th>
-                                <th style="text-align: right;"><strong>Average Status</strong><hr></th>
-                                <th style="text-align: right;"><strong>Notes</strong><hr></th>
+                                <th>Activity<hr></th>
+                                <th style="text-align: right;"><strong>Budget Status</strong><hr></th>
+                                <th style="text-align: right;"><strong>Funds Available</strong><hr></th>
+                                <th style="text-align: right;"><strong>Duration</strong><hr></th>
+                                <th style="text-align: right;"><strong>Risk Status</strong><hr></th>
                             </tr>
 
                             </thead>
@@ -66,25 +84,30 @@ function formatNumber(n: any) {
                                     <SecondaryButton
                                         style="float: left; width: 80%; margin: 0.3em;"
                                     >
-                                        {{ activity['name'] }}
+                                        {{ activity['activity_type']['name'] }}: {{ activity['name'] }}
                                     </SecondaryButton>
+
+<!--                                    {{ activity }}-->
                                 </th>
-                                <td style="text-align: right;">R {{ (activity['budget'] / 100 ).toLocaleString('en-US', {
-                                            minimumFractionDigits: 2,
-                                            maximumFractionDigits: 2
-                                        })}}
+                                <td style="text-align: right;">R {{ ((activity['budget'] - activity['spend']) / 100 ).toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                })}}
                                 </td>
-                                <td style="text-align: right;">R {{ (activity['spend'] / 100 ).toLocaleString('en-US', {
+
+                                <td style="text-align: right;">R {{ ((activity['budget'] - activity['spend']) / 100 ).toLocaleString('en-US', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                 })}}
                                 </td>
                                 <td style="text-align: right;">
-                                                    <span class="badge badge-primary" :style="{ color: project.average_status_color }">
-                                                       <i :class="project['average_status_icon']"></i> {{ project['average_status_name'] }}
-                                                    </span>
+                                    {{ calculateDuration(activity['start_date'],activity['end_date']) }}
                                 </td>
-                                <td style="text-align: right;"></td>
+                                <td style="text-align: right;">
+                                    <span class="badge badge-primary" :style="{ color: activity.average_status_color }">
+                                       <i :class="activity['average_status_icon']"></i> {{ activity['average_status_name'] }}
+                                    </span>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

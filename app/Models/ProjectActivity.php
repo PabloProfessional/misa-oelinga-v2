@@ -48,4 +48,9 @@ class ProjectActivity extends Model
         return $this->belongsTo(Project::class,'project_id');
     }
 
+//    public function budget_status()
+//    {
+//        return $this->hasMany(ProjectActivityType::class,'act')
+//    }
+
 }

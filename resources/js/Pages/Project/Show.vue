@@ -244,9 +244,7 @@ defineProps({
                         </ul>
                     </div>
                 </div>
-
-
-                        </div>
+            </div>
             <ShowProjectActivities :project="project" :project_activities="project_activities"></ShowProjectActivities>
             <ShowProjectAccounts></ShowProjectAccounts>
 
