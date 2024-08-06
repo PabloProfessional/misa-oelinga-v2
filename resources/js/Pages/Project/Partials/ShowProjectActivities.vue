@@ -48,6 +48,10 @@ function determineFundsAvailable(budget: any, spend: any) {
 
 }
 
+function goToProjectActivity(url: any) {
+    window.location.href = `/project_activity/${url}`;
+}
+
 </script>
 
 <template>
@@ -64,7 +68,7 @@ function determineFundsAvailable(budget: any, spend: any) {
                     <div class="pt-3 sm:pt-5 lg:pt-0">
                         <h2 class="text-xl font-semibold text-black dark:text-white"
                             style="color: #343c54">
-                            Activity List <small>| of tasks to expedite project</small>
+                            Activity List <small>| of tasks to expedite project delivery</small>
                             <small style="float: right;">
                                 <PrimaryButton @click="goToCreateProjectActivity(project['url'])" >Add a project activity</PrimaryButton>
                             </small>
@@ -90,6 +94,7 @@ function determineFundsAvailable(budget: any, spend: any) {
                             <tr class="w-full table-row">
                                 <th scope="row" >
                                     <SecondaryButton
+                                        @click="goToProjectActivity(activity['id'])"
                                         style="float: left; width: 80%; margin: 0.3em;"
                                     >
                                         {{ activity['activity_type']['name'] }}: {{ activity['name'] }}
@@ -117,6 +122,7 @@ function determineFundsAvailable(budget: any, spend: any) {
                                     <span class="badge badge-primary" :style="{ color: activity.average_status_color }">
                                        <i :class="activity['average_status_icon']"></i> {{ activity['average_status_name'] }}
                                     </span>
+                                    <p><strong>TODO:</strong> Risk evaluation algorithm </p>
                                 </td>
                             </tr>
                             </tbody>

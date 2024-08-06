@@ -136,7 +136,24 @@ class ProjectActivityController extends Controller
      */
     public function show(ProjectActivity $projectActivity)
     {
-        //
+        //dd($projectActivity);
+
+        return Inertia::render('ProjectActivity/Show',[
+            'activity' => $projectActivity,
+            'activity_type' => $projectActivity->activity_type,
+            'project' => $projectActivity->project,
+            'province' => $projectActivity->project->province,
+            'municipality' => $projectActivity->project->municipality,
+            'programme' => $projectActivity->project->programme,
+            'status' => $projectActivity->project->status(),
+            'status_procurement' => 'PlaceHolder',
+            'status_risk' => 'PlaceHolder',
+            'status_budget' => 'PlaceHolder',
+            'status_schedule' => 'PlaceHolder',
+            'sector' => 'PlaceHolder',
+            'project_stage' => $projectActivity->project->stage,
+            'project_activities' => $projectActivity->project->project_activity,
+        ]);
     }
 
     /**
