@@ -2,7 +2,6 @@
 
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
-import {toLocaleString} from "@tailwindcss/forms";
 function goToCreateProjectActivity(url: string) {
     window.location.href = `/project_activity_create/${url}`;
 }
@@ -47,14 +46,6 @@ function determineFundsAvailable(budget: any, spend: any) {
     fundsAvailable = ((budget - spend) / 100);
     return fundsAvailable;
 
-}
-
-function determineBudgetStatus(budget: any, spend: any) {
-    if (fundsAvailable >= 0) {
-        return 'On budget'
-    }
-
-    return 'Overspend';
 }
 
 </script>
@@ -107,7 +98,10 @@ function determineBudgetStatus(budget: any, spend: any) {
 <!--                                    {{ activity }}-->
                                 </th>
                                 <td style="text-align: right;">
-                                    {{ determineBudgetStatus(activity['budget'], activity['spend'])}}
+                                    <p :style="{ color: fundsAvailable >= 0 ? 'green' : 'red' }">
+                                        <i :class="fundsAvailable >= 0 ? 'bi bi-check-circle-fill' : 'bi bi-exclamation-triangle-fill'"></i>
+                                        {{ fundsAvailable >= 0 ? 'On budget' : 'Overspend' }}
+                                    </p>
                                 </td>
 
                                 <td style="text-align: right;">R {{ (determineFundsAvailable(activity['budget'], activity['spend'])).toLocaleString('en-US', {
