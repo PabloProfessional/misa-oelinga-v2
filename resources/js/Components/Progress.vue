@@ -24,11 +24,10 @@ defineProps({
             <div v-if="status_icon" class="overflow-hidden shadow-sm sm:rounded-lg w-full flex flex-col justify-between"
                  style="background-color: rgb(63, 98, 18);">
                 <div class="p-6 text-7xl font-bold" style="color: whitesmoke">
-                    <i :class="status_icon"></i>
-
+                    {{ progress['percentage_completion'] }}%
                 </div>
                 <div class="p-6 text-white" style="color: whitesmoke">
-                    <strong>{{ count }}</strong> - {{ count_description }}
+                    <strong>Percentage Completion</strong> - of activity, updated {{ progress['created_at'] }}
                 </div>
             </div>
 

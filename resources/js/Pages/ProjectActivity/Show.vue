@@ -11,6 +11,7 @@ import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vu
 import ShowProjectAttatchments from "@/Pages/Project/Partials/ShowProjectAttatchments.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import UpdateActivityProgressForm from "@/Pages/ProjectActivity/Partials/UpdateActivityProgressForm.vue";
+import Progress from "@/Components/Progress.vue";
 
 
 const variance = ref<number>(0);
@@ -90,6 +91,9 @@ defineProps({
         type: Object,
         required: true,
     },
+    progress: {
+        type: Object
+    }
 });
 
 
@@ -111,18 +115,18 @@ defineProps({
                 <a href="/dashboard">
                     Dashboard
                 </a> /
-                <a :href="'/province/'+province['url']">
-                    {{ province['name'] }}
+                <a :href="'/province/'+province?.['url']">
+                    {{ province?.['name'] }}
                 </a> /
-                <a :href="'/municipality/' + municipality['url']">
-                    {{ municipality['name'] }}
+                <a :href="'/municipality/' + municipality?.['url']">
+                    {{ municipality?.['name'] }}
                 </a> /
 
-                <a :href="'/programme/' + programme['url']">
-                    Programme - {{ programme['name'] }}
+                <a :href="'/programme/' + programme?.['url']">
+                    Programme - {{ programme?.['name'] }}
                 </a> /
-                <a :href="'/project/' + project['url']">
-                    Project - {{ project['name'] }}
+                <a :href="'/project/' + project?.['url']">
+                    Project - {{ project?.['name'] }}
                 </a> /
                 <strong> {{ activity['name'] }} </strong>
             </small>
@@ -143,7 +147,7 @@ defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
-                    <Count :count="status['name']" :count_description="status['description']" :status_icon="status['icon']"></Count>
+                    <Progress :progress="progress" :count="progress" :count_description="'Percentage completion of activity'" :status_icon="status?.['icon']" v-if="progress"></Progress>
                     <Budget :budget="activity['budget'] / 100000000 " :budget_allocation="0" ></Budget>
                     <Spend :spend="activity['spend'] / 100000000 " :variance="variance"></Spend>
                 </div>

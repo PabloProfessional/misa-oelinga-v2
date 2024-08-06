@@ -48,9 +48,11 @@ class ProjectActivity extends Model
         return $this->belongsTo(Project::class,'project_id');
     }
 
-//    public function budget_status()
-//    {
-//        return $this->hasMany(ProjectActivityType::class,'act')
-//    }
+    public function progress(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProjectActivityProgress::class)->orderBy('created_at','desc');
+    }
+
+
 
 }

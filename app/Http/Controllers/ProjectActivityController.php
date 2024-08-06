@@ -148,6 +148,7 @@ class ProjectActivityController extends Controller
             'status' => $projectActivity->project->status(),
             'project_stage' => $projectActivity->project->stage,
             'project_activities' => $projectActivity->project->project_activity,
+            'progress' => $projectActivity->progress->last()
         ]);
     }
 
