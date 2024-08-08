@@ -138,7 +138,8 @@ class ProjectActivityController extends Controller
      */
     public function show(ProjectActivity $projectActivity)
     {
-        dd($this->trend_analysis($projectActivity));
+
+        $trend_analysis = $this->trend_analysis($projectActivity);
 
         return Inertia::render('ProjectActivity/Show',[
             'activity' => $projectActivity,
@@ -150,7 +151,9 @@ class ProjectActivityController extends Controller
             'status' => $projectActivity->project->status(),
             'project_stage' => $projectActivity->project->stage,
             'project_activities' => $projectActivity->project->project_activity,
-            'progress' => $projectActivity->progress->last()
+            'progress' => $projectActivity->progress->last(),
+            'budget_trend' => array_values($trend_analysis['budget']),
+            'spend_trend' => array_values($trend_analysis['spend']),
         ]);
     }
 
