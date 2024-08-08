@@ -9,8 +9,10 @@ use App\Models\ProjectAccount;
 use App\Models\ProjectActivity;
 use App\Models\ProjectActivityType;
 use App\Models\ProjectStageType;
+use App\Models\Province;
 use App\Models\StatusType;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -136,7 +138,7 @@ class ProjectActivityController extends Controller
      */
     public function show(ProjectActivity $projectActivity)
     {
-        //dd($projectActivity);
+        dd($this->trend_analysis($projectActivity));
 
         return Inertia::render('ProjectActivity/Show',[
             'activity' => $projectActivity,
@@ -174,5 +176,63 @@ class ProjectActivityController extends Controller
     public function destroy(ProjectActivity $projectActivity)
     {
         //
+    }
+
+    public function trend_analysis($project_activity): array
+    {
+        $allMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        // Initialize arrays for combined spend data
+        $combinedSpendData = array_fill_keys($allMonths, 0);
+        $budgetData = array_fill_keys($allMonths, 0);
+
+        // Fill spend data
+        $spendDataStart = collect($project_activity->spend_trend_analysis());
+        $spendByMonth = collect($allMonths)->mapWithKeys(function ($month) use ($spendDataStart) {
+            return [$month => $spendDataStart->get($month, 0)];
+        });
+
+        // Sum spend data and fill budget data
+        foreach ($spendByMonth as $month => $value) {
+            $combinedSpendData[$month] += $value;
+            if ($value > 0) {
+                $budgetData[$month] = $project_activity->budget;
+            }
+        }
+
+        return [
+            'spend' => $combinedSpendData,
+            'budget' => $budgetData
+        ];
+    }
+
+
+    public function trend_analysis_working($project_activity): array
+    {
+        $allMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        // Initialize arrays for combined spend data
+        $combinedSpendData = array_fill_keys($allMonths, 0);
+
+        // Fill spend data
+        $spendDataStart = collect($project_activity->spend_trend_analysis());
+        $spendByMonth = collect($allMonths)->mapWithKeys(function ($month) use ($spendDataStart) {
+            return [$month => $spendDataStart->get($month, 0)];
+        });
+
+        // Sum spend data
+        foreach ($spendByMonth as $month => $value) {
+            $combinedSpendData[$month] += $value;
+        }
+
+        return [
+            'spend' => $combinedSpendData
+        ];
     }
 }

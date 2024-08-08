@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProjectActivityProgressRequest;
 use App\Http\Requests\UpdateProjectActivityProgressRequest;
 use App\Models\ProjectActivity;
 use App\Models\ProjectActivityProgress;
+use App\Models\Province;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -99,5 +100,48 @@ class ProjectActivityProgressController extends Controller
     public function destroy(ProjectActivityProgress $projectActivityProgress)
     {
         //
+    }
+
+
+    public function trend_analysis($project_activity_progress): array
+    {
+        $allMonths = collect([
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ]);
+        // Collection of all provinces
+        $allProvinces = collect($project_activity_progress);
+        // Initialize arrays for combined budget and spend data
+        $combinedBudgetData = array_fill_keys($allMonths->all(), 0);
+        $combinedSpendData = array_fill_keys($allMonths->all(), 0);
+        $allProvinces->each(function ($province) use ($allMonths, &$combinedBudgetData, &$combinedSpendData) {
+            // Fill budget data
+            $budgetDataStart = collect($province->budget_trend_analysis());
+            $budgetByMonth = $allMonths->mapWithKeys(function ($month) use ($budgetDataStart) {
+                return [$month => $budgetDataStart->get($month, 0)];
+            });
+
+            // Sum budget data
+            foreach ($budgetByMonth as $month => $value) {
+                $combinedBudgetData[$month] += $value;
+            }
+
+            // Fill spend data
+            $spendDataStart = collect($province->spend_trend_analysis());
+            $spendByMonth = $allMonths->mapWithKeys(function ($month) use ($spendDataStart) {
+                return [$month => $spendDataStart->get($month, 0)];
+            });
+
+            // Sum spend data
+            foreach ($spendByMonth as $month => $value) {
+                $combinedSpendData[$month] += $value;
+            }
+        });
+
+        return [
+//            'months' => $allMonths,
+            'budget' => array_values($combinedBudgetData),
+            'spend' => array_values($combinedSpendData)
+        ];
     }
 }
