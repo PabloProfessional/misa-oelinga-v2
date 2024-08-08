@@ -153,6 +153,11 @@ class ProjectActivityController extends Controller
     {
 
         $trend_analysis = $this->trend_analysis($projectActivity);
+        $users = [];
+        foreach (json_decode($projectActivity->team_members) as $user) {
+            $users []= (int)$user;
+        }
+        $users []= $projectActivity->user_id;
 
         return Inertia::render('ProjectActivity/Show',[
             'activity' => $projectActivity,
@@ -167,7 +172,7 @@ class ProjectActivityController extends Controller
             'progress' => $projectActivity->progress->last(),
             'budget_trend' => array_values($trend_analysis['budget']),
             'spend_trend' => array_values($trend_analysis['spend']),
-            'users' => User::find(json_decode($projectActivity->team_members))
+            'users' => User::find($users)
         ]);
     }
 

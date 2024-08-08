@@ -200,27 +200,12 @@ defineProps({
                     <div
                         class="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#c45d25]/10 sm:size-16"
                     >
-                        <svg
-                            class="size-5 sm:size-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                        >
-                            <g fill="#c45d25">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-                                />
-                                <path
-                                    d="M13 7h-2v6l5.25 3.15.75-1.23-4.5-2.67z"
-                                />
-                            </g>
-                        </svg>
+                        <i class="bi bi-person-circle"></i>
                     </div>
 
                     <div class="pt-3 sm:pt-5">
 
                         <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">
-                            <strong v-if="user['id'] === activity['user_id']">Project Manager | </strong>
                             {{ user.name }}
                         </h2>
 
@@ -230,7 +215,9 @@ defineProps({
                             <br>
                             <span v-if="user.is_active" >
                                     <span class="inline-block w-2.5 h-2.5 bg-blue-300 rounded-full mr-3"></span>
-                                <strong>Latest activity</strong>  <span v-if="user.latest_activity" >{{ user.latest_activity.activity_type.name }} - {{ formatDate(user.latest_activity.created_at)  }}.</span>
+                                <strong>Role: </strong>
+                                <strong v-if="user['id'] === activity['user_id']">Project Manager </strong>
+                                <span v-if="user['id'] !== activity['user_id']">Team member</span>
                                 </span>
 
 
