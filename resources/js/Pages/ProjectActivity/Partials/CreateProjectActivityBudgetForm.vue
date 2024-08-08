@@ -146,6 +146,7 @@ function handleInput(event: any, blur: any) {
 
                 <InputError class="mt-2" :message="form.errors.spend" />
             </div>
+
         </div>
 <!--        <div>-->
 <!--            <InputLabel for="valuation" value="Asset value in Rands" />-->

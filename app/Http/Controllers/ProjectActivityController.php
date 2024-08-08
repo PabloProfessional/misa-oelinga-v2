@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProjectActivityRequest;
 use App\Models\Project;
 use App\Models\ProjectAccount;
 use App\Models\ProjectActivity;
+use App\Models\ProjectActivityProgress;
 use App\Models\ProjectActivityType;
 use App\Models\ProjectStageType;
 use App\Models\Province;
@@ -126,6 +127,18 @@ class ProjectActivityController extends Controller
             'debit' => $spend,
             'description' => $projectActivity->name.' - '.$projectActivity->description,
             'balance' => $project->project_accounts->first()->balance - $spend
+        ]);
+
+        $projectActivityProgress = ProjectActivityProgress::create([
+            'project_activity_id' => $projectActivity->id,
+            'spend' => $spend,
+            'percentage_completion' => ceil(($spend / $budget) * 100),
+            'file' => $filePaths['attachment'] ?? null,
+            'is_approved' => true,
+            'user_id' => auth()->user()->id,
+            'custom_1',
+            'custom_2',
+            'notes' => $request->notes,
         ]);
 
         return redirect('/project/'.$project->url)->with('status','Project Activity: '.$projectActivity->name.' added to project');

@@ -145,8 +145,6 @@ defineProps({
 
         </template>
 
-
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
@@ -176,12 +174,10 @@ defineProps({
                     </div>
                 </div>
             </div>
+            <br>
+            <hr>
+            <br>
         </div>
-
-
-<br>
-        <br>
-
 
 
     </AuthenticatedLayout>
