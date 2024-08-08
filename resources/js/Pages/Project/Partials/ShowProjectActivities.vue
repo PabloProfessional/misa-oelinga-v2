@@ -103,9 +103,9 @@ function goToProjectActivity(url: any) {
 <!--                                    {{ activity }}-->
                                 </th>
                                 <td style="text-align: right;">
-                                    <p :style="{ color: fundsAvailable >= 0 ? 'green' : 'red' }">
-                                        <i :class="fundsAvailable >= 0 ? 'bi bi-check-circle-fill' : 'bi bi-exclamation-triangle-fill'"></i>
-                                        {{ fundsAvailable >= 0 ? 'On budget' : 'Overspend' }}
+                                    <p :style="{ color: determineFundsAvailable(activity['budget'], activity['spend']) >= 0 ? 'green' : 'red' }">
+                                        <i :class="determineFundsAvailable(activity['budget'], activity['spend']) >= 0 ? 'bi bi-check-circle-fill' : 'bi bi-exclamation-triangle-fill'"></i>
+                                        {{ determineFundsAvailable(activity['budget'], activity['spend']) >= 0 ? 'On budget' : 'Overspend' }}
                                     </p>
                                 </td>
 
