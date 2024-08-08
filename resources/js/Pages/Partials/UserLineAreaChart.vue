@@ -1,49 +1,3 @@
-<!--<script setup>-->
-<!--import { ref, defineProps } from 'vue';-->
-<!--import VueApexCharts from 'vue3-apexcharts';-->
-
-<!--// Define the props-->
-<!--const props = defineProps({-->
-<!--    budget: {-->
-<!--        type: Array,-->
-<!--        required: true-->
-<!--    },-->
-<!--    spend: {-->
-<!--        type: Array,-->
-<!--        required: true-->
-<!--    }-->
-<!--});-->
-
-<!--const series = ref([-->
-<!--    {-->
-<!--        name: 'Budget',-->
-<!--        data: props.budget-->
-<!--    }, {-->
-<!--        name: 'Spend',-->
-<!--        data: props.spend-->
-<!--    }-->
-<!--]);-->
-
-<!--const chartOptions = ref({-->
-<!--    chart: {-->
-<!--        height: 500,-->
-<!--        type: 'area'-->
-<!--    },-->
-<!--    dataLabels: {-->
-<!--        enabled: false-->
-<!--    },-->
-<!--    title: {-->
-<!--        text: 'Budget and Spend Trend Analysis'-->
-<!--    },-->
-<!--    stroke: {-->
-<!--        curve: 'smooth'-->
-<!--    },-->
-<!--    xaxis: {-->
-<!--        type: 'category',-->
-<!--        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']-->
-<!--    }-->
-<!--});-->
-<!--</script>-->
 
 <script>
 import {defineComponent} from 'vue';
@@ -96,8 +50,27 @@ const chartOptions = ref({
     },
     xaxis: {
         type: 'month',
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     },
+    yaxis: {
+        labels: {
+            formatter: function (val) {
+                return val.toLocaleString();
+            }
+        }
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return val.toLocaleString('En-US');
+            }
+        },
+        labels: {
+            formatter: function (val) {
+                return val.toLocaleString();
+            }
+        }
+    }
 });
 </script>
 

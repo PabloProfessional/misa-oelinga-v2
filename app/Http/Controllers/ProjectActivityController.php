@@ -200,9 +200,9 @@ class ProjectActivityController extends Controller
 
         // Sum spend data and fill budget data
         foreach ($spendByMonth as $month => $value) {
-            $combinedSpendData[$month] += $value;
+            $combinedSpendData[$month] += $value / 100;
             if ($value > 0) {
-                $budgetData[$month] = $project_activity->budget;
+                $budgetData[$month] = $project_activity->budget / 100;
             }
         }
 
