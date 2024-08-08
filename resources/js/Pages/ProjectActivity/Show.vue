@@ -218,7 +218,11 @@ defineProps({
                     </div>
 
                     <div class="pt-3 sm:pt-5">
-                        <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">{{ user.name }}</h2>
+
+                        <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">
+                            <strong v-if="user['id'] === activity['user_id']">Project Manager | </strong>
+                            {{ user.name }}
+                        </h2>
 
                         <p class="mt-4 text-sm/relaxed">
                             <span style="font-size: 20px"><strong>{{ user['email'] }}</strong></span>
@@ -229,12 +233,12 @@ defineProps({
                                 <strong>Latest activity</strong>  <span v-if="user.latest_activity" >{{ user.latest_activity.activity_type.name }} - {{ formatDate(user.latest_activity.created_at)  }}.</span>
                                 </span>
 
+
                             <span v-if="!user.is_active">
                                     <span class="inline-block w-2.5 h-2.5 bg-red-400 rounded-full mr-3"></span>
                                 <strong>Account deactivated</strong>
                                 </span>
                         </p>
-
 
                     </div>
                     <svg
