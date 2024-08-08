@@ -216,7 +216,7 @@ defineProps({
                             <span v-if="user.is_active" >
                                     <span class="inline-block w-2.5 h-2.5 bg-blue-300 rounded-full mr-3"></span>
                                 <strong>Role: </strong>
-                                <strong v-if="user['id'] === activity['user_id']">Project Manager </strong>
+                                <strong v-if="user['id'] === activity['user_id']">Activity Manager </strong>
                                 <span v-if="user['id'] !== activity['user_id']">Team member</span>
                                 </span>
 
