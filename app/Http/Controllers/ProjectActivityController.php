@@ -167,6 +167,7 @@ class ProjectActivityController extends Controller
             'progress' => $projectActivity->progress->last(),
             'budget_trend' => array_values($trend_analysis['budget']),
             'spend_trend' => array_values($trend_analysis['spend']),
+            'users' => User::find(json_decode($projectActivity->team_members))
         ]);
     }
 
