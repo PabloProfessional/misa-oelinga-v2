@@ -151,6 +151,7 @@ class ProjectActivityController extends Controller
      */
     public function show(ProjectActivity $projectActivity)
     {
+        // dd($projectActivity->progress);
 
         $trend_analysis = $this->trend_analysis($projectActivity);
         $users = [];
@@ -172,7 +173,8 @@ class ProjectActivityController extends Controller
             'progress' => $projectActivity->progress->last(),
             'budget_trend' => array_values($trend_analysis['budget']),
             'spend_trend' => array_values($trend_analysis['spend']),
-            'users' => User::find(array_unique($users))
+            'users' => User::find(array_unique($users)),
+            'activity_progress_records' => $projectActivity->progress
         ]);
     }
 

@@ -13,6 +13,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import UpdateActivityProgressForm from "@/Pages/ProjectActivity/Partials/UpdateActivityProgressForm.vue";
 import Progress from "@/Components/Progress.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
+import ShowProjectActivityAttatchments from "@/Pages/ProjectActivity/Partials/ShowProjectActivityAttatchments.vue";
 
 
 const variance = ref<number>(0);
@@ -98,6 +99,10 @@ defineProps({
     users: {
         type: Object,
         required: true,
+    },
+    activity_progress_records: {
+        type: Object,
+        required: true
     },
 });
 
@@ -244,7 +249,10 @@ defineProps({
                 </a>
             </div>
             <br>
+            <ShowProjectActivityAttatchments :activity_progress_records="activity_progress_records"></ShowProjectActivityAttatchments>
             <br>
+            <br>
+
         </div>
 
 
