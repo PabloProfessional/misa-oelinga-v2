@@ -11,6 +11,7 @@ import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vu
 import ShowProjectAttatchments from "@/Pages/Project/Partials/ShowProjectAttatchments.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
+import ProjectActivitySpendPieChart from "@/Project/Partials/ProjectActivitySpendPieChart.vue";
 
 
 const variance = ref<number>(0);
@@ -190,7 +191,11 @@ defineProps({
                             >
                                 <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
 
-                                    <RiskBarometrePieChart class="mt-6" style="width: 100%;"></RiskBarometrePieChart>
+                                    <ProjectActivitySpendPieChart
+                                        :project_activities="project_activities"
+                                        class="mt-6"
+                                        style="width: 100%;" >
+                                    </ProjectActivitySpendPieChart>
                                 </div>
 
 
@@ -199,14 +204,13 @@ defineProps({
 
 
                                         <div class="pt-3 sm:pt-5 lg:pt-0">
-                                            <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Spend Pie Chart</h2>
+                                            <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Activity Pie Chart</h2>
 
-<!--                                            <p class="mt-4 text-sm/relaxed">-->
-<!--                                                The health barometer helps show the distribution of conditions or statuses for bearings across all water pumps.-->
-<!--                                                It shows the proportion of items that fall into different health statuses, such as being in good condition (healthy) or requiring specific types of maintenance (e.g., lubrication, handling overloads, or managing excessive vibration).-->
-<!--                                                This distribution provides a snapshot of the overall health and maintenance needs of various water pumps, allowing for better planning and resource allocation to ensure optimal performance and longevity of the items in question.-->
-
-<!--                                            </p>-->
+                                            <p class="mt-4 text-sm/relaxed">
+                                                This pie chart provides a visual breakdown of the spending on various project activities.
+                                                Each slice represents a specific activity, showing the percentage of the total spend that belongs to that activity.
+                                                The size of each slice corresponds to the proportion of the overall budget spent on that particular activity, making it easy to see which activities are consuming the most resources.
+                                            </p>
 
                                         </div>
                                     </div>
@@ -218,7 +222,11 @@ defineProps({
                 >
                     <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
 
-                        <RiskBarometrePieChart class="mt-6" style="width: 100%;"></RiskBarometrePieChart>
+                        <ProjectActivitySpendPieChart
+                            :project_activities="project_activities"
+                            class="mt-6"
+                            style="width: 100%;" >
+                        </ProjectActivitySpendPieChart>
                     </div>
 
 
