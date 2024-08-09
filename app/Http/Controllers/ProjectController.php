@@ -189,9 +189,9 @@ class ProjectController extends Controller
      */
     public function show($url): Response
     {
-        //dd($url);
-
         $project = Project::where('url', $url)->first();
+        // dd($project->project_activity->first()->progress_spend_by_month());
+        //dd($this->barChartData($project));
         $trend_analysis = $this->trend_analysis($project);
 
         // Update Project Stage
@@ -252,6 +252,7 @@ class ProjectController extends Controller
             'sector' => $project->sector,
             'project_stage' => $project->stage,
             'project_activities' => $project->project_activity,
+            'bar_chart_data' => $this->barChartData($project),
             'budget_allocation' => $project->project_activity->sum('budget') ? ($project->project_activity->sum('budget') / $project->budget) / 100 : 0
         ]);
     }
@@ -310,4 +311,62 @@ class ProjectController extends Controller
             'budget' => $budgetData
         ];
     }
+
+//    public function barChartData($project): array
+//    {
+//        // Return an array that outputs
+//        /*
+//         * activity_name = [234,94949]
+//         * The above are total spends
+//         */
+//
+//        // Initialize an empty array to hold the data
+//        $barChartData = [];
+//
+//        // Iterate through each project activity
+//        foreach ($project->project_activity as $activity) {
+//            // Get the progress spend by month for this activity
+//            $spend_by_month = $activity->progress_spend_by_month();
+//
+//            // Store the activity name and the spend values in the result array
+//            $barChartData[$activity->name] = array_values($spend_by_month);
+//        }
+//
+//        return $barChartData;
+//    }
+    public function barChartData($project): array
+    {
+        // Initialize an empty array to hold the data
+        $barChartData = [];
+
+        // Define an array of all 12 months
+        $months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        // Iterate through each project activity
+        foreach ($project->project_activity as $activity) {
+            // Initialize a spend array with 0s for each month
+            $spendData = array_fill(0, 12, 0);
+
+            // Get the progress spend by month for this activity
+            $spend_by_month = $activity->progress_spend_by_month();
+
+            // Iterate through the spend_by_month and place the spend in the correct month index
+            foreach ($spend_by_month as $month => $spend) {
+                // Convert the month name to an index (0-based)
+                $monthIndex = array_search($month, $months);
+                if ($monthIndex !== false) {
+                    $spendData[$monthIndex] = $spend;
+                }
+            }
+
+            // Store the activity name and the spend values in the result array
+            $barChartData[$activity->name] = $spendData;
+        }
+
+        return $barChartData;
+    }
+
 }

@@ -10,26 +10,23 @@ export default defineComponent({
 </script>
 
 <script setup>
-import { ref } from 'vue';
+import {defineProps, ref} from 'vue';
 
-const series = ref([
-    {
-        name: 'PRODUCT A',
-        data: [44, 55, 41, 67, 22, 43, 60, 52, 33, 41, 65, 57]
-    },
-    {
-        name: 'PRODUCT B',
-        data: [13, 23, 20, 8, 13, 27, 14, 17, 22, 19, 21, 28]
-    },
-    {
-        name: 'PRODUCT C',
-        data: [11, 17, 15, 15, 21, 14, 19, 25, 18, 22, 24, 29]
-    },
-    {
-        name: 'PRODUCT D',
-        data: [21, 7, 25, 13, 22, 8, 12, 9, 23, 14, 19, 13]
+const props = defineProps({
+    bar_chart_data: {
+        type: Object, // Since it's an associative array, the type should be Object
+        required: true,
     }
-]);
+});
+
+const series = ref(
+    Object.keys(props.bar_chart_data).map(activityName => {
+        return {
+            name: activityName, // Use the activity name as the series name
+            data: props.bar_chart_data[activityName] // Assign the spend data
+        };
+    })
+);
 
 const chartOptions = ref({
     chart: {
@@ -62,7 +59,7 @@ const chartOptions = ref({
     tooltip: {
         y: {
             formatter: function (val) {
-                return "$" + val + "K";
+                return "R " + val;
             }
         }
     },
@@ -79,6 +76,8 @@ const chartOptions = ref({
     }],
 });
 </script>
+
+
 
 <template>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">

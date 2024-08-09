@@ -71,9 +71,27 @@ class ProjectActivity extends Model
             $month = Carbon::createFromFormat('Y-m', $project->month)->format('F');
             $spendArray[$month] = $project->total_spend;
         }
-
         return $spendArray;
+    }
 
+    public function progress_spend_by_month(): array
+    {
+        // Fetch progress data grouped by month and calculate the total spend for each month
+        $progress_by_month = $this->progress()
+            ->selectRaw('SUM(spend) as total_spend, to_char(created_at, \'YYYY-MM\') as month')
+            ->groupBy(DB::raw('to_char(created_at, \'YYYY-MM\')'))
+            ->get();
+
+        // Initialize the result array
+        $spend_by_month = [];
+
+        // Iterate over the results and format them into month => total_spend array
+        foreach ($progress_by_month as $progress) {
+            $month_name = Carbon::createFromFormat('Y-m', $progress->month)->format('F');
+            $spend_by_month[$month_name] = $progress->total_spend;
+        }
+
+        return $spend_by_month;
     }
 
 

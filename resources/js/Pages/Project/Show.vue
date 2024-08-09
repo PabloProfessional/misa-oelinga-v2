@@ -106,6 +106,9 @@ defineProps({
         type: Object,
         required: true,
     },
+    bar_chart_data: {
+        type: Object,
+    }
 });
 
 
@@ -224,7 +227,7 @@ defineProps({
                     <div id="screenshot-container" class="relative flex w-full flex-1 items-stretch" style="width: 100%;">
 
                         <ProjectActivitySpendBarChart
-                            :project_activities="project_activities"
+                            :bar_chart_data="bar_chart_data"
                             class="mt-6"
                             style="width: 100%;" >
                         </ProjectActivitySpendBarChart>
