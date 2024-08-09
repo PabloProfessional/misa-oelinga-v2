@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\UuidTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -104,14 +105,10 @@ class Project extends Model
     {
         $spend = $this->spend;
         $budget = $this->budget;
-
         $variance = 0;
-
         if ($budget != 0) {
             $variance = (($budget - $spend) / $budget) * 100;
         }
-
-
         return $variance;
 
     }
@@ -131,6 +128,30 @@ class Project extends Model
     public function project_activity(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ProjectActivity::class,'project_id');
+    }
+
+    public function spend_trend_analysis(): array
+    {
+        $activity_spend_array = $this->project_activity()
+            ->selectRaw('SUM(spend) as total_spend, to_char(created_at, \'YYYY-MM\') as month')
+            ->groupBy(DB::raw('to_char(created_at, \'YYYY-MM\')'))
+            ->get();
+
+        // Initialize the spend array
+        $spendArray = [];
+
+        // Iterate through the activity_progress_array and format the month and budget
+        foreach ($activity_spend_array as $project) {
+            $month = Carbon::createFromFormat('Y-m', $project->month)->format('F');
+            $spendArray[$month] = $project->total_spend;
+        }
+
+        // Add the spend on the date the project was created.
+
+        $createdMonth = Carbon::createFromFormat('Y-m', date_format($this->created_at,'Y-m'))->format('F');
+        $spendArray[$createdMonth] = $this->spend;
+
+        return $spendArray;
     }
 
 

@@ -192,6 +192,7 @@ class ProjectController extends Controller
         //dd($url);
 
         $project = Project::where('url', $url)->first();
+        $trend_analysis = $this->trend_analysis($project);
 
         // Update Project Stage
         if ($project->project_activity->count() > 0) {
@@ -241,6 +242,8 @@ class ProjectController extends Controller
             'province' => $project->province,
             'municipality' => $project->municipality,
             'programme' => $project->programme,
+            'budget_trend' => array_values($trend_analysis['budget']),
+            'spend_trend' => array_values($trend_analysis['spend']),
             'status' => $project->status(),
             'status_procurement' => $status_procurement,
             'status_risk' => $status_risk,
@@ -275,5 +278,36 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    public function trend_analysis($project_activity): array
+    {
+        $allMonths = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        // Initialize arrays for combined spend data
+        $combinedSpendData = array_fill_keys($allMonths, 0);
+        $budgetData = array_fill_keys($allMonths, 0);
+
+        // Fill spend data
+        $spendDataStart = collect($project_activity->spend_trend_analysis());
+        $spendByMonth = collect($allMonths)->mapWithKeys(function ($month) use ($spendDataStart) {
+            return [$month => $spendDataStart->get($month, 0)];
+        });
+
+        // Sum spend data and fill budget data
+        foreach ($spendByMonth as $month => $value) {
+            $combinedSpendData[$month] += $value / 100;
+            if ($value > 0) {
+                $budgetData[$month] = $project_activity->budget / 100;
+            }
+        }
+
+        return [
+            'spend' => $combinedSpendData,
+            'budget' => $budgetData
+        ];
     }
 }

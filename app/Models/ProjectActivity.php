@@ -72,12 +72,6 @@ class ProjectActivity extends Model
             $spendArray[$month] = $project->total_spend;
         }
 
-        // Add the spend on the date the activity was created. No need.
-
-//        $createdMonth = Carbon::createFromFormat('Y-m', date_format($this->created_at,'Y-m'))->format('F');
-//
-//        $spendArray[$createdMonth] += $this->spend;
-
         return $spendArray;
 
     }
