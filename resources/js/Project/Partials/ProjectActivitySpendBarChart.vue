@@ -48,6 +48,11 @@ const chartOptions = ref({
         title: {
             text: 'Total Spend',
         },
+        labels: {
+            formatter: function (val) {
+                return "R " + val.toLocaleString();
+            }
+        }
     },
     fill: {
         opacity: 1,
@@ -59,7 +64,7 @@ const chartOptions = ref({
     tooltip: {
         y: {
             formatter: function (val) {
-                return "R " + val;
+                return "R " + val.toLocaleString();
             }
         }
     },

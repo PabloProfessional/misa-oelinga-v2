@@ -358,7 +358,7 @@ class ProjectController extends Controller
                 // Convert the month name to an index (0-based)
                 $monthIndex = array_search($month, $months);
                 if ($monthIndex !== false) {
-                    $spendData[$monthIndex] = $spend;
+                    $spendData[$monthIndex] = $spend / 100;
                 }
             }
 
