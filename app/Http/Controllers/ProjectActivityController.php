@@ -141,6 +141,8 @@ class ProjectActivityController extends Controller
             'notes' => $request->notes,
         ]);
 
+        //TODO when a new activity is added add a notification that the project stage has been updated for the project
+
         return redirect('/project/'.$project->url)->with('status','Project Activity: '.$projectActivity->name.' added to project');
 
 

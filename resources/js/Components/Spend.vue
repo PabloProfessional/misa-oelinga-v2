@@ -18,7 +18,7 @@ const proper_spend = () => {
     if (props.spend < 1) {
         return (props.spend * 1000000).toLocaleString('En-US');
     }
-    return props.spend+" million";
+    return props.spend?.toPrecision(2)+" million";
 }
 
 </script>

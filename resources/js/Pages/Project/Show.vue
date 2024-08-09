@@ -140,7 +140,6 @@ defineProps({
                 <strong>Sector:</strong> <i :class="sector['icon']"></i> {{ sector['name'] }}
                 <br>
                 <strong>Project Stage:</strong> <i :class="project_stage['icon']"></i> {{ project_stage['name'] }} - {{ project_stage['description'] }}
-                <small><PrimaryButton>Update project stage</PrimaryButton></small>
                 <br>
                 <strong>Description: </strong>
                 {{ project['description'] }}
@@ -155,7 +154,7 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
                     <Count :count="status['name']" :count_description="status['description']" :status_icon="status['icon']"></Count>
-                    <Budget :budget="project['budget'] / 100000000 " :budget_allocation="0" ></Budget>
+                    <Budget :budget="project['budget'] / 100000000 " :budget_allocation="budget_allocation" ></Budget>
                     <Spend :spend="project['spend'] / 100000000 " :variance="variance"></Spend>
                 </div>
             </div>

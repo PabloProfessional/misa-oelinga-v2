@@ -15,7 +15,7 @@ const proper_budget = () => {
     if (props.budget < 1) {
         return (props.budget * 1000000).toLocaleString('En-US');
     }
-    return props.budget+" million";
+    return props.budget?.toPrecision(2)+" million";
 }
 
 </script>

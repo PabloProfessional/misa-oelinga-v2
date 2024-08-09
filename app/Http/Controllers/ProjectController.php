@@ -193,7 +193,11 @@ class ProjectController extends Controller
 
         $project = Project::where('url', $url)->first();
 
-        // dd($project);
+        // Update Project Stage
+        if ($project->project_activity->count() > 0) {
+            $project->stage_type_id = $project->project_activity->max('stage_type_id');
+            $project->save();
+        }
 
         // Get the activity types
         $activityTypes = $project->project_activity->map(function ($activity) {
@@ -245,6 +249,7 @@ class ProjectController extends Controller
             'sector' => $project->sector,
             'project_stage' => $project->stage,
             'project_activities' => $project->project_activity,
+            'budget_allocation' => $project->project_activity->sum('budget') ? ($project->project_activity->sum('budget') / $project->budget) / 100 : 0
         ]);
     }
 
