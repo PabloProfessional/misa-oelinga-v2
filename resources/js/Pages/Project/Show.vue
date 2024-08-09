@@ -153,7 +153,7 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
                     <Count :count="status['name']" :count_description="status_schedule[0]+'. Procurement, '+status_procurement[0]" :status_icon="status['icon']"></Count>
-                    <Budget :budget="project['budget'] / 100000000 " :budget_allocation="budget_allocation" ></Budget>
+                    <Budget :budget="project['budget'] / 100000000 " :budget_allocation="budget_allocation?.toPrecision(2)" ></Budget>
                     <Spend :spend="project['spend'] / 100000000 " :variance="variance"></Spend>
                 </div>
             </div>
