@@ -67,16 +67,13 @@ function goToProjectActivity(url: any) {
                 <div id="docs-card-content" class="flex items-start gap-6 lg:flex-col">
                     <div class="pt-3 sm:pt-5 lg:pt-0">
                         <h2 class="text-xl font-semibold text-black dark:text-white"
-                            style="color: #343c54">
+                            style="color: #343c54; margin-bottom: 2em;">
                             Activity List <small>| of tasks to expedite project delivery</small>
                             <small style="float: right;">
                                 <PrimaryButton @click="goToCreateProjectActivity(project['url'])" >Add a project activity</PrimaryButton>
                             </small>
                         </h2>
 
-                        <p class="mt-4 text-sm/relaxed">
-                            <br>
-                        </p>
                         <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 1100px;">
                             <thead class="table-header-group">
                             <tr style="text-align: left;">
@@ -100,7 +97,7 @@ function goToProjectActivity(url: any) {
                                         {{ activity['activity_type']['name'] }}: {{ activity['name'] }}
                                     </SecondaryButton>
 
-<!--                                    {{ activity }}-->
+                                    <!--                                    {{ activity }}-->
                                 </th>
                                 <td style="text-align: right;">
                                     <p :style="{ color: determineFundsAvailable(activity['budget'], activity['spend']) >= 0 ? 'green' : 'red' }">
@@ -127,6 +124,7 @@ function goToProjectActivity(url: any) {
                             </tr>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>

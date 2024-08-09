@@ -49,19 +49,11 @@ function getFilenameWithoutExtension(filename: any) {
                 <div id="docs-card-content" class="flex items-start gap-6 lg:flex-col">
                     <div class="pt-3 sm:pt-5 lg:pt-0">
                         <h2 class="text-xl font-semibold text-black dark:text-white"
-                            style="color: #343c54">
+                            style="color: #343c54; margin-bottom: 2em;">
                             Attatchments <small>| Supporting documentation</small>
 
-                            <small style="float: right;">
-                                <PrimaryButton @click="goToCreateProjectActivity(project['url'])" >Upload supporting documentation </PrimaryButton>
-                            </small>
                         </h2>
-
-                        <p class="mt-4 text-sm/relaxed">
-                            <br>
-<!--                            {{ project['attachments'] }}-->
-                        </p>
-                        <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 900px;">
+                        <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 1100px;">
                             <thead class="table-header-group">
                             <tr style="text-align: left;">
                                 <th>Document<hr></th>
@@ -80,7 +72,7 @@ function getFilenameWithoutExtension(filename: any) {
                                         style="float: left; width: 80%; margin: 0.3em;"
                                     >
                                         {{ getFilenameWithoutExtension(value)}}
-                                    </SecondaryButton>
+                                    </SecondaryButton><br>
                                 </th>
                                 <td style="text-align: right;">
                                     {{ value.split('.').pop() }}
@@ -92,6 +84,7 @@ function getFilenameWithoutExtension(filename: any) {
                             </tr>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
