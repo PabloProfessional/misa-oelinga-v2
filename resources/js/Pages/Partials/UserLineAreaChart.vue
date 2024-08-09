@@ -55,19 +55,19 @@ const chartOptions = ref({
     yaxis: {
         labels: {
             formatter: function (val) {
-                return val.toLocaleString();
+                return "R " + val.toLocaleString();
             }
         }
     },
     tooltip: {
         y: {
             formatter: function (val) {
-                return val.toLocaleString('En-US');
+                return "R " + val.toLocaleString();
             }
         },
         labels: {
             formatter: function (val) {
-                return val.toLocaleString();
+                return "R " + val.toLocaleString();
             }
         }
     }
