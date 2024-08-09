@@ -42,7 +42,7 @@ const chartOptions = ref({
     tooltip: {
         y: {
             formatter: function (val) {
-                return "R" + val.toLocaleString();
+                return "R " + val.toLocaleString();
             }
         }
     },
