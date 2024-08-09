@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectActivityProgressRequest;
 use App\Http\Requests\UpdateProjectActivityProgressRequest;
+use App\Models\ProjectAccount;
 use App\Models\ProjectActivity;
 use App\Models\ProjectActivityProgress;
 use App\Models\Province;
@@ -66,6 +67,15 @@ class ProjectActivityProgressController extends Controller
         $project_activity = ProjectActivity::find($request->project_activity_id);
         $project_activity->spend += $spend;
         $project_activity->save();
+
+
+        ProjectAccount::create([
+            'project_id' => $project_activity->project->id,
+            'credit' => 0,
+            'debit' => $spend,
+            'description' => 'Project Activity Update | '.$project_activity->name,
+            'balance' => $project_activity->project->accounts->first()->balance - $spend
+        ]);
 
         return Redirect::back();
     }

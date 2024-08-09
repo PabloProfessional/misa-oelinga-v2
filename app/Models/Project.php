@@ -70,6 +70,11 @@ class Project extends Model
         return $this->belongsTo(Province::class,'province_url');
     }
 
+    public function accounts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProjectAccount::class)->orderBy('created_at','desc');
+    }
+
     public function average_project_status(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ProjectStatus::class,'project_id')->orderBy('id','desc');

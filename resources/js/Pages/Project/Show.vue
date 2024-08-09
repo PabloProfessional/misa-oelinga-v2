@@ -108,7 +108,10 @@ defineProps({
     },
     bar_chart_data: {
         type: Object,
-    }
+    },
+    accounts: {
+        type: Object,
+    },
 });
 
 
@@ -253,7 +256,7 @@ defineProps({
                 </div>
             </div>
             <ShowProjectActivities :project="project" :project_activities="project_activities"></ShowProjectActivities>
-            <ShowProjectAccounts></ShowProjectAccounts>
+            <ShowProjectAccounts :accounts="accounts"></ShowProjectAccounts>
 
             <ShowProjectAttatchments :project="project"></ShowProjectAttatchments>
 

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import {defineProps} from "vue";
+
+defineProps({
+    accounts: {
+        type: Object
+    }
+});
 
 </script>
 
@@ -23,10 +30,51 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 
                     <div class="pt-3 sm:pt-5 lg:pt-0">
-                        <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">
+                        <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54; margin-bottom: 2em;">
                             Project Accounts
                             <small> | Summary YTD</small>
                         </h2>
+
+                        <table class="mt-4 text-sm/relaxed table table-striped w-full table-auto" style="width: 1100px;">
+                            <thead class="table-header-group">
+                            <tr style="text-align: left;">
+                                <th style="text-align: left;"><strong>Date</strong><hr></th>
+                                <th style="text-align: left;"><strong>Description</strong><hr></th>
+                                <th style="text-align: right;"><strong>Debit</strong><hr></th>
+                                <th style="text-align: right;"><strong>Credit</strong><hr></th>
+                                <th style="text-align: right;"><strong>Balance</strong><hr></th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody class="table-row-group" v-for="account in accounts">
+                            <br>
+                            <tr class="w-full table-row">
+                                <th scope="row" style="text-align: left;">
+                                    {{new Date(account['created_at']).toDateString()}}
+                                </th>
+                                <th scope="row" style="text-align: left;">
+                                    {{account['description']}}
+                                </th>
+                                <td style="text-align: right;">R {{ (account['debit']/100).toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                })}}
+                                </td>
+                                <td style="text-align: right;">R {{ (account['credit']/100).toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                })}}
+                                </td>
+
+                                <td style="text-align: right;">R {{ (account['balance']/100).toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                })}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
 
                     </div>
