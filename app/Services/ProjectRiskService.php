@@ -137,9 +137,18 @@ class ProjectRiskService
         // Combine or handle the risks as necessary
         // For example, you might average them or weigh them differently
 
-        // OverAll Risk
+        // OverAll Risk Based on median
+        $numbers = [$this->calculateScheduleRisk(),$this->calculateProcurementRisk(),$this->calculateBudgetRisk()];
+        sort($numbers);
+        $count = count($numbers);
+        $middle = floor(($count - 1) / 2);
 
-        return round(($this->calculateScheduleRisk() + $this->calculateProcurementRisk() + $this->calculateBudgetRisk()) / 3);
+        if ($count % 2) {
+            return $numbers[$middle];
+        } else {
+            return ($numbers[$middle] + $numbers[$middle + 1]) / 2;
+        }
+
     }
 
 
