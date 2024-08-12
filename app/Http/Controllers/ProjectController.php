@@ -14,6 +14,7 @@ use App\Models\Province;
 use App\Models\Sector;
 use App\Models\StatusType;
 use App\Models\User;
+use App\Services\ProjectRiskService;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Storage;
@@ -190,7 +191,9 @@ class ProjectController extends Controller
     public function show($url): Response
     {
         $project = Project::where('url', $url)->first();
-        // dd($project->accounts);
+        $calulcateRisk = new ProjectRiskService($project);
+        $risk = StatusType::find(8+$calulcateRisk->calculateRisk());
+        $budget = StatusType::find($calulcateRisk->calculateBudgetRisk());
         $trend_analysis = $this->trend_analysis($project);
 
         // Update Project Stage
@@ -217,14 +220,20 @@ class ProjectController extends Controller
         ];
 
         $status_risk = [
-            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->name,
-            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->icon,
-            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->color
+//            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->name,
+//            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->icon,
+//            $project->average_project_status->where('project_aspect','Risk')->first()->status_type->color
+                $risk->name,
+                $risk->icon,
+                $risk->color
         ];
         $status_budget = [
-            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->name,
-            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->icon,
-            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->color
+//            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->name,
+//            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->icon,
+//            $project->average_project_status->where('project_aspect','Budget')->first()->status_type->color
+            $budget->name,
+            $budget->icon,
+            $budget->color,
         ];
 
         $status_schedule = [
