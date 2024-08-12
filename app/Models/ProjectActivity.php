@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ProjectRiskService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -94,6 +95,10 @@ class ProjectActivity extends Model
         return $spend_by_month;
     }
 
-
+    public function risk_status(): int
+    {
+        $calculateRisk = new ProjectRiskService(null, ProjectActivity::find($this->id));
+        return $calculateRisk->calculateRisk();
+    }
 
 }

@@ -13,6 +13,7 @@ use App\Models\ProjectStageType;
 use App\Models\Province;
 use App\Models\StatusType;
 use App\Models\User;
+use App\Services\ProjectRiskService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -261,4 +262,11 @@ class ProjectActivityController extends Controller
             'spend' => $combinedSpendData
         ];
     }
+
+    public function get_activity_risk($activity_id): \Illuminate\Http\JsonResponse
+    {
+        $calculateRisk = new ProjectRiskService(null, ProjectActivity::find($activity_id));
+        return response()->json(['risk_status' => $calculateRisk->calculateRisk()]);
+    }
+
 }

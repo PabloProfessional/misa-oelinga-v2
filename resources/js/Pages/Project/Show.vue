@@ -112,6 +112,9 @@ defineProps({
     accounts: {
         type: Object,
     },
+    activity_risk_status: {
+        type: Object
+    }
 });
 
 
@@ -255,7 +258,7 @@ defineProps({
                     </div>
                 </div>
             </div>
-            <ShowProjectActivities :project="project" :project_activities="project_activities"></ShowProjectActivities>
+            <ShowProjectActivities :project="project" :project_activities="project_activities" :activity_risk_status="activity_risk_status"></ShowProjectActivities>
             <ShowProjectAccounts :accounts="accounts"></ShowProjectAccounts>
 
             <ShowProjectAttatchments :project="project"></ShowProjectAttatchments>

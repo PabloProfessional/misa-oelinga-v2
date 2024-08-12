@@ -47,11 +47,11 @@ class ProjectRiskService
     public function calculateScheduleRisk(): int
     {
         // Check if we are using a Project and if the activity is null
-        if ($this->project && is_null($this->project->project_activity)) {
+        if ($this->project && is_null($this->project->project_activity) || !is_null($this->activity)) {
 
             // Convert start_date and end_date to Carbon instances
-            $startDate = Carbon::parse($this->project->start_date);
-            $endDate = Carbon::parse($this->project->end_date);
+            $startDate = Carbon::parse($this->project_or_activity->start_date);
+            $endDate = Carbon::parse($this->project_or_activity->end_date);
             $totalDuration = $endDate->diffInDays($startDate);
 
             // Calculate the remaining time until the end date
@@ -71,10 +71,11 @@ class ProjectRiskService
         }
 
         // If there are project activities, delegate risk calculation to another method
-        if ($this->project->project_activity()->exists()) {
-            return $this->calculateActivityRisk($this->project->project_activity);
+        if (!is_null($this->project)) {
+            if($this->project->project_activity()->exists()){
+                return $this->calculateActivityRisk($this->project->project_activity);
+            }
         }
-
         return 0; // Default or fallback risk level if conditions aren't met
     }
 
@@ -83,6 +84,8 @@ class ProjectRiskService
         $activityRisks = [];
 
         foreach ($activities as $activity) {
+
+            //dd($activity);
             // Get the last progress record's percentage completion
             $lastProgress = $activity->progress()->latest()->first();
 
@@ -118,7 +121,7 @@ class ProjectRiskService
     public function calculateProcurementRisk(): int
     {
         // Check the procurement status ID and return the associated risk level
-        switch ($this->project->procurement_status_id) {
+        switch ($this->project_or_activity->procurement_status_id) {
             case 12: // Yes
                 return 1; // Low risk
             case 13: // No

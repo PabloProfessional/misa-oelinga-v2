@@ -137,4 +137,8 @@ Route::post('admin_user_reactive',[\App\Http\Controllers\AdministratorController
 
 Route::resource('project_activity_progress',\App\Http\Controllers\ProjectActivityProgressController::class)->middleware(['auth','verified']);
 
+Route::get('get_activity_risk/{activity_id}',[\App\Http\Controllers\ProjectActivityController::class,'get_activity_risk'])
+    ->middleware(['auth', 'verified'])
+    ->name('get_activity_risk');
+
 require __DIR__.'/auth.php';

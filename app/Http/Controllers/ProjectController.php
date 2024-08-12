@@ -191,9 +191,9 @@ class ProjectController extends Controller
     public function show($url): Response
     {
         $project = Project::where('url', $url)->first();
-        $calulcateRisk = new ProjectRiskService($project);
-        $risk = StatusType::find(8+$calulcateRisk->calculateRisk());
-        $budget = StatusType::find($calulcateRisk->calculateBudgetRisk());
+        $calculateRisk = new ProjectRiskService($project);
+        $risk = StatusType::find(8+$calculateRisk->calculateRisk());
+        $budget = StatusType::find($calculateRisk->calculateBudgetRisk());
         $trend_analysis = $this->trend_analysis($project);
 
         // Update Project Stage
@@ -244,6 +244,13 @@ class ProjectController extends Controller
 
         //dd($project->sector);
 
+        $activity_risk_status = [];
+
+        foreach ($project->project_activity as $activity) {
+            $activity_risk_status[] = ['id' => $activity->id,'risk' => StatusType::find(8 + $activity->risk_status())->name];
+        }
+
+
 
         return Inertia::render('Project/Show',[
             'project' => $project,
@@ -262,6 +269,7 @@ class ProjectController extends Controller
             'project_activities' => $project->project_activity,
             'bar_chart_data' => $this->barChartData($project),
             'accounts' => $project->accounts,
+            'activity_risk_status' => $activity_risk_status,
             'budget_allocation' => $project->project_activity->sum('budget') ? ($project->project_activity->sum('budget') / $project->budget) / 100 : 0
         ]);
     }
