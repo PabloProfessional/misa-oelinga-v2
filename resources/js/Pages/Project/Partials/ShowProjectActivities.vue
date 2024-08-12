@@ -57,9 +57,9 @@ function goToProjectActivity(url: any) {
     window.location.href = `/project_activity/${url}`;
 }
 
-const activities = props.activity_risk_status;
-
-const activity_risk = activities.filter((word: any) => word.id === 9);
+// const activities = props.activity_risk_status;
+//
+// const activity_risk = activities.filter((word: any) => word.id === 9);
 
 
 </script>
@@ -130,7 +130,7 @@ const activity_risk = activities.filter((word: any) => word.id === 9);
                                        <i :class="activity['average_status_icon']"></i> {{ activity['average_status_name'] }}
                                     </span>
                                     <span class="badge badge-primary" id="risk-status-{{ activity['id'] }}" data-activity-id="{{ activity['id'] }}">
-                                       {{ activity_risk_status.filter((word: any) => word.id === activity['id'])[0]?.['risk'] }}
+                                       {{ activity_risk_status.filter((word: any) => word.id === activity['id'])[0] }}
 
                                     </span>
                                 </td>
