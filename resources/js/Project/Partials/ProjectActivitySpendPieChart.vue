@@ -20,7 +20,7 @@ const props = defineProps({
 });
 
 // Map the project_activities to series and labels
-const series = computed(() => props.project_activities.map(activity => (activity.spend.toLocaleString() / 100)));
+const series = computed(() => props.project_activities.map(activity => (activity.spend)));
 const labels = computed(() => props.project_activities.map(activity => activity.name));
 
 const chartOptions = ref({
