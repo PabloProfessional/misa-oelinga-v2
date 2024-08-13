@@ -42,11 +42,13 @@ const chartOptions = ref({
         height: 350,
         type: 'area'
     },
+    colors: ['#1f2937', '#c45c13'],
     dataLabels: {
         enabled: false
     },
     stroke: {
-        curve: 'smooth'
+        curve: 'smooth',
+        width: 1
     },
     xaxis: {
         type: 'month',
