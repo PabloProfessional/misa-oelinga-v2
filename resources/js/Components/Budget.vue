@@ -7,7 +7,8 @@ const props = defineProps({
         required: true,
     },
     budget_allocation: {
-        type: Number
+        type: Number,
+        required: true
     }
 });
 
@@ -47,7 +48,7 @@ const proper_budget = () => {
                 <div class="pt-3 sm:pt-5">
                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Budget | <small>Total YTD</small> </h2>
                     <br>
-                    <p class="text-3xl font-bold" style="color: dimgrey">R {{budget}} million</p>
+                    <p class="text-3xl font-bold" style="color: dimgrey">R {{budget.toPrecision(2)}} million</p>
                     <p style="color: dimgrey"><strong>{{ budget_allocation }}%</strong> allocated</p>
 
                 </div>

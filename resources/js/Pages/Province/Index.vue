@@ -22,6 +22,9 @@ function goToProvince(url: any) {
 }
 
 const props = defineProps({
+    count: {
+      type: Number
+    },
     budget: {
         type: Array,
         required: true
@@ -33,48 +36,6 @@ const props = defineProps({
 
 });
 
-
-// onMounted(async () => {
-//     try {
-//         const response = await axios.get('/projects/count');
-//         count.value = response.data.count;
-//     } catch (error) {
-//         console.error('Failed to fetch project count:', error);
-//     }
-//     try {
-//         const response = await axios.get('/projects/budget');
-//         budget.value = response.data.budget;
-//     } catch (error) {
-//         console.error('Failed to fetch project budget:', error);
-//     }
-//
-//     try {
-//         const response = await axios.get('/projects/budget_allocation');
-//         budget_allocation.value = response.data.budget_allocation;
-//     } catch (error) {
-//         console.error('Failed to fetch project budget allocation:', error);
-//     }
-//
-//     try {
-//         const response = await axios.get('/projects/spend');
-//         spend.value = response.data.spend;
-//     } catch (error) {
-//         console.error('Failed to fetch project spend:', error);
-//     }
-//     try {
-//         const response = await axios.get('/projects/variance');
-//         variance.value = response.data.variance;
-//     } catch (error) {
-//         console.error('Failed to fetch project variance:', error);
-//     }
-//     try {
-//         const response = await axios.get('/provinces/summary');
-//         provinces.value = response.data.provinces;
-//
-//     } catch (error) {
-//         console.error('Failed to fetch project provinces:', error);
-//     }
-// });
 
 </script>
 

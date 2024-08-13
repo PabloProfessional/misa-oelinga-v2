@@ -50,7 +50,7 @@ const proper_spend = () => {
                 <div class="pt-3 sm:pt-5">
                     <h2 class="text-xl font-semibold text-black dark:text-white" style="color: #343c54">Spend | <small>Total YTD</small> </h2>
                     <br>
-                    <p class="text-3xl font-bold" style="color: dimgrey">R {{spend}} million</p>
+                    <p class="text-3xl font-bold" style="color: dimgrey">R {{spend.toPrecision(2)}} million</p>
                     <p style="color: dimgrey"><strong>{{variance}}%</strong> {{ varianceDescription }}</p>
                 </div>
 

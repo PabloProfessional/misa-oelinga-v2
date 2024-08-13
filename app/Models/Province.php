@@ -130,4 +130,19 @@ class Province extends Model
 
         return $budgetArray;
     }
+
+    public function activity_total(): float|int
+    {
+        $total_budgets_in_project_activities = 0;
+
+        foreach ($this->projects as $project) {
+            if ($project->project_activity != null) {
+                foreach ($project->project_activity as $activity) {
+                    $total_budgets_in_project_activities += $activity->budget ;
+                }
+            }
+        }
+
+        return $total_budgets_in_project_activities;
+    }
 }

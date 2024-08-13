@@ -49,7 +49,8 @@ class ProvinceController extends Controller
      */
     public function show(Province $province): Response
     {
-        //dd($province);
+
+
 
         // Get the statuses
         $statuses = collect($province->projects)->map(function ($project) {
@@ -65,8 +66,9 @@ class ProvinceController extends Controller
         $spend = $province->spend() / 100000000;
         $variance = 0;
         if ($budget != 0) {
-            $variance = ($spend / $budget) * 100;
+            $variance = round(($spend / $budget) * 100,2);
         }
+        $budget_allocation = ($province->activity_total() / $province->budget()) * 100;
 
         $trend_analysis = $this->province_trend_analysis($province);
 
@@ -112,10 +114,10 @@ class ProvinceController extends Controller
 
         return Inertia::render('Province/Show',[
             'province' => $province,
-            'count' => $province->projects->count(),
+            'project_count' => $province->projects->count(),
             'budget' => $budget,
             'spend' => $spend,
-            'budget_allocation' => 0,
+            'budget_allocation' => round($budget_allocation,2),
             'variance' => $variance,
             'budget_trend' => array_values($trend_analysis['budget']),
             'spend_trend' => array_values($trend_analysis['spend']),
