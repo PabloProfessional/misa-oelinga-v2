@@ -41,6 +41,7 @@ const chartOptions = ref({
         stacked: true,
         height: 350,
     },
+    colors: ['#1f2937', '#c45c13','#3f6212','#cc4e4e','#c45c13','#1f2937'],
     plotOptions: {
         bar: {
             horizontal: false,

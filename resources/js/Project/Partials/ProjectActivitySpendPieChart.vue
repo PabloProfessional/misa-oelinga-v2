@@ -28,6 +28,7 @@ const chartOptions = ref({
         type: 'donut',
     },
     labels: labels.value,
+    colors: ['#1f2937', '#c45c13','#3f6212','#cc4e4e','#c45c13','#1f2937'],
     responsive: [{
         breakpoint: 480,
         options: {
