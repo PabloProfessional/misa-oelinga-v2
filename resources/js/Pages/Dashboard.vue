@@ -100,13 +100,13 @@ onMounted(async () => {
 /* Define positions for each province label */
 .northern-cape { top: 55%; left: 25%; }
 .free-state { top: 45%; left: 51.5%; }
-.north-west { top: 25%; left: 35%; }
+.north-west { top: 20%; left: 35%; }
 .western-cape { top: 80%; left: 20%; }
 .eastern-cape { top: 75%; left: 48%; }
-.kwaZulu-natal { top: 45%; left: 80%; }
-.mpumalanga { top: 25%; left: 76%; }
-.limpopo { top: 5%; left: 65%; }
-.gauteng { top: 30%; left: 55%; }
+.kwaZulu-natal { top: 50%; left: 80%; }
+.mpumalanga { top: 25%; left: 79%; }
+.limpopo { top: 1%; left: 65%; }
+.gauteng { top: 22%; left: 55%; }
 </style>
 
 <template>
@@ -147,8 +147,8 @@ onMounted(async () => {
                                 <div><strong>{{ province['name'] }}</strong></div>
                                 <ul>
                                     <li><strong>{{ province['project_count'] }} projects</strong></li>
-                                    <li>Budget: R {{ province['budget'] /100000000 }} mill</li>
-                                    <li>Spend: R {{ province['spend'] / 100000000}} mill</li>
+                                    <li>Budget: R {{ (province['budget'] /100000000).toPrecision(2) }} mill</li>
+                                    <li>Spend: R {{ (province['spend'] / 100000000).toPrecision(2) }} mill</li>
                                 </ul>
 
                                 <div>
