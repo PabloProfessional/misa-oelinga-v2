@@ -18,12 +18,10 @@ class ProvinceController extends Controller
     {
         //
 
-        $budget = $this->trend_analysis()['budget'];
-        $spend = $this->trend_analysis()['spend'];
-
         return Inertia::render('Dashboard',[
-            'budget' => $budget,
-            'spend' => $spend
+            'project_count' => Project::count(),
+            'budget_trend' => $this->trend_analysis()['budget'],
+            'spend_trend' => $this->trend_analysis()['spend'],
         ]);
 
     }

@@ -91,43 +91,43 @@ class Province extends Model
         return $this->hasMany(Municipality::class,'province_id','id');
     }
 
-        public function budget_trend_analysis(): array
-        {
-            // Use the relationship to get the projects and group by month
-            $projects = $this->projects()
-                ->selectRaw('SUM(budget) as total_budget, to_char(start_date, \'YYYY-MM\') as month')
-                ->groupBy(DB::raw('to_char(start_date, \'YYYY-MM\')'))
-                ->get();
+    public function budget_trend_analysis(): array
+    {
+        // Use the relationship to get the projects and group by month
+        $projects = $this->projects()
+            ->selectRaw('SUM(budget) as total_budget, to_char(start_date, \'YYYY-MM\') as month')
+            ->groupBy(DB::raw('to_char(start_date, \'YYYY-MM\')'))
+            ->get();
 
-            // Initialize the budget array
-            $budgetArray = [];
+        // Initialize the budget array
+        $budgetArray = [];
 
-            // Iterate through the projects and format the month and budget
-            foreach ($projects as $project) {
-                $month = Carbon::createFromFormat('Y-m', $project->month)->format('F');
-                $budgetArray[$month] = $project->total_budget;
-            }
-
-            return $budgetArray;
+        // Iterate through the projects and format the month and budget
+        foreach ($projects as $project) {
+            $month = Carbon::createFromFormat('Y-m', $project->month)->format('F');
+            $budgetArray[$month] = $project->total_budget / 100;
         }
 
-        public function spend_trend_analysis(): array
-        {
-            // Use the relationship to get the projects and group by month
-            $projects = $this->projects()
-                ->selectRaw('SUM(spend) as total_budget, to_char(start_date, \'YYYY-MM\') as month')
-                ->groupBy(DB::raw('to_char(start_date, \'YYYY-MM\')'))
-                ->get();
+        return $budgetArray;
+    }
 
-            // Initialize the budget array
-            $budgetArray = [];
+    public function spend_trend_analysis(): array
+    {
+        // Use the relationship to get the projects and group by month
+        $projects = $this->projects()
+            ->selectRaw('SUM(spend) as total_budget, to_char(start_date, \'YYYY-MM\') as month')
+            ->groupBy(DB::raw('to_char(start_date, \'YYYY-MM\')'))
+            ->get();
 
-            // Iterate through the projects and format the month and budget
-            foreach ($projects as $project) {
-                $month = Carbon::createFromFormat('Y-m', $project->month)->format('F');
-                $budgetArray[$month] = $project->total_budget;
-            }
+        // Initialize the budget array
+        $budgetArray = [];
 
-            return $budgetArray;
+        // Iterate through the projects and format the month and budget
+        foreach ($projects as $project) {
+            $month = Carbon::createFromFormat('Y-m', $project->month)->format('F');
+            $budgetArray[$month] = $project->total_budget / 100;
         }
+
+        return $budgetArray;
+    }
 }
