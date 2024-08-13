@@ -10,7 +10,7 @@ export default defineComponent({
 </script>
 
 <script setup>
-import {defineProps, ref} from 'vue';
+import {computed, defineProps, ref} from 'vue';
 
 const props = defineProps({
     status_count_values: {
@@ -24,12 +24,14 @@ const props = defineProps({
 
 // Define reactive data
 const series = ref(props.status_count_values);
+const labels = ref(props.status_count_keys);
 
 const chartOptions = ref({
     chart: {
         type: 'donut',
     },
-    labels: [props.status_count_keys],
+    colors: ['#1f2937','#3f6212', '#c45c13'],
+    labels: labels,
     responsive: [{
         breakpoint: 480,
         options: {
