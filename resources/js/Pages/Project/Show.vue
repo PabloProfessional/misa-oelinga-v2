@@ -5,11 +5,9 @@ import Count from "@/Components/Count.vue";
 import {defineProps, ref} from "vue";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
-import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
 import ShowProjectActivities from "@/Pages/Project/Partials/ShowProjectActivities.vue";
 import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vue";
 import ShowProjectAttatchments from "@/Pages/Project/Partials/ShowProjectAttatchments.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 import ProjectActivitySpendPieChart from "@/Project/Partials/ProjectActivitySpendPieChart.vue";
 import ProjectActivitySpendBarChart from "@/Project/Partials/ProjectActivitySpendBarChart.vue";
@@ -164,7 +162,7 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
                     <Count :count="status['name']" :count_description="'Schedule, '+status_schedule[0]+'. Procurement, '+status_procurement[0]+'. Budget, '+status_budget[0]" :status_icon="status['icon']"></Count>
-                    <Budget :budget="project['budget'] / 100000000 " :budget_allocation="budget_allocation?.toPrecision(2)" ></Budget>
+                    <Budget :budget="project['budget'] / 100000000 " :budget_allocation="budget_allocation" ></Budget>
                     <Spend :spend="project['spend'] / 100000000 " :variance="variance"></Spend>
                 </div>
             </div>
