@@ -260,7 +260,7 @@ defineProps({
             <ShowProjectActivities
                 :project="project"
                 :project_activities="project_activities ?? []"
-                :activity_risk_status="activity_risk_status"
+                :activity_risk_status="Array.isArray(activity_risk_status) ? activity_risk_status : []"
             ></ShowProjectActivities>
 
             <ShowProjectAccounts :accounts="accounts"></ShowProjectAccounts>
