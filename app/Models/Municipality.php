@@ -33,8 +33,8 @@ class Municipality extends Model
         ];
 
         foreach ($this->projects as $project) {
-            $output['budget'] =+ $project->budget;
-            $output['spend'] =+ $project->spend;
+            $output['budget'] += $project->budget;
+            $output['spend'] += $project->spend;
         }
 
         return $output;

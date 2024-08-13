@@ -57,6 +57,8 @@ class ProvinceController extends Controller
             return $project->status()->name;
         });
 
+        // dd($province->municipalities->first()->budget_and_spend());
+
         // Count the occurrences of each status name
         $statusCounts = $statuses->countBy();
 
