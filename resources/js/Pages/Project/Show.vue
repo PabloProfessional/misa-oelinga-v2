@@ -256,7 +256,13 @@ defineProps({
                     </div>
                 </div>
             </div>
-            <ShowProjectActivities :project="project" :project_activities="project_activities" :activity_risk_status="activity_risk_status"></ShowProjectActivities>
+<!--            <ShowProjectActivities :project="project" :project_activities="project_activities" :activity_risk_status="activity_risk_status"></ShowProjectActivities>-->
+            <ShowProjectActivities
+                :project="project"
+                :project_activities="project_activities ?? []"
+                :activity_risk_status="activity_risk_status"
+            ></ShowProjectActivities>
+
             <ShowProjectAccounts :accounts="accounts"></ShowProjectAccounts>
 
             <ShowProjectAttatchments :project="project"></ShowProjectAttatchments>
