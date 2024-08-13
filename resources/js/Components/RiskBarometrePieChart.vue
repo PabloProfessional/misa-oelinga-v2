@@ -30,7 +30,7 @@ const chartOptions = ref({
     chart: {
         type: 'donut',
     },
-    colors: ['#1f2937','#3f6212', '#c45c13'],
+    colors: ['#c45c13','#3f6212'],
     labels: labels,
     responsive: [{
         breakpoint: 480,

@@ -258,7 +258,11 @@ const props = defineProps({
                                                 <td style="text-align: right;">R {{ municipality['budget'] }}</td>
                                                 <td style="text-align: right;">R {{ municipality['spend'] }}</td>
                                                 <td style="text-align: right;">
-                                                    <span class="badge badge-primary" :style="{ color: municipality.average_status_color }">
+                                                    <span
+                                                        class="badge badge-primary"
+                                                        :style="{
+                                                        color: municipality['average_status_name']  === 'On Track' ? '#3f6212' : municipality.average_status_color
+                                                    }">
                                                         <i :class="municipality['average_status_icon']"></i> {{ municipality['average_status_name'] }}
                                                     </span>
                                                 </td>
@@ -314,7 +318,14 @@ const props = defineProps({
                                             <td style="text-align: right;">R {{ project['budget'] }}</td>
                                             <td style="text-align: right;">R {{ project['spend'] }}</td>
                                             <td style="text-align: right;">
-                                                    <span class="badge badge-primary" :style="{ color: project.average_status_color }">
+                                                    <span
+                                                        class="badge badge-primary"
+                                                        :style="{
+                                                                color: project.average_status_name === 'High Risk' ? '#cc4e4e' :
+                                                                       project.average_status_name === 'Medium Risk' ? '#c45c13' :
+                                                                       project.average_status_name === 'Low Risk' ? '#3f6212' :
+                                                                       project.average_status_color
+                                                     }">
                                                        <i :class="project['average_status_icon']"></i> {{ project['average_status_name'] }}
                                                     </span>
                                             </td>
