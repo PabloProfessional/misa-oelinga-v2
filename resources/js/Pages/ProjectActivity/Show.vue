@@ -157,9 +157,21 @@ defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
-                    <Progress :progress="progress" :count="progress" :count_description="'Percentage completion of activity'" :status_icon="status?.['icon']" v-if="progress"></Progress>
-                    <Budget :budget="activity['budget'] / 100000000 " :budget_allocation="((activity['spend'] / activity['budget']) *100).toPrecision(2)" ></Budget>
-                    <Spend :spend="activity['spend'] / 100000000 " :variance="(100 - (activity['spend'] / activity['budget']) *100).toPrecision(2)"></Spend>
+                    <Progress
+                        :progress="progress?.someNumericProperty"
+                        :count="progress?.someNumericProperty"
+                        :count_description="'Percentage completion of activity'"
+                        :status_icon="status?.['icon']"
+                        v-if="progress?.someNumericProperty"
+                    ></Progress>
+                    <Budget
+                        :budget="activity['budget'] / 100000000"
+                        :budget_allocation="Number(((activity['spend'] / activity['budget']) * 100).toPrecision(2))"
+                    ></Budget>
+                    <Spend
+                        :spend="activity['spend'] / 100000000"
+                        :variance="Number((100 - (activity['spend'] / activity['budget']) * 100).toPrecision(2))"
+                    ></Spend>
                 </div>
             </div>
         </div>
