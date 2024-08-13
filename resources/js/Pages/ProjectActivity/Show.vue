@@ -1,22 +1,14 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head} from '@inertiajs/vue3';
-import Count from "@/Components/Count.vue";
-import {defineProps, ref} from "vue";
+import {defineProps} from "vue";
 import Budget from "@/Components/Budget.vue";
 import Spend from "@/Components/Spend.vue";
-import RiskBarometrePieChart from "@/Components/RiskBarometrePieChart.vue";
-import ShowProjectActivities from "@/Pages/Project/Partials/ShowProjectActivities.vue";
-import ShowProjectAccounts from "@/Pages/Project/Partials/ShowProjectAccounts.vue";
-import ShowProjectAttatchments from "@/Pages/Project/Partials/ShowProjectAttatchments.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import UpdateActivityProgressForm from "@/Pages/ProjectActivity/Partials/UpdateActivityProgressForm.vue";
 import Progress from "@/Components/Progress.vue";
 import UserLineAreaChart from "@/Pages/Partials/UserLineAreaChart.vue";
 import ShowProjectActivityAttatchments from "@/Pages/ProjectActivity/Partials/ShowProjectActivityAttatchments.vue";
 
-
-const variance = ref<number>(0);
 
 defineProps({
     activity:{
@@ -158,11 +150,11 @@ defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
                     <Progress
-                        :progress="progress?.someNumericProperty"
-                        :count="progress?.someNumericProperty"
+                        :progress="progress"
+                        :count="progress"
                         :count_description="'Percentage completion of activity'"
                         :status_icon="status?.['icon']"
-                        v-if="progress?.someNumericProperty"
+                        v-if="progress"
                     ></Progress>
                     <Budget
                         :budget="activity['budget'] / 100000000"
