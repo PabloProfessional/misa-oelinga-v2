@@ -151,7 +151,7 @@ defineProps({
                 <div class="grid gap-6 lg:grid-cols-3 lg:gap-8">
                     <Progress
                         :progress="progress"
-                        :count="progress"
+                        :count="0"
                         :count_description="'Percentage completion of activity'"
                         :status_icon="status?.['icon']"
                         v-if="progress"
